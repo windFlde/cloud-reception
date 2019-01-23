@@ -2,18 +2,26 @@ package com.jk.controller;
 
 import com.jk.bean.Class1;
 import com.jk.bean.Class2;
+import com.jk.bean.MallAttr;
+import com.jk.bean.MallValue;
+import com.jk.client.ProductClient;
 import com.jk.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("js")
-public class GoodController {
+public class GoodController<priva> {
 
     @Autowired
     private GoodService goodService;
+
+    @Autowired
+    private ProductClient productClient;
 
     @ResponseBody
     @RequestMapping("getClass")
@@ -26,5 +34,18 @@ public class GoodController {
     public Class2 getClass2(String id) {
         return goodService.getClass2(id);
     }
+
+    @ResponseBody
+    @RequestMapping("getSx")
+    public List<MallAttr> getSx(String id) {
+        return productClient.getSx(id);
+    }
+
+    @ResponseBody
+    @RequestMapping("getValue")
+    public List<MallValue> getValue(String id) {
+        return productClient.getValue(id);
+    }
+
 
 }
