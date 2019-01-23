@@ -1,9 +1,7 @@
 package com.jk.controller;
 
-import com.jk.bean.Class1;
-import com.jk.bean.Class2;
-import com.jk.bean.MallAttr;
-import com.jk.bean.MallValue;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.jk.bean.*;
 import com.jk.client.ProductClient;
 import com.jk.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +45,9 @@ public class GoodController<priva> {
         return productClient.getValue(id);
     }
 
-
+    @ResponseBody
+    @RequestMapping("getTrade")
+    public List<TradeMark> getTrade(String id) {
+        return goodService.getTrade(id);
+    }
 }
