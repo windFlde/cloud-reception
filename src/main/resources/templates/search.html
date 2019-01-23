@@ -12,14 +12,12 @@
 	})
 	function loadClass1 () {
 		$.ajax({
-			url: "/kc/getSx",
+			url: "/js/getClass",
 			data:{id:7},
 			success: function (result) {
-				content = "";
-				$.each(result,function(){
-					content += result+"  "
-				})
-				$("#class1").html(content);
+
+					content = result.flmch1+"  "
+					$("#class1").html(content);
 			},
 			error: function () {
 				alert("ajax访问失败了,查看控制台");
@@ -28,13 +26,11 @@
 	}
 	function loadClass2 () {
 		$.ajax({
-			url: "/kc/getSx",
+			url: "/js/getClass2",
 			data:{id:28},
 			success: function (result) {
-				content = "";
-				$.each(result,function(){
-					content += result+"  "
-				})
+
+					content = result.flmch2+"  "
 				$("#class2").html(content);
 			},
 			error: function () {
@@ -131,10 +127,10 @@
 	
 	<!--筛选阶段-->
 	<div class="filter">
-		<h2 id="class1">电脑、办公 </h2>
+		<h2 id="class1"></h2>
 		<span class="gt">&gt</span>
-		<div class="filter_div">
-			电脑整机
+		<div id="class2" class="filter_div">
+
 		</div>
 <!--		<span id="class3">&gt</span>
 		<div class="filter_div">
