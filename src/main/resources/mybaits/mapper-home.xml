@@ -6,4 +6,14 @@
     <select id="getAllClassOneData" resultType="MallClassOne">
           select * from t_mall_class_1
     </select>
+
+
+
+    <select id="getQueryDG" resultType="com.jk.bean.GroudUrl">
+          SELECT  * FROM t_mall_groudurl
+    </select>
+    <!--List<MallClassTwo> getAllClassTwoData();-->
+    <select id="getAllClassTwoData" resultType="MallClassTwo">
+          select * from t_mall_class_2 where flbh1 = #{id}
+    </select>
 </mapper>
