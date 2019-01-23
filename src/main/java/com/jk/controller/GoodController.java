@@ -19,7 +19,7 @@ public class GoodController<priva> {
 
 
     @ResponseBody
-    @RequestMapping("getClass")
+    @RequestMapping("getClass1")
     public Class1 getClass(String id) {
         return goodService.getvalue(id);
     }

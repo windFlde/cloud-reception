@@ -1,20 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
     <link rel="stylesheet" href="/css/css.css">
+    <script src="/js/jquery-2.1.1.min.js"></script>
+
     <link rel="stylesheet" href="/jiaoben/engine1/style.css">
     <script src="/jiaoben/engine1/jquery.js"></script>
-
-
-
-
     <script type="text/javascript">
 
         $(function(){
             getDataOne();
+            getUserName();
+            getHiddenName();
+            /*
+            * 导购
+            * */
+            var content = "";
+            $.ajax({
+                url:"/home/getQueryDG",
+                type:"POST",
+                success:function(data){
+                    $.each(data,function(index,obj){
+                        content += "<li><a href=''>"+obj.groudName+"</a>";
+                    });
+                    $('#asd').html(content)
+                },
+                error:function(){
+                    alert("失败了");
+                }
+            });
         })
+        //分界线
+        function getHiddenName() {
+            var cookieVal = null;
+            if (document.cookie != "" & document.cookie != null) {
+                var cookie = document.cookie;
+                var split = null;
+                if (cookie != null) {
+                    split = cookie.split(";");
+                }
+                var sp = split[1];
+                var sp1 = sp.split("=");
+                var sp2 = sp1[1];
+                var sp3 = sp2.split("xjw1807b");
+                cookieVal = sp3[0];
+                console.log(cookieVal);
+                $("#hidden1").val(sp3[0]);
+            }
+        }
+        function getUserName() {
+            var hiddenName = $("#hiddenName").val();
+            console.log("作用域中的名字=======" + hiddenName);
+            if (hiddenName != "" & hiddenName != null) {
+                /*start*/
+                var hiddenName = $("#hiddenName").val();
+                if (hiddenName != null & hiddenName!="") {
+                    console.log(hiddenName);
+                    console.log("用户名为"+hiddenName);
+                    $("#username1").html("你好  ,"+hiddenName);
+                }
+                /*end*/
+            } else {
+                var cookieVal = "";
+                if (document.cookie != "" & document.cookie != null) {
+                    var cookie=document.cookie
+                    var s=cookie.split("=")
+                    var sp=s[1]
+                    var sp1=sp.split("xjw1807b");
+                    var sp2=sp1[0]
+                    cookieVal = sp2
+                    $("#hidden1").val(cookieVal);
+                }
+                if (cookieVal == "" & cookieVal != null) {
+                    $("#username1").html("<font color='red'>你好   ,请登录</font>");
+                } else {
+                    $("#username1").html("你好,   " + cookieVal + "    ,请登录");
+                }}}
+        ///分界线
         function toIndexes(class2,class1){
             alert("class2==="+class2);
             alert("class1==="+class1);
@@ -48,14 +112,13 @@
                         }
                     });
         }
-        function getDataOne() {
+        function getDataOne(){
             var content = "";
             $.ajax({      //查询一级分类的数据
                 url:"/home/getAllClassOneData",
                 type:"POST",
                 success:function(pageUtil){
                     $.each(pageUtil,function(index,obj){
-                        z++;
                         content += "<li><a href='javascript:getDataTwo("+obj.id+")'>"+obj.flmch1+"</a>";
                         content += "<div id='div"+obj.id+"' style='display:none;'></div></li>";      //创建每一个的子二级分类的“容器”
                     });
@@ -66,9 +129,6 @@
                 }
             });
         }
-
-
-
     </script>
 </head>
 <body>
@@ -78,13 +138,16 @@
         <a href="">用户注册</a>
         <a href="">供应商登录</a>
         <a href="">供应商注册</a>
+        <input id="hiddenName" type="hidden" th:value="${session.userf?.name}">
+        <input id="hidden1" type="hidden">
+        <div id="username1"></div>
     </div>
 </div>
 <div class="top_img">
-    <img src="/images/top_img.jpg" alt="">
+    <img src="http://m.360buyimg.com/babel/jfs/t1/27825/39/6000/28861/5c45676bEaaecfc4b/58a017e7412beb55.png" alt="">
 </div>
 <div class="search">
-    <div class="logo"><img src="/images/logo.jpg" alt=""></div>
+    <div class="logo"><img src="http://img20.360buyimg.com/da/jfs/t1/23377/26/6007/190377/5c46b6dcE6a2e665e/323a50ca6adbc492.gif?t=1548243688388" alt=""></div>
     <div class="search_on">
         <div class="se">
             <input type="text" name="search" class="lf">
@@ -108,22 +171,11 @@
                 全部商品分类
                 <div class="nav_mini">
                     <ul>
-
                     </ul>
                 </div>
             </div>
             <ul>
                 <li id="asd"></li>
-
-                <!--<li><a href="">服装城</a></li>
-                <li><a href="">美妆馆</a></li>
-                <li><a href="">超市</a></li>
-                <li><a href="">全球购</a></li>
-                <li><a href="">闪购</a></li>
-                <li><a href="">团购</a></li>
-                <li><a href="">拍卖</a></li>
-                <li><a href="">金融</a></li>
-                <li><a href="">智能</a></li>-->
             </ul>
         </div>
     </div>
