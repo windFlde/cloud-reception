@@ -7,5 +7,5 @@ public class Class1 {
 
     Integer id;
 
-    String flmch;
+    String flmch1;
 }

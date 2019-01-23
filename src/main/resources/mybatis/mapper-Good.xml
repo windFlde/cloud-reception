@@ -10,7 +10,7 @@ t_mall_sku_attr_value sxg,
 t_mall_attr sxm,
 t_mall_value sxz
 WHERE sp.Id=kc.shp_id   AND kc.Id=sxg.sku_id AND sxg.shxm_id=sxm.Id
-AND sxg.shxzh_id=sxz.Id  AND   sp.Id=sxg.shp_id AND kc.Id=56
+AND sxg.shxzh_id=sxz.Id  AND   sp.Id=sxg.shp_id AND kc.Id=#{id}
 </select>
 
     <select id="getvalue" resultType="class1">
