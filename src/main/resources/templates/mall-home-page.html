@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
@@ -14,7 +14,6 @@
             getDataOne();
             getUserName();
             getHiddenName();
-
             /*
             * 导购
             * */
@@ -115,13 +114,11 @@
         }
         function getDataOne(){
             var content = "";
-            var z = -1;
             $.ajax({      //查询一级分类的数据
                 url:"/home/getAllClassOneData",
                 type:"POST",
                 success:function(pageUtil){
                     $.each(pageUtil,function(index,obj){
-                        z++;
                         content += "<li><a href='javascript:getDataTwo("+obj.id+")'>"+obj.flmch1+"</a>";
                         content += "<div id='div"+obj.id+"' style='display:none;'></div></li>";      //创建每一个的子二级分类的“容器”
                     });
@@ -174,7 +171,6 @@
                 全部商品分类
                 <div class="nav_mini">
                     <ul>
-
                     </ul>
                 </div>
             </div>
