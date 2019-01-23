@@ -9,7 +9,30 @@
 	$(function(){
 		loadClass1();
 		loadClass2();
+		loadPP();
+		loadShx();
 	})
+
+	function loadPP(){
+		$.ajax({
+			url: "/getAttrValue",
+			data:{id:28},
+			success: function (result) {
+				var cont="<span>品牌：</span>";
+				$.each(result,function (index,obj) {
+
+					cont +="<a>"+obj+"</a>"+"     ";
+
+				})
+
+				$("#divId1").html(cont);
+			},
+			error: function () {
+				alert("失败了");
+			}
+		});
+	}
+
 	function loadClass1 () {
 		$.ajax({
 			url: "/js/getClass",
@@ -147,11 +170,7 @@
 	
 	
 	<div class="Sscreen">
-		<div class="title">
-			平板电视 商品筛选 共1205个商品
-		</div>
 		<div id="pp" class="list">
-			<span >品牌：</span>
 
 		</div>
 		<div id="shx">class="list">
