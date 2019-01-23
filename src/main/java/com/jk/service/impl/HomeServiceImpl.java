@@ -1,5 +1,6 @@
 package com.jk.service.impl;
 
+import com.jk.bean.Img;
 import com.jk.bean.GroudUrl;
 import com.jk.bean.MallClassOne;
 import com.jk.bean.MallClassTwo;
@@ -21,6 +22,12 @@ public class HomeServiceImpl implements HomeService {
 
     @Resource
     HomeMapper homeMapper;
+
+    @Override
+    public List<Img> queryImg() {
+
+        return homeMapper.queryImg();
+    }
 
     @Override
     public List<MallClassOne> getAllClassOneData() {

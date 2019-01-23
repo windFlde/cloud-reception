@@ -1,5 +1,7 @@
 package com.jk.controller;
 
+import com.jk.bean.Img;
+
 import com.jk.bean.GroudUrl;
 import com.jk.bean.MallClassOne;
 import com.jk.bean.MallClassTwo;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.List;
-
 /**
  * @program: cloud-reception
  * @description:
@@ -28,6 +29,20 @@ public class HomeController {
     public String toView(String viewName){
         return viewName;
     }
+
+
+    /**
+     * 方法：轮播动态从数据库查询图片
+     * 姓名：王亚辉
+     * @return
+     */
+    @RequestMapping("queryImg")
+    @ResponseBody
+    public List<Img> queryImg(){
+       List<Img>  img =homeService.queryImg();
+        return img;
+    }
+
     @ResponseBody
     @RequestMapping("getAllClassOneData")
     public List<MallClassOne> getAllClassOneData(){
