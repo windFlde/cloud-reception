@@ -45,9 +45,9 @@ public class GoodController<priva> {
         return productClient.getValue(id);
     }
 
-    @ResponseBody
+   /* @ResponseBody
     @RequestMapping("getTrade")
     public List<TradeMark> getTrade(String id) {
         return goodService.getTrade(id);
-    }
+    }*/
 }

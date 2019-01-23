@@ -1,13 +1,11 @@
 package com.jk.service;
 
-
 import com.jk.bean.Class1;
 import com.jk.bean.Class2;
 import com.jk.bean.MallSku;
 import com.jk.bean.TradeMark;
 
 import java.util.List;
-
 
 
 public interface GoodService {
