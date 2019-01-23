@@ -1,17 +1,22 @@
 package com.jk.service.impl;
 
+
 import com.jk.bean.Class1;
 import com.jk.bean.Class2;
 import com.jk.bean.Mallproduct;
+import com.jk.bean.MallSku;
+
 import com.jk.mapper.GoodMapper;
 import com.jk.service.GoodService;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class GoodServiceImpl implements GoodService {
-
-    @Autowired
+    @Resource
     private GoodMapper goodMapper;
 
     @Override
@@ -22,5 +27,9 @@ public class GoodServiceImpl implements GoodService {
     @Override
     public Class2 getClass2(String id) {
         return goodMapper.getClass2(id);
+    }
+    @Override
+    public List<MallSku> getGoodName(Integer id) {
+        return   goodMapper.getGoodName(id);
     }
 }
