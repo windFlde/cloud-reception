@@ -60,6 +60,41 @@
                     alert("失败了");
                 }
             });
+            $('.nav_mini ul li').hover(function(){
+                $(this).find('.two_nav').show(100);
+            },function(){
+                $(this).find('.two_nav').hide(100);
+            })
+        })
+
+
+
+/*
+* 导购
+* */
+
+        $(function(){
+            var content = "";
+            $.ajax({
+                url:"/home/getQueryDG",
+                type:"POST",
+                success:function(data){
+                    $.each(data,function(index,obj){
+                        content += "<li><a href=''>"+obj.groudName+"</a>";
+                    });
+                    $('#asd').html(content)
+                },
+                error:function(){
+                    alert("失败了");
+                }
+            });
+            /*$('.nav_mini ul li').hover(function(){
+                $(this).find('.two_nav').show(100);
+            },function(){
+                $(this).find('.two_nav').hide(100);
+            })*/
+        })
+
         }
     </script>
 </head>
@@ -105,7 +140,9 @@
                 </div>
             </div>
             <ul>
-                <li><a href="">服装城</a></li>
+                <li id="asd"></li>
+
+                <!--<li><a href="">服装城</a></li>
                 <li><a href="">美妆馆</a></li>
                 <li><a href="">超市</a></li>
                 <li><a href="">全球购</a></li>
@@ -113,7 +150,7 @@
                 <li><a href="">团购</a></li>
                 <li><a href="">拍卖</a></li>
                 <li><a href="">金融</a></li>
-                <li><a href="">智能</a></li>
+                <li><a href="">智能</a></li>-->
             </ul>
         </div>
     </div>

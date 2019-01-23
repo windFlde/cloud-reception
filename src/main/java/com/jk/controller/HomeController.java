@@ -1,5 +1,6 @@
 package com.jk.controller;
 
+import com.jk.bean.GroudUrl;
 import com.jk.bean.MallClassOne;
 import com.jk.bean.MallClassTwo;
 import com.jk.service.HomeService;
@@ -47,4 +48,18 @@ public class HomeController {
         model.addAttribute("class2",class2);
         return "search";
     }
+
+    /*
+    * 导购
+    * */
+
+    @RequestMapping("getQueryDG")
+    @ResponseBody
+    public List<GroudUrl> getQueryDG(GroudUrl groudUrl){
+
+      List<GroudUrl> groudUrlList = homeService.getQueryDG(groudUrl);
+
+        return groudUrlList;
+    }
+
 }

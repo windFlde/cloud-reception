@@ -1,5 +1,6 @@
 package com.jk.service.impl;
 
+import com.jk.bean.GroudUrl;
 import com.jk.bean.MallClassOne;
 import com.jk.bean.MallClassTwo;
 import com.jk.mapper.HomeMapper;
@@ -25,6 +26,11 @@ public class HomeServiceImpl implements HomeService {
     public List<MallClassOne> getAllClassOneData() {
         List<MallClassOne> list = homeMapper.getAllClassOneData();
         return list;
+    }
+
+    @Override
+    public List<GroudUrl> getQueryDG(GroudUrl groudUrl) {
+        return homeMapper.getQueryDG(groudUrl);
     }
 
     @Override
