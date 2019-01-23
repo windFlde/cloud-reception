@@ -1,10 +1,7 @@
 package com.jk.service.impl;
 
 
-import com.jk.bean.Class1;
-import com.jk.bean.Class2;
-import com.jk.bean.Mallproduct;
-import com.jk.bean.MallSku;
+import com.jk.bean.*;
 
 import com.jk.mapper.GoodMapper;
 import com.jk.service.GoodService;
@@ -31,5 +28,10 @@ public class GoodServiceImpl implements GoodService {
     @Override
     public List<MallSku> getGoodName(Integer id) {
         return   goodMapper.getGoodName(id);
+    }
+
+    @Override
+    public List<TradeMark> getTrade(String id) {
+        return goodMapper.getTrade(id);
     }
 }
