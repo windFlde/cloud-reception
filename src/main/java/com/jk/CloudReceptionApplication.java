@@ -11,6 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 public class CloudReceptionApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(CloudReceptionApplication.class, args);
     }
 
