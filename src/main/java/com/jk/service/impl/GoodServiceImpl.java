@@ -34,4 +34,14 @@ public class GoodServiceImpl implements GoodService {
     public List<TradeMark> getTrade(String id) {
         return goodMapper.getTrade(id);
     }
+
+    @Override
+    public List<MallValue> getValue(String id) {
+        return goodMapper.getValue(id);
+    }
+
+    @Override
+    public List<MallAttr> getSx(String id) {
+        return goodMapper.getSx(id);
+    }
 }

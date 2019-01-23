@@ -1,8 +1,6 @@
 package com.jk.controller;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.jk.bean.*;
-import com.jk.client.ProductClient;
 import com.jk.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +16,7 @@ public class GoodController<priva> {
     @Autowired
     private GoodService goodService;
 
-    @Autowired
-    private ProductClient productClient;
+
 
     @ResponseBody
     @RequestMapping("getClass1")
@@ -36,13 +33,13 @@ public class GoodController<priva> {
     @ResponseBody
     @RequestMapping("getSx")
     public List<MallAttr> getSx(String id) {
-        return productClient.getSx(id);
+        return goodService.getSx(id);
     }
 
     @ResponseBody
     @RequestMapping("getValue")
     public List<MallValue> getValue(String id) {
-        return productClient.getValue(id);
+        return goodService.getValue(id);
     }
 
    /* @ResponseBody
