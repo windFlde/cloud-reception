@@ -3,6 +3,7 @@
 <mapper namespace="com.jk.mapper.GoodMapper">
  <!--   List<MallSku> getGoodName(Integer id);-->
     <select id="getGoodName" resultType="MallSku">
+
 SELECT sp.shp_mch shp_mch,sp.shp_tp sh_tp,kc.jg,kc.kcdz,GROUP_CONCAT(sxm.shxm_mch,sxz.shxzh,sxz.shxzh_mch) shp_sx FROM
 t_mall_product sp,
 t_mall_sku kc,
@@ -11,7 +12,6 @@ t_mall_attr sxm,
 t_mall_value sxz
 WHERE sp.Id=kc.shp_id   AND kc.Id=sxg.sku_id AND sxg.shxm_id=sxm.Id
 AND sxg.shxzh_id=sxz.Id AND sp.flbh2=#{id}  group by shp_mch
-
 </select>
 
     <select id="getvalue" resultType="class1">
