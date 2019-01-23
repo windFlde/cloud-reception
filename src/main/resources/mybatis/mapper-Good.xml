@@ -21,4 +21,8 @@ AND sxg.shxzh_id=sxz.Id AND sp.flbh2=#{id}  group by shp_mch
     <select id="getClass2" resultType="class2">
         select flmch2 from t_mall_class_2 where id= #{id}
     </select>
+
+    <select id="getTrade" resultType="tradeMark">
+        select mark.* from t_mall_trade_mark mark,t_mall_tm_class class where class.flbh1=#{id}
+    </select>
 </mapper>
