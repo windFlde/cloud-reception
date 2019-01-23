@@ -12,6 +12,31 @@
 		loadPP();
 		loadShx();
 	})
+	function loadShx () {
+		$.ajax({
+			url: "/getAttrValue",
+			data:{id:28},
+			success: function (result) {
+				var cont="";
+				$.each(result,function (index,obj) {
+					cont+='<span>'+obj.shxm_mch+'</span>';
+					$.each(obj.shuxzhlist,function (index,obj1) {
+						console.log(obj1);
+						cont+='<a href="###">'+obj1+'</a>';
+					})
+					cont += "</div>"
+				})
+
+
+				$("#shx").html(cont);
+			},
+			error: function () {
+				alert("失败了");
+			}
+		});
+
+
+	}
 
 	function loadPP(){
 		$.ajax({
@@ -173,7 +198,7 @@
 		<div id="pp" class="list">
 
 		</div>
-		<div id="shx">class="list">
+		<div id="shx" class="list">
 
 		</div>
 		<div class="list">
