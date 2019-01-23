@@ -14,5 +14,6 @@ public class CloudReceptionApplication {
         SpringApplication.run(CloudReceptionApplication.class, args);
     }
 
+
 }
 

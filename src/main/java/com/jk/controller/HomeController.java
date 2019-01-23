@@ -17,4 +17,9 @@ import javax.annotation.Resource;
 public class HomeController {
     @Resource
     HomeService homeService;
+
+    @RequestMapping("toView")
+    public String toView(String viewName){
+        return viewName;
+    }
 }
