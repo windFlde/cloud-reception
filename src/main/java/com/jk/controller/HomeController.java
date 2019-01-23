@@ -4,6 +4,7 @@ import com.jk.bean.MallClassOne;
 import com.jk.bean.MallClassTwo;
 import com.jk.service.HomeService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -40,4 +41,10 @@ public class HomeController {
         return list;
     }
 
+    @RequestMapping("toIndexes")
+    public String toIndexes(String class1, String class2, Model model){
+        model.addAttribute("class1",class1);
+        model.addAttribute("class2",class2);
+        return "search";
+    }
 }

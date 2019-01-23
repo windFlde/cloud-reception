@@ -9,6 +9,21 @@
         $(function(){
             getDataOne();
         })
+        function toIndexes(class2,class1){
+            alert("class2==="+class2);
+            alert("class1==="+class1);
+                $.ajax({
+                        url:"/home/toIndexes",
+                        type:"POST",
+                        data:{class1:class1,class2:class2},
+                        success:function(pageUtil){
+
+                        },
+                        error:function(){
+                            alert("失败了");
+                        }
+                    });
+        }
         function getDataTwo(id){
                 $.ajax({
                         url:"/home/getAllClassTwoData",
@@ -17,7 +32,7 @@
                         success:function(pageUtil){
                            var as = "";
                            $.each(pageUtil,function(index,obj){
-                               as += "<a href='#'><font color='blue'>"+obj.flmch2+"</font></a>   ";
+                               as += "<a href='javascript:toIndexes("+obj.id+","+obj.flbh1+")'><font color='blue'>"+obj.flmch2+"</font></a>   ";
                            });
                            $("#div"+id+"").html(as);
                            $("#div"+id+"").show();
