@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <title>首页</title>
     <link rel="stylesheet" href="/css/css.css">
-    <script src="/js/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="/jiaoben/engine1/style.css">
+    <script src="/jiaoben/engine1/jquery.js"></script>
+
+
+
+
     <script type="text/javascript">
+
+
         $(function(){
             var content = "";
             $.ajax({      //查询一级分类的数据
@@ -28,11 +35,34 @@
                 $(this).find('.two_nav').hide(100);
             })
         })
+
+
+        function Slideshow() {
+
+            $.ajax({
+                url:'/home/queryImg',
+                type:'post',
+                success:function(data){
+                    va
+                    $.each(data,function(index,obj){
+                        $("#imgsad").html();
+                    });
+
+
+                }, error() {
+
+                    alert("查询失败");
+                }
+
+            })
+        }
+
     </script>
 
 
+
 </head>
-<body>
+<body >
 <div class="top">
     <div class="top_text">
         <a href="">用户登录</a>
@@ -60,45 +90,7 @@
     </div>
     <div class="card">
         <a href="">购物车<div class="num">0</div></a>
-        <!--购物车商品-->
-        <div class="cart_pro">
-            <h6>最新加入的商品</h6>
-            <div class="one">
-                <img src="/images/lec1.png"/>
-                <span class="one_name">
-						商品名称商品名称商品名称商品名称
-					</span>
-                <span class="one_prece">
-						<b>￥20000</b><br />
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
-					</span>
-            </div>
-            <div class="one border">
-                <img src="/images/lec1.png"/>
-                <span class="one_name">
-						商品名称商品名称商品名称商品名称
-					</span>
-                <span class="one_prece">
-						<b>￥20000</b><br />
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
-					</span>
-            </div>
-            <div class="one border">
-                <img src="/images/lec1.png"/>
-                <span class="one_name">
-						商品名称商品名称商品名称商品名称
-					</span>
-                <span class="one_prece">
-						<b>￥20000</b><br />
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
-					</span>
-            </div>
-            <div class="gobottom">
-                共<span>2</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
-                共计￥<span>20000</span>
-                <button class="goprice">去购物车</button>
-            </div>
-        </div>
+
     </div>
 </div>
 <div class="menu">
@@ -128,9 +120,33 @@
 </div>
 <div class="banner">
     <div class="ban">
-        <img src="/images/banner.jpg" width="980" height="380" alt="">
+        <div id="wowslider-container1">
+            <div class="ws_images">
+            <ul id="imgsad">
+                <li><img src="/jiaoben/data1/images/1.jpg" alt="1" title="1" id="wows1_0"></li>
+                <li><img src="/jiaoben/data1/images/2.jpg" alt="2" title="2" id="wows1_1"></li>
+                <li><a href="http://wowslider.com/vi"><img src="/jiaoben/data1/images/3.jpg" alt="bootstrap carousel" title="3" id="wows1_2"></a></li>
+                <li><img src="/jiaoben/data1/images/4.jpg" alt="4" title="4" id="wows1_3"></li>
+            </ul>
+            </div>
+            <div class="ws_bullets"><div>
+                <a href="#" title="1"><span><img src="/jiaoben/data1/tooltips/1.jpg" alt="1">1</span></a>
+                <a href="#" title="2"><span><img src="/jiaoben/data1/tooltips/2.jpg" alt="2">2</span></a>
+                <a href="#" title="3"><span><img src="/jiaoben/data1/tooltips/3.jpg" alt="3">3</span></a>
+                <a href="#" title="4"><span><img src="/jiaoben/data1/tooltips/4.jpg" alt="4">4</span></a>
+            </div></div><div class="ws_script" style="position:absolute;left:-99%"></div>
+            <div class="ws_shadow"></div>
+        </div>
+        <script src="/jiaoben/engine1/wowslider.js"></script>
+        <script src="/jiaoben/engine1/script.js"></script>
+
+
+
+
     </div>
 </div>
 
+
 </body>
+
 </html>

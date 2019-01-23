@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jk.mapper.HomeMapper">
 
+    <!--List<Img> queryImg();-->
+    <!--轮播动态从数据库查询图片-->
+    <select id="queryImg" resultType="Img">
+
+        select * from t_mall_slideshow
+    </select>
+
 </mapper>
