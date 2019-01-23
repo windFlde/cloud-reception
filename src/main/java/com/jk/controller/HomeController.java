@@ -1,6 +1,7 @@
 package com.jk.controller;
 
 import com.jk.bean.MallClassOne;
+import com.jk.bean.MallClassTwo;
 import com.jk.service.HomeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,13 @@ public class HomeController {
     @RequestMapping("getAllClassOneData")
     public List<MallClassOne> getAllClassOneData(){
         List<MallClassOne> list = homeService.getAllClassOneData();
+        return list;
+    }
+
+    @ResponseBody
+    @RequestMapping("getAllClassTwoData")
+    public List<MallClassTwo> getAllClassTwoData(String id){
+        List<MallClassTwo> list = homeService.getAllClassTwoData(id);
         return list;
     }
 

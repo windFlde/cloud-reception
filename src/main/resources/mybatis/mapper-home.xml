@@ -6,4 +6,8 @@
     <select id="getAllClassOneData" resultType="MallClassOne">
           select * from t_mall_class_1
     </select>
+    <!--List<MallClassTwo> getAllClassTwoData();-->
+    <select id="getAllClassTwoData" resultType="MallClassTwo">
+          select * from t_mall_class_2 where flbh1 = #{id}
+    </select>
 </mapper>
