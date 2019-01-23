@@ -9,6 +9,7 @@ public class GroudUrl {
 
     private Integer groudId;
     private String groudName;
+    private String groudUrl;
 
 
 }

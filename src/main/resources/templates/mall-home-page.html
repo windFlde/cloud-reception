@@ -14,16 +14,53 @@
 
 
         $(function(){
+            getDataOne();
+        })
+        function toIndexes(class2,class1){
+            alert("class2==="+class2);
+            alert("class1==="+class1);
+                $.ajax({
+                        url:"/home/toIndexes",
+                        type:"POST",
+                        data:{class1:class1,class2:class2},
+                        success:function(pageUtil){
+
+                        },
+                        error:function(){
+                            alert("失败了");
+                        }
+                    });
+        }
+        function getDataTwo(id){
+                $.ajax({
+                        url:"/home/getAllClassTwoData",
+                        type:"POST",
+                        data:{id:id},
+                        success:function(pageUtil){
+                           var as = "";
+                           $.each(pageUtil,function(index,obj){
+                               as += "<a href='javascript:toIndexes("+obj.id+","+obj.flbh1+")'><font color='blue'>"+obj.flmch2+"</font></a>   ";
+                           });
+                           $("#div"+id+"").html(as);
+                           $("#div"+id+"").show();
+                        },
+                        error:function(){
+                            alert("失败了");
+                        }
+                    });
+        }
+        function getDataOne(){
             var content = "";
             $.ajax({      //查询一级分类的数据
                 url:"/home/getAllClassOneData",
                 type:"POST",
                 success:function(pageUtil){
                     $.each(pageUtil,function(index,obj){
-                        content += "<li><a href=''>"+obj.flmch1+"</a>";
-                        content += "<div class='two_nav'></li>";      //创建每一个的子二级分类的“容器”
+                        z++;
+                        content += "<li><a href='javascript:getDataTwo("+obj.id+")'>"+obj.flmch1+"</a>";
+                        content += "<div id='div"+obj.id+"' style='display:none;'></div></li>";      //创建每一个的子二级分类的“容器”
                     });
-                    $('.nav_mini ul').html(content)
+                    $('.nav_mini ul').html(content);
                 },
                 error:function(){
                     alert("失败了");
@@ -35,34 +72,12 @@
                 $(this).find('.two_nav').hide(100);
             })
         })
-
-
-        function Slideshow() {
-
-            $.ajax({
-                url:'/home/queryImg',
-                type:'post',
-                success:function(data){
-                    va
-                    $.each(data,function(index,obj){
-                        $("#imgsad").html();
-                    });
-
-
-                }, error() {
-
-                    alert("查询失败");
-                }
-
-            })
-        }
-
     </script>
 
 
 
 </head>
-<body >
+<body>
 <div class="top">
     <div class="top_text">
         <a href="">用户登录</a>
@@ -90,7 +105,6 @@
     </div>
     <div class="card">
         <a href="">购物车<div class="num">0</div></a>
-
     </div>
 </div>
 <div class="menu">
@@ -100,12 +114,14 @@
                 全部商品分类
                 <div class="nav_mini">
                     <ul>
-                        <li><a href="">家用电器</a><div class="two_nav"></div></li>
+
                     </ul>
                 </div>
             </div>
             <ul>
-                <li><a href="">服装城</a></li>
+                <li id="asd"></li>
+
+                <!--<li><a href="">服装城</a></li>
                 <li><a href="">美妆馆</a></li>
                 <li><a href="">超市</a></li>
                 <li><a href="">全球购</a></li>
@@ -113,7 +129,7 @@
                 <li><a href="">团购</a></li>
                 <li><a href="">拍卖</a></li>
                 <li><a href="">金融</a></li>
-                <li><a href="">智能</a></li>
+                <li><a href="">智能</a></li>-->
             </ul>
         </div>
     </div>
@@ -146,7 +162,5 @@
     </div>
 </div>
 
-
 </body>
-
 </html>
