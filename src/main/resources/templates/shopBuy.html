@@ -54,7 +54,7 @@
         	$.ajax({
         			url:"/js/getAll",
         			type:"POST",
-                    data:{id:1},
+                    data:{id:3},
         			success:function(pageUtil){
         			    var sp=pageUtil.shp_sx;
         			    $("#titleName").html(pageUtil.shp_mch);
@@ -121,23 +121,23 @@
         <div id="username1"></div>
     </div>
 </div>
-<div class="top_img">
-    <img src="/images/top_img.jpg" alt="">
-</div>
+<!--<div class="top_img">-->
+    <!--<img src="/images/top_img.jpg" alt="">-->
+<!--</div>-->
 <div class="search searchBac">
     <div class="logo"><img src="/images/logo.png" alt=""></div>
-    <div class="search_on">
-        <div class="se">
-            <input type="text" name="search" class="lf">
-            <input type="submit" class="clik" value="搜索">
-        </div>
-        <div class="se">
-            <a href="">取暖神奇</a>
-            <a href="">1元秒杀</a>
-            <a href="">吹风机</a>
-            <a href="">玉兰油</a>
-        </div>
-    </div>
+    <!--<div class="search_on">-->
+        <!--<div class="se">-->
+            <!--<input type="text" name="search" class="lf">-->
+            <!--<input type="submit" class="clik" value="搜索">-->
+        <!--</div>-->
+        <!--<div class="se">-->
+            <!--<a href="">取暖神奇</a>-->
+            <!--<a href="">1元秒杀</a>-->
+            <!--<a href="">吹风机</a>-->
+            <!--<a href="">玉兰油</a>-->
+        <!--</div>-->
+    <!--</div>-->
     <div class="card">
         <a href="">购物车
         </a>
@@ -194,7 +194,7 @@
         <div class="navs">
             <div class="left_nav">
                 全部商品分类
-                <div class="nav_mini" style="display:none">
+                <div class="nav_mini" >
                     <ul>
                         <li>
                             <a href="">家用电器</a>
@@ -243,10 +243,11 @@
         </div>
     </div>
 </div>
+<br/><br/><br/><br/>
 <div class="Dbox">
     <div class="box">
         <div class="left">
-            <div class="timg"><img width="240px" height="240px" id="sp_tp" src="/images/img_5.jpg" alt=""></div>
+            <div class="timg"><img width="300px" height="240px" id="sp_tp" src="/images/img_5.jpg" alt=""></div>
             <div class="timg2">
                 <div class="lf"><img src="/images/lf.jpg" alt=""></div>
                 <div class="center">
@@ -278,13 +279,13 @@
             <div class="clear" style="margin-top:20px;">
                 <div class="min_t" style="line-height:36px">数量：</div>
                 <div class="num_box">
-                    <input id="number" class="easyui-numberspinner" style="width:80px;"  required="required" data-options="min:1,max:100,editable:false">
+                    <input id="number" class="easyui-numberspinner" th:value="1" style="width:80px;"  required="required" data-options="min:1,max:100,editable:false">
                     <div class="rg">
                     </div>
                 </div>
             </div>
             <div class="clear" style="margin-top:20px;">
-                <input type="button" class="btn btn-default" onclick="submitData()" value="加入购物车">
+                <input type="button" class="btn btn-default" onclick="addShopping()" value="加入购物车">
             </div>
         </div>
     </div>
