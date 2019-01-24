@@ -19,4 +19,6 @@ public interface GoodService {
     List<MallValue> getValue(String id);
 
     List<MallAttr> getSx(String id);
+
+    MallSku getAll(Integer id);
 }
