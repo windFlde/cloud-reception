@@ -35,7 +35,10 @@
 						cont +="<div class='list' >";
 						cont +="<div class='img'><img src='"+obj.sh_tp+"' width='200' height='200' alt=''></div>";
 						cont +="<div class='price'>¥"+obj.jg+"</div>";
+						var str = obj.shp_sx.split(",")
 						cont +="<div class='title'>"+obj.shp_mch+"</div>";
+						cont +="<div class='title'>"+str[0]+"...</div>";
+						cont +="<div class='title'>"+obj.kcdz+"</div>";
 						cont +="</div>"
 					})
 					$(".Sbox").html(cont);
