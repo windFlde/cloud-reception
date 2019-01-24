@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="UTF-8">
 	<title>检索</title>
@@ -9,11 +9,118 @@
 	$(function(){
 		loadClass1();
 		loadClass2();
+		loadPP();
+		loadShx();
+		loadGood();
 	})
-	function loadClass1 () {
+
+	/*<div class="list">
+			<div class="img"><img src="images/img_4.jpg" alt=""></div>
+			<div class="price">¥65.00</div>
+			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
+		</div>
+*/
+
+
+	function loadGood() {
+
+			var id = $("#ccc2").val();
+			$.ajax({
+				url: "/js/getGoodName",
+				data:{id:id},
+				success: function (result) {
+					var cont = "";
+					console.log(result);
+					$.each(result,function (index,obj) {
+						cont +="<div class='list' >";
+						cont +="<div class='img'><img src='"+obj.sh_tp+"' width='200' height='200' alt=''></div>";
+						cont +="<div class='price'>¥"+obj.jg+"</div>";
+						var str = obj.shp_sx.split(",")
+						cont +="<div class='title'>"+obj.shp_mch+"</div>";
+						cont +="<div class='title'>"+str[0]+"...</div>";
+						cont +="<div class='title'>"+obj.kcdz+"</div>";
+						cont +="</div>"
+					})
+					$(".Sbox").html(cont);
+				},
+				error: function () {
+					alert("ajax访问失败了,查看控制台");
+				}
+			});
+	}
+
+	function loadShx () {
+		var id = $("#ccc2").val();
 		$.ajax({
-			url: "/js/getClass",
-			data:{id:8},
+			url: "/js/getSx",
+			data:{id:id},
+			success: function (result) {
+				var cont = "";
+				$.each(result,function (index,obj) {
+					cont +="<div class='list' >";
+					cont +="<span>"+obj.shxm_mch+"</span>";
+					cont +="<div id='shxz"+obj.id+"'>"
+					loadshxz(obj.id);
+					cont +="</div>"
+					cont +="</div>"
+				})
+				$("#shx").html(cont);
+			},
+			error: function () {
+				alert("失败了");
+			}
+		});
+
+
+	}
+
+	function loadshxz(id){
+		$.ajax({
+			url: "/js/getValue",
+			data:{id:id},
+			success: function (result) {
+				var cont="";
+				$.each(result,function (index,obj) {
+
+					cont +="<a href='#'>"+obj.shxzh+obj.shxzh_mch+"</a>"+"    ";
+
+				})
+
+				$("#shxz"+id).html(cont);
+			},
+			error: function () {
+				alert("失败了");
+			}
+		});
+
+	}
+
+	function loadPP(){
+		var id = $("#ccc1").val();
+		$.ajax({
+			url: "/js/getTrade",
+			data:{id:id},
+			success: function (result) {
+				var cont="<span>品牌：</span>";
+				$.each(result,function (index,obj) {
+
+					cont +="<a>"+obj.ppmch+"</a>"+"     ";
+
+				})
+
+				$("#pp").html(cont);
+			},
+			error: function () {
+				alert("失败了");
+			}
+		});
+	}
+
+	function loadClass1 () {
+		var id = $("#ccc1").val();
+		$.ajax({
+			url: "/js/getClass1",
+			data:{id:id},
 			success: function (result) {
 
 					content = result.flmch1+"  "
@@ -25,9 +132,10 @@
 		});
 	}
 	function loadClass2 () {
+		var id = $("#ccc2").val();
 		$.ajax({
 			url: "/js/getClass2",
-			data:{id:28},
+			data:{id:id},
 			success: function (result) {
 
 					content = result.flmch2+"  "
@@ -48,6 +156,10 @@
 			<a href="">供应商登录</a>
 			<a href="">供应商注册</a>
 		</div>
+	</div>
+
+	<div class="top_img">
+		<img src="/img/9ad59c44c3ee16d2.png" height="80" width="1190"/>
 	</div>
 	</div>
 	<div class="search">
@@ -147,32 +259,14 @@
 	
 	
 	<div class="Sscreen">
-		<div class="title">
-			平板电视 商品筛选 共1205个商品
+		<input type="hidden" id="ccc1" th:value="${session.class1}">
+		<input type="hidden" id="ccc2" th:value="${session.class2}">
+		<div id="pp" class="list">
+
 		</div>
-		<div class="list">
-			<span id="shxm">品牌：</span>
-			<a href="" id="shxz">乐视TV(Letv)</a>
-			<a href="">乐视TV(Letv)</a>
-			<a href="">乐视TV(Letv)</a>
-			<a href="">乐视TV(Letv)</a>
-			<a href="">乐视TV(Letv)</a>
-			<a href="">乐视TV(Letv)</a>
-			<a href="">乐视TV(Letv)</a>
-			<a href="">乐视TV(Letv)</a>
-			<a href="">乐视TV(Letv)</a>
-		</div>
-		<div class="list">
-			<span>价格：</span>
-			<a href="">0-1399</a>
-			<a href="">0-1399</a>
-			<a href="">0-1399</a>
-			<a href="">0-1399</a>
-			<a href="">0-1399</a>
-			<a href="">0-1399</a>
-			<a href="">0-1399</a>
-			<a href="">0-1399</a>
-			<a href="">0-1399</a>
+		<div id="shx">
+
+
 		</div>
 		<div class="list">
 			<span class="list_span" id="list_beas">销量</span>
@@ -188,31 +282,7 @@
 			<div class="price">¥65.00</div>
 			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
 		</div>
-		<div class="list">
-			<div class="img"><img src="images/img_4.jpg" alt=""></div>
-			<div class="price">¥65.00</div>
-			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-		</div>
-		<div class="list">
-			<div class="img"><img src="images/img_4.jpg" alt=""></div>
-			<div class="price">¥65.00</div>
-			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-		</div>
-		<div class="list">
-			<div class="img"><img src="images/img_4.jpg" alt=""></div>
-			<div class="price">¥65.00</div>
-			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-		</div>
-		<div class="list">
-			<div class="img"><img src="images/img_4.jpg" alt=""></div>
-			<div class="price">¥65.00</div>
-			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-		</div>
-		<div class="list">
-			<div class="img"><img src="images/img_4.jpg" alt=""></div>
-			<div class="price">¥65.00</div>
-			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-		</div>
+
 	</div>
 
 	<div class="footer">
