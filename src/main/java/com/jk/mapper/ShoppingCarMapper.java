@@ -8,4 +8,8 @@ public interface ShoppingCarMapper{
     void addShopping(Shoping shoping);
 
     List<Shoping> getShopping();
+
+    Integer getShoppingById(Integer sku_id);
+
+    void deleteKc(Integer sku_id);
 }

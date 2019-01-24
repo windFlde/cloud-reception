@@ -20,8 +20,15 @@ public class ShoppingCarController {
     @RequestMapping("addShopping")
     public String addShopping(Shoping shoping) {
 
-        shoppingCarService.addShopping(shoping);
-        return "";
+        Integer i = shoppingCarService.getShoppingById(shoping.getSku_id());
+        if(i>0){
+            shoppingCarService.addShopping(shoping);
+            shoppingCarService.deleteKc(shoping.getSku_id());
+            return "1";
+        }else {
+            return "2";
+        }
+
     }
 
     @ResponseBody
@@ -31,4 +38,7 @@ public class ShoppingCarController {
 
         return  shoppingCarService.getShopping();
     }
+
+
+
 }
