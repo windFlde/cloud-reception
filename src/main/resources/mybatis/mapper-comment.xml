@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.ProductCommentMapper">
+
+    <!--void addProductComment(MallProductComment mallProductComment);-->
+<insert id="addProductComment" >
+        insert into t_mall_product_comment
+        (id,
+        yh_id,
+        plnr,
+        plshj,
+        hpjb,
+        sku_id,
+        sku_mch,
+        shp_id,
+        shp_mch,
+        dd_id)
+        values(#{id},#{yh_id},#{plnr},#{plshj},#{hpjb},#{sku_id},#{sku_mch},#{shp_id},#{shp_mch},#{dd_id});
+</insert>
+</mapper>
