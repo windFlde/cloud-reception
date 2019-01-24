@@ -10,7 +10,10 @@
 <script type="text/javascript">
     $(function () {
         getUserName();
+        banben();
+        fuwu();
     })
+
     /* 表头 你好登录样式======================================>  start*/
     function getUserName() {
         var hiddenName = $("#hiddenName").val();
@@ -18,27 +21,56 @@
         if (hiddenName != "" & hiddenName != null) {
             /*start*/
             var hiddenName = $("#hiddenName").val();
-            if (hiddenName != null & hiddenName!="") {
+            if (hiddenName != null & hiddenName != "") {
                 console.log(hiddenName);
-                console.log("用户名为"+hiddenName);
-                $("#username1").html("你好  ,"+hiddenName);
+                console.log("用户名为" + hiddenName);
+                $("#username1").html("你好  ," + hiddenName);
             }
             /*end*/
         } else {
             var cookieVal = "";
             if (document.cookie != "" & document.cookie != null) {
-                var cookie=document.cookie
-                var s=cookie.split("=")
-                var sp=s[1]
-                var sp1=sp.split("xjw1807b");
-                var sp2=sp1[0]
+                var cookie = document.cookie
+                var s = cookie.split("=")
+                var sp = s[1]
+                var sp1 = sp.split("xjw1807b");
+                var sp2 = sp1[0]
                 cookieVal = sp2
                 $("#hidden1").val(cookieVal);
             }
-                $("#username1").html("你好,   " + cookieVal + "    ,请登录");
+            $("#username1").html("你好,   " + cookieVal + "    ,请登录");
         }
     }
+
     /* 表头 你好登录 ======================================>   end*/
+    function  banben() {
+        var content="";
+        content+="<div >选择版本:</div>";
+        	$.ajax({
+        			url:"/js/getGoodName",
+        			type:"POST",
+        			success:function(pageUtil){
+        			    var sp=pageUtil;
+        			    var sp1=sp.split(",");
+                        $.each(sp1,function (index,obj) {
+                            content+=obj;
+                        })
+                        $("#banben").html(content);
+        			},
+        			error:function(){
+        				layer.msg("ajax失败");
+        			}
+        			});
+
+
+
+
+    }
+    function fuwu() {
+        var content="";
+        content+="<div >服务:</div>";
+        $("#fuwu").html(content);
+    }
 </script>
 <body>
 <body>
@@ -71,7 +103,9 @@
         </div>
     </div>-->
     <div class="card">
-        <a href="">购物车<div class="num">0</div></a>
+        <a href="">购物车
+            <div class="num">0</div>
+        </a>
 
         <!--购物车商品-->
         <div class="cart_pro">
@@ -198,24 +232,16 @@
                 <p>市场价：<strong>￥1099.00</strong></p>
                 <p>促销价：<strong>￥1099.00</strong></p>
             </div>
-            <div class="clear">
-                <div class="min_t">选择版本：</div>
-                <div class="min_mx" onclick="func($(this),'0')">55英寸活动中1</div>
-                <div class="min_mx" onclick="func($(this),'0')">55英寸活动中2</div>
-                <div class="min_mx" onclick="func($(this),'0')">55英寸活动中3</div>
-                <div class="min_mx" onclick="func($(this),'0')">55英寸活动中4</div>
-                <div class="min_mx" onclick="func($(this),'0')">55英寸活动中5</div>
-                <div class="min_mx" onclick="func($(this),'0')">55英寸活动中6</div>
+            <!--选择版本  start-->
+            <div class="clear" id="banben">
+
             </div>
-            <div class="clear">
-                <div class="min_t" onclick="func($(this),'1')">服务：</div>
-                <div class="min_mx" onclick="func($(this),'1')">服务1号1</div>
-                <div class="min_mx" onclick="func($(this),'1')">服务二号1112</div>
-                <div class="min_mx" onclick="func($(this),'1')">55英服务二号1111寸活动中3</div>
-                <div class="min_mx" onclick="func($(this),'1')">4</div>
-                <div class="min_mx" onclick="func($(this),'1')">呃呃呃5</div>
-                <div class="min_mx" onclick="func($(this),'1')">55英寸活动中6</div>
+            <!--选择版本end-->
+            <!--服务 start-->
+            <div class="clear" id="fuwu">
+
             </div>
+            <!-- 服务 end -->
             <div class="clear" style="margin-top:20px;">
                 <div class="min_t" style="line-height:36px">数量：</div>
                 <div class="num_box">
