@@ -144,6 +144,11 @@
         });
     }
     function submitData(){
+        var hpjbzhi = $("[name='hpjb']").val();
+        if (hpjbzhi >= 11) {
+            layer.msg("请填写正确信息！");
+
+        }else{
             $.ajax({
                     url:"/comment/addProductComment",
                     type:"POST",
@@ -159,6 +164,12 @@
                         alert("失败了");
                     }
                 });
+        }
+    }
+    function alertItem(value){
+        if (value >= 11) {
+            layer.msg("请填写正确信息！");
+        }
     }
 </script>
 <body>
@@ -353,7 +364,7 @@
                  <table class="table" style="width:350px">
                      <tr>
                          <td>好评等级:</td>
-                         <td><input name="hpjb" class="form-control" style="width:180px" type="text" placeholder="请写出你的评级（1~10）"></td>
+                         <td><input name="hpjb" class="form-control error" onblur="alertItem(this.value)" style="width:180px" type="text" placeholder="请写出你的评级（1~10）"></td>
                      </tr>
                      <tr>
                          <td>评论内容:</td>
