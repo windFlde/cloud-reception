@@ -1,4 +1,11 @@
 package com.jk.mapper;
 
-public interface ShoppingCarMapper {
+import com.jk.bean.Shoping;
+
+import java.util.List;
+
+public interface ShoppingCarMapper{
+    void addShopping(Shoping shoping);
+
+    List<Shoping> getShopping();
 }
