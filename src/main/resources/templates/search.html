@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="UTF-8">
 	<title>检索</title>
@@ -21,10 +21,13 @@
 		</div>
 */
 
+
 	function loadGood() {
+
+			var id = $("#ccc2").val();
 			$.ajax({
 				url: "/js/getGoodName",
-				data:{id:28},
+				data:{id:id},
 				success: function (result) {
 					var cont = "";
 					console.log(result);
@@ -44,9 +47,10 @@
 	}
 
 	function loadShx () {
+		var id = $("#ccc2").val();
 		$.ajax({
 			url: "/js/getSx",
-			data:{id:28},
+			data:{id:id},
 			success: function (result) {
 				var cont = "";
 				$.each(result,function (index,obj) {
@@ -89,9 +93,10 @@
 	}
 
 	function loadPP(){
+		var id = $("#ccc1").val();
 		$.ajax({
 			url: "/js/getTrade",
-			data:{id:8},
+			data:{id:id},
 			success: function (result) {
 				var cont="<span>品牌：</span>";
 				$.each(result,function (index,obj) {
@@ -109,9 +114,10 @@
 	}
 
 	function loadClass1 () {
+		var id = $("#ccc1").val();
 		$.ajax({
 			url: "/js/getClass1",
-			data:{id:8},
+			data:{id:id},
 			success: function (result) {
 
 					content = result.flmch1+"  "
@@ -123,9 +129,10 @@
 		});
 	}
 	function loadClass2 () {
+		var id = $("#ccc2").val();
 		$.ajax({
 			url: "/js/getClass2",
-			data:{id:28},
+			data:{id:id},
 			success: function (result) {
 
 					content = result.flmch2+"  "
@@ -249,6 +256,8 @@
 	
 	
 	<div class="Sscreen">
+		<input type="hidden" id="ccc1" th:value="${session.class1}">
+		<input type="hidden" id="ccc2" th:value="${session.class2}">
 		<div id="pp" class="list">
 
 		</div>
