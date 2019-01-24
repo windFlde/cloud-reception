@@ -48,9 +48,9 @@ public class GoodController {
         return goodService.getValue(id);
     }
 
-    @ResponseBody
+   /* @ResponseBody
     @RequestMapping("getTrade")
     public List<TradeMark> getTrade(String id) {
         return goodService.getTrade(id);
-    }
+    }*/
 }
