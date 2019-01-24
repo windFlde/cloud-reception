@@ -46,6 +46,7 @@
     }
 
     /* 表头 你好登录 ======================================>   end*/
+    var price1=0;
     function  banben() {
         var content="";
         content+="<div >选择版本:</div>";
@@ -57,6 +58,7 @@
         			success:function(pageUtil){
         			    var sp=pageUtil.shp_sx;
         			    $("#titleName").html(pageUtil.shp_mch);
+        			    price1=pageUtil.jg;
         			    $("#jg").html("&nbsp; &nbsp; &nbsp;<font color='red'>"+pageUtil.jg+"</font>");
         			    $("#sp_tp").prop("src",pageUtil.sh_tp);//
 
@@ -82,9 +84,33 @@
         			});
         	/*ajax    end*/
     }
+
+    function addShopping() {
+            var yh_id=$("#hiddenName1").val();
+            var sku_id=$("#number").val();
+            var price=price1;
+            alert(yh_id);
+            alert(sku_id);
+            alert(price);
+            /*ajax sku_id*/
+                	// $.ajax({
+                	// 		url:"/",
+                	// 		type:"POST",
+                	// 		data:{yh_id:yh_id,sku_id:sku_id,jg:price},
+                	// 		success:function(a){
+                	// 		    window.location.href="/view?viewName="+shopping;
+                	// 		},
+                	// 		error:function(){
+                	// 			layer.msg("ajax失败");
+                	// 		}
+                	// 		});
+                	/*ajax end*/
+
+    }
 </script>
 <body>
-<input id="hiddenName" type="hidden" th:value="${session.userf?.id}">
+<input id="hiddenName" type="hidden" th:value="${session.userf?.name}">
+<input id="hiddenName1" type="hidden" th:value="${session.userf?.id}">
 <div class="top">
     <div class="top_text">
         <a href="">用户登录</a>
@@ -114,7 +140,6 @@
     </div>
     <div class="card">
         <a href="">购物车
-            <div></div>
         </a>
 
         <!--购物车商品-->
@@ -160,7 +185,7 @@
             </div>-->
 
 
-        </divid>
+        </div>
 
     </div>
 </div>
@@ -253,14 +278,13 @@
             <div class="clear" style="margin-top:20px;">
                 <div class="min_t" style="line-height:36px">数量：</div>
                 <div class="num_box">
-                    <input id="ss" class="easyui-numberspinner" style="width:80px;"  required="required" data-options="min:1,max:100,editable:false">
+                    <input id="number" class="easyui-numberspinner" style="width:80px;"  required="required" data-options="min:1,max:100,editable:false">
                     <div class="rg">
                     </div>
                 </div>
             </div>
             <div class="clear" style="margin-top:20px;">
-                <img src="/images/mai.jpg" alt="">
-                <img src="/images/shop.jpg" alt="">
+                <input type="button" class="btn btn-default" onclick="submitData()" value="加入购物车">
             </div>
         </div>
     </div>
