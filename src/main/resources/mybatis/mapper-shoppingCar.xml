@@ -23,8 +23,9 @@
     </select>
 
     <update id="deleteKc">
-        UPDATE t_mall_shoppingCar sh,t_mall_sku s set s.kc = s.kc - 1
+        UPDATE t_mall_shoppingCar sh,t_mall_sku s set s.kc = s.kc - #{tjsl}
         where sh.sku_id = s.Id and sh.sku_id = #{sku_id}
     </update>
+
 
 </mapper>
