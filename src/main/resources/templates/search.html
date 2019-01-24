@@ -10,24 +10,53 @@
 		loadClass1();
 		loadClass2();
 		loadPP();
-		/*loadShx();*/
+		loadShx();
+		loadGood();
 	})
-	/*function loadShx () {
+
+	/*<div class="list">
+			<div class="img"><img src="images/img_4.jpg" alt=""></div>
+			<div class="price">¥65.00</div>
+			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
+		</div>
+*/
+
+	function loadGood() {
+			$.ajax({
+				url: "/js/getGoodName",
+				data:{id:28},
+				success: function (result) {
+					var cont = "";
+					console.log(result);
+					$.each(result,function (index,obj) {
+						cont +="<div class='list' >";
+						cont +="<div class='img'><img src='"+obj.sh_tp+"' width='200' height='200' alt=''></div>";
+						cont +="<div class='price'>¥"+obj.jg+"</div>";
+						cont +="<div class='title'>"+obj.shp_mch+"</div>";
+						cont +="</div>"
+					})
+					$(".Sbox").html(cont);
+				},
+				error: function () {
+					alert("ajax访问失败了,查看控制台");
+				}
+			});
+	}
+
+	function loadShx () {
 		$.ajax({
-			url: "/getAttrValue",
+			url: "/js/getSx",
 			data:{id:28},
 			success: function (result) {
-				var cont="";
+				var cont = "";
 				$.each(result,function (index,obj) {
-					cont+='<span>'+obj.shxm_mch+'</span>';
-					$.each(obj.shuxzhlist,function (index,obj1) {
-						console.log(obj1);
-						cont+='<a href="###">'+obj1+'</a>';
-					})
-					cont += "</div>"
+					cont +="<div class='list' >";
+					cont +="<span>"+obj.shxm_mch+"</span>";
+					cont +="<div id='shxz"+obj.id+"'>"
+					loadshxz(obj.id);
+					cont +="</div>"
+					cont +="</div>"
 				})
-
-
 				$("#shx").html(cont);
 			},
 			error: function () {
@@ -36,7 +65,28 @@
 		});
 
 
-	}*/
+	}
+
+	function loadshxz(id){
+		$.ajax({
+			url: "/js/getValue",
+			data:{id:id},
+			success: function (result) {
+				var cont="";
+				$.each(result,function (index,obj) {
+
+					cont +="<a href='#'>"+obj.shxzh+obj.shxzh_mch+"</a>"+"    ";
+
+				})
+
+				$("#shxz"+id).html(cont);
+			},
+			error: function () {
+				alert("失败了");
+			}
+		});
+
+	}
 
 	function loadPP(){
 		$.ajax({
@@ -60,7 +110,7 @@
 
 	function loadClass1 () {
 		$.ajax({
-			url: "/js/getClass",
+			url: "/js/getClass1",
 			data:{id:8},
 			success: function (result) {
 
@@ -96,6 +146,10 @@
 			<a href="">供应商登录</a>
 			<a href="">供应商注册</a>
 		</div>
+	</div>
+
+	<div class="top_img">
+		<img src="/img/9ad59c44c3ee16d2.png" height="80" width="1190"/>
 	</div>
 	</div>
 	<div class="search">
@@ -198,7 +252,8 @@
 		<div id="pp" class="list">
 
 		</div>
-		<div id="shx" class="list">
+		<div id="shx">
+
 
 		</div>
 		<div class="list">
@@ -215,31 +270,7 @@
 			<div class="price">¥65.00</div>
 			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
 		</div>
-		<div class="list">
-			<div class="img"><img src="images/img_4.jpg" alt=""></div>
-			<div class="price">¥65.00</div>
-			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-		</div>
-		<div class="list">
-			<div class="img"><img src="images/img_4.jpg" alt=""></div>
-			<div class="price">¥65.00</div>
-			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-		</div>
-		<div class="list">
-			<div class="img"><img src="images/img_4.jpg" alt=""></div>
-			<div class="price">¥65.00</div>
-			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-		</div>
-		<div class="list">
-			<div class="img"><img src="images/img_4.jpg" alt=""></div>
-			<div class="price">¥65.00</div>
-			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-		</div>
-		<div class="list">
-			<div class="img"><img src="images/img_4.jpg" alt=""></div>
-			<div class="price">¥65.00</div>
-			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-		</div>
+
 	</div>
 
 	<div class="footer">

@@ -1,8 +1,6 @@
 package com.jk.controller;
 
-import com.jk.bean.Class1;
-import com.jk.bean.Class2;
-import com.jk.bean.TradeMark;
+import com.jk.bean.*;
 import com.jk.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,16 +11,21 @@ import java.util.List;
 
 @Controller
 @RequestMapping("js")
-public class GoodController<priva> {
+public class GoodController {
 
     @Autowired
     private GoodService goodService;
 
-    /*@Autowired
-    private ProductClient productClient;
-*/
+
     @ResponseBody
-    @RequestMapping("getClass")
+    @RequestMapping("getGoodName")
+    public List<MallSku> getGoodName(Integer id){
+        List<MallSku> goodName = goodService.getGoodName(id);
+        return goodName;
+
+    }
+    @ResponseBody
+    @RequestMapping("getClass1")
     public Class1 getClass(String id) {
         return goodService.getvalue(id);
     }
@@ -33,17 +36,17 @@ public class GoodController<priva> {
         return goodService.getClass2(id);
     }
 
- /*   @ResponseBody
+    @ResponseBody
     @RequestMapping("getSx")
     public List<MallAttr> getSx(String id) {
-        return productClient.getSx(id);
+        return goodService.getSx(id);
     }
 
     @ResponseBody
     @RequestMapping("getValue")
     public List<MallValue> getValue(String id) {
-        return productClient.getValue(id);
-    }*/
+        return goodService.getValue(id);
+    }
 
     @ResponseBody
     @RequestMapping("getTrade")
