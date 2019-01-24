@@ -23,7 +23,7 @@
                 type:"POST",
                 success:function(data){
                     $.each(data,function(index,obj){
-                        content += "<li><a href=''>"+obj.groudName+"</a>";
+                        content += "<li><a href=''><font size='3'>"+obj.groudName+"</font></a>";
                     });
                     $('#asd').html(content)
                 },
@@ -50,7 +50,7 @@
                             alert("失败了");
                         }
                     });
-        }
+                }
         //分界线
         function getHiddenName() {
             var cookieVal = null;
@@ -113,22 +113,29 @@
                     });
         }
         function getDataTwo(id){
-                $.ajax({
-                        url:"/home/getAllClassTwoData",
-                        type:"POST",
-                        data:{id:id},
-                        success:function(pageUtil){
-                           var as = "";
-                           $.each(pageUtil,function(index,obj){
-                               as += "<a href='javascript:toIndexes("+obj.id+","+obj.flbh1+")'><font color='blue'>"+obj.flmch2+"</font></a>   ";
-                           });
-                           $("#div"+id+"").html(as);
-                           $("#div"+id+"").show();
-                        },
-                        error:function(){
-                            alert("失败了");
-                        }
+            $.ajax({
+                url:"/home/getAllClassTwoData",
+                type:"POST",
+                data:{id:id},
+                success:function(pageUtil){
+                    var as = "";
+                    $.each(pageUtil,function(index,obj){
+                        as += "<a href='javascript:toIndexes("+obj.id+","+obj.flbh1+")'><font color='blue'>"+obj.flmch2+"</font></a>   ";
                     });
+                    $("#tw_"+id+"").html(as);
+                },
+                error:function(){
+                    alert("失败了");
+                }
+            });
+            $(".linb").hover(
+                function () {
+                    $(this).find('.two_nav').show(100);
+                },
+                function () {
+                    $(this).find('.two_nav').hide(100);
+                }
+            );
         }
         function getDataOne(){
             var content = "";
@@ -137,8 +144,9 @@
                 type:"POST",
                 success:function(pageUtil){
                     $.each(pageUtil,function(index,obj){
-                        content += "<li class='linb'><a href='javascript:getDataTwo("+obj.id+")'>"+obj.flmch1+"</a>";
-                        content += "<div id='div"+obj.id+"' style='display:none;'></div></li>";      //创建每一个的子二级分类的“容器”
+                        content += "<li class='linb'><a href='javascript:getDataTwo("+obj.id+")'><font size='2'>"+obj.flmch1+"</font></a>";
+                        content += "<div id='tw_"+obj.id+"' class='two_nav' style='width:180px;height:66px;'></div></li>";      //创建每一个的子二级分类的“容器”
+                        getDataTwo(obj.id);
                     });
                     $('.nav_mini ul').html(content);
                 },
@@ -146,52 +154,6 @@
                     alert("失败了");
                 }
             });
-        }
-
-        function getHiddenName() {
-            var cookieVal = null;
-            if (document.cookie != "" & document.cookie != null) {
-                var cookie = document.cookie;
-                var split = null;
-                if (cookie != null) {
-                    split = cookie.split(";");
-                }
-                var sp = split[1];
-                var sp1 = sp.split("=");
-                var sp2 = sp1[1];
-                var sp3 = sp2.split("xjw1807b");
-                cookieVal = sp3[0];
-                console.log(cookieVal);
-                $("#hidden1").val(sp3[0]);
-            }
-        }
-
-        function getUserName() {
-            var hiddenName = $("#hiddenName").val();
-            console.log("作用域中的名字=======" + hiddenName);
-            if (hiddenName != "" & hiddenName != null) {
-                /*start*/
-                var hiddenName = $("#hiddenName").val();
-                if (hiddenName != null & hiddenName!="") {
-                    console.log(hiddenName);
-                    console.log("用户名为"+hiddenName);
-                    $("#username1").html("你好  ,"+hiddenName);
-                }
-                /*end*/
-            } else {
-                var cookieVal = "";
-                if (document.cookie != "" & document.cookie != null) {
-                    var cookie=document.cookie
-                    var s=cookie.split("=")
-                    var sp=s[1]
-                    var sp1=sp.split("xjw1807b");
-                    var sp2=sp1[0]
-                    cookieVal = sp2
-                    $("#hidden1").val(cookieVal);
-                }
-
-                    $("#username1").html("你好,   " + cookieVal + "    ,请登录");
-            }
         }
     </script>
 </head>
@@ -228,6 +190,7 @@
         <a href="">购物车<div class="num">0</div></a>
     </div>
 </div>
+<br><br>
 <div class="menu">
     <div class="nav">
         <div class="navs">

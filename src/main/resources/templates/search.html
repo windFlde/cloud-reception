@@ -14,12 +14,6 @@
 		loadGood();
 	})
 
-	/*<div class="list">
-			<div class="img"><img src="images/img_4.jpg" alt=""></div>
-			<div class="price">¥65.00</div>
-			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-		</div>
-*/
 
 
 	function loadGood() {
@@ -57,7 +51,7 @@
 			success: function (result) {
 				var cont = "";
 				$.each(result,function (index,obj) {
-					cont +="<div class='list' >";
+					cont +="<div class='list' id='"+obj.id+"'>";
 					cont +="<span>"+obj.shxm_mch+"</span>";
 					cont +="<div id='shxz"+obj.id+"'>"
 					loadshxz(obj.id);
@@ -82,7 +76,7 @@
 				var cont="";
 				$.each(result,function (index,obj) {
 
-					cont +="<a href='#'>"+obj.shxzh+obj.shxzh_mch+"</a>"+"    ";
+					cont +="<a href='javascript:void(0)' onclick=addClass2("+id+",'"+obj.shxzh+obj.shxzh_mch+"')>"+obj.shxzh+obj.shxzh_mch+"</a>"+"    ";
 
 				})
 
@@ -104,7 +98,7 @@
 				var cont="<span>品牌：</span>";
 				$.each(result,function (index,obj) {
 
-					cont +="<a>"+obj.ppmch+"</a>"+"     ";
+					cont +="<a href='javascript:void(0)' onclick=addClass1('"+obj.ppmch+"')>"+obj.ppmch+"</a>"+"     ";
 
 				})
 
@@ -115,6 +109,20 @@
 			}
 		});
 	}
+
+	function addClass1(name){
+		cont = "<span class='gt'>&gt</span>"
+		cont += "<div class='filter_div'>"+name+"</div>"
+		$("#class").append(cont)
+		$("#pp").remove();
+	}
+	function addClass2(id,name){
+		cont = "<span class='gt'>&gt</span>"
+		cont += "<div class='filter_div'>"+name+"</div>"
+		$("#class").append(cont)
+		$("#"+id+"").remove();
+	}
+
 
 	function loadClass1 () {
 		var id = $("#ccc1").val();
@@ -238,7 +246,7 @@
 	</div>
 	
 	<!--筛选阶段-->
-	<div class="filter">
+	<div class="filter" id="class">
 		<h2 id="class1"></h2>
 		<span class="gt">&gt</span>
 		<div id="class2" class="filter_div">
@@ -277,11 +285,7 @@
 	</div>
 	
 	<div class="Sbox">
-		<div class="list">
-			<div class="img"><img src="images/img_4.jpg" alt=""></div>
-			<div class="price">¥65.00</div>
-			<div class="title">双箭 雅思两层带门收纳柜 整理柜储物柜书柜 木</div>
-		</div>
+
 
 	</div>
 
