@@ -9,27 +9,9 @@
 </head>
 <script type="text/javascript">
     $(function () {
-        getHiddenName();
         getUserName();
     })
     /* 表头 你好登录样式======================================>  start*/
-    function getHiddenName() {
-        var cookieVal = null;
-        if (document.cookie != "" & document.cookie != null) {
-            var cookie = document.cookie;
-            var split = null;
-            if (cookie != null) {
-                split = cookie.split(";");
-            }
-            var sp = split[1];
-            var sp1 = sp.split("=");
-            var sp2 = sp1[1];
-            var sp3 = sp2.split("xjw1807b");
-            cookieVal = sp3[0];
-            console.log(cookieVal);
-            $("#hidden1").val(sp3[0]);
-        }
-    }
     function getUserName() {
         var hiddenName = $("#hiddenName").val();
         console.log("作用域中的名字=======" + hiddenName);
@@ -53,11 +35,9 @@
                 cookieVal = sp2
                 $("#hidden1").val(cookieVal);
             }
-            if (cookieVal == "" & cookieVal != null) {
-                $("#username1").html("<font color='red'>你好   ,请登录</font>");
-            } else {
                 $("#username1").html("你好,   " + cookieVal + "    ,请登录");
-            }}}
+        }
+    }
     /* 表头 你好登录 ======================================>   end*/
 </script>
 <body>
