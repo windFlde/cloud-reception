@@ -5,16 +5,20 @@
     <!--void addProductComment(MallProductComment mallProductComment);-->
 <insert id="addProductComment" >
         insert into t_mall_product_comment
-        (id,
-        yh_id,
+        (yh_id,
         plnr,
         plshj,
         hpjb,
-        sku_id,
-        sku_mch,
-        shp_id,
         shp_mch,
-        dd_id)
-        values(#{id},#{yh_id},#{plnr},#{plshj},#{hpjb},#{sku_id},#{sku_mch},#{shp_id},#{shp_mch},#{dd_id});
+        start)
+        values(#{yh_id},#{plnr},#{plshj},#{hpjb},#{shp_mch},#{start})
 </insert>
+        <!--List<MallProductComment> getAllProductComment(MallProductComment mallProductComment);-->
+        <select id="getAllProductComment" resultType="MallProductComment">
+        select t.*,u.name yhmz
+        from t_mall_product_comment t ,
+             t_user u
+        where  t.yh_id = u.id
+              and start = 1
+        </select>
 </mapper>

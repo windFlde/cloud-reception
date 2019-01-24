@@ -6,6 +6,7 @@ import com.jk.service.ProductCommentService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @program: cloud-reception
@@ -22,5 +23,10 @@ public class ProductCommentServiceImpl implements ProductCommentService {
     @Override
     public void addProductComment(MallProductComment mallProductComment) {
         productCommentMapper.addProductComment(mallProductComment);
+    }
+
+    @Override
+    public List<MallProductComment> getAllProductComment(MallProductComment mallProductComment) {
+        return productCommentMapper.getAllProductComment(mallProductComment);
     }
 }
