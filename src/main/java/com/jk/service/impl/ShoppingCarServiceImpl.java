@@ -23,4 +23,15 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
     public List<Shoping> getShopping() {
         return shoppingCarMapper.getShopping();
     }
+
+    @Override
+    public Integer getShoppingById(Integer sku_id) {
+        return shoppingCarMapper.getShoppingById(sku_id);
+    }
+
+    @Override
+    public void deleteKc(Integer tjsl, Integer sku_id) {
+        shoppingCarMapper.deleteKc(sku_id,tjsl);
+    }
+
 }

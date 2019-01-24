@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.ProductCommentMapper">
+
+    <!--void addProductComment(MallProductComment mallProductComment);-->
+<insert id="addProductComment" >
+        insert into t_mall_product_comment
+        (yh_id,
+        plnr,
+        plshj,
+        hpjb,
+        shp_mch,
+        start)
+        values(#{yh_id},#{plnr},#{plshj},#{hpjb},#{shp_mch},#{start})
+</insert>
+        <!--List<MallProductComment> getAllProductComment(MallProductComment mallProductComment);-->
+        <select id="getAllProductComment" resultType="MallProductComment">
+        select t.*,u.name yhmz
+        from t_mall_product_comment t ,
+             t_user u
+        where  t.yh_id = u.id
+              and start = 1
+        </select>
+</mapper>

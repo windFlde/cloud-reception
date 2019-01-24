@@ -12,7 +12,6 @@
         $(function(){
             getDataOne();
             getUserName();
-            getHiddenName();
             getImg();
             /*
             * 导购
@@ -52,23 +51,6 @@
                     });
                 }
         //分界线
-        function getHiddenName() {
-            var cookieVal = null;
-            if (document.cookie != "" & document.cookie != null) {
-                var cookie = document.cookie;
-                var split = null;
-                if (cookie != null) {
-                    split = cookie.split(";");
-                }
-                var sp = split[1];
-                var sp1 = sp.split("=");
-                var sp2 = sp1[1];
-                var sp3 = sp2.split("xjw1807b");
-                cookieVal = sp3[0];
-                console.log(cookieVal);
-                $("#hidden1").val(sp3[0]);
-            }
-        }
         function getUserName() {
             var hiddenName = $("#hiddenName").val();
             console.log("作用域中的名字=======" + hiddenName);

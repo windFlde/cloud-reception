@@ -44,4 +44,10 @@ public class GoodServiceImpl implements GoodService {
     public List<MallAttr> getSx(String id) {
         return goodMapper.getSx(id);
     }
+
+    @Override
+    public MallSku getAll(Integer id) {
+
+        return goodMapper.getAll(id);
+    }
 }

@@ -6,5 +6,26 @@
       insert into t_mall_shoppingCar (tjshl,hj,yh_id,shp_id,sku_id,shfxz) value(#{tjshl},#{hj},#{yh_id},#{shp_id},#{sku_id},#{shfxz})
     </insert>
 
+    <select id="getShopping" resultType="Shoping">
+        SELECT
+        u.id,sh.tjshl,sh.hj,sh.shfxz,p.shp_tp,s.sku_mch,s.kc
+        from
+        t_mall_shoppingCar sh,t_user u,
+        t_mall_product p,t_mall_sku s
+        where sh.yh_id = u.id
+        and sh.shp_id = p.Id
+        and sh.sku_id = s.Id
+    </select>
+
+    <select id="getShoppingById" resultType="Integer">
+        SELECT s.kc from t_mall_shoppingCar sh,t_mall_sku s WHERE
+        sh.sku_id = s.Id and and sh.sku_id = #{sku_id}
+    </select>
+
+    <update id="deleteKc">
+        UPDATE t_mall_shoppingCar sh,t_mall_sku s set s.kc = s.kc - #{tjsl}
+        where sh.sku_id = s.Id and sh.sku_id = #{sku_id}
+    </update>
+
 
 </mapper>
