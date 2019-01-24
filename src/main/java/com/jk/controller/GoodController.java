@@ -11,13 +11,19 @@ import java.util.List;
 
 @Controller
 @RequestMapping("js")
-public class GoodController<priva> {
+public class GoodController {
 
     @Autowired
     private GoodService goodService;
 
 
+    @ResponseBody
+    @RequestMapping("getGoodName")
+    public List<MallSku> getGoodName(Integer id){
+        List<MallSku> goodName = goodService.getGoodName(id);
+        return goodName;
 
+    }
     @ResponseBody
     @RequestMapping("getClass1")
     public Class1 getClass(String id) {
