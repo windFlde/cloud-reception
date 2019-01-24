@@ -10,6 +10,7 @@
     <script type="text/javascript">
 
         $(function(){
+            ceshi();
             getDataOne();
             getUserName();
             getHiddenName();
@@ -37,7 +38,6 @@
                         url:"/home/queryImg",
                         type:"POST",
                         success:function(pageUtil){
-                            console.log(pageUtil);
                             var p = 0 ;
                             $.each(pageUtil,function (index,obj) {
                                 $("#wows1_"+p).prop("src",obj.img);
@@ -99,8 +99,6 @@
                 }}}
         ///分界线
         function toIndexes(class2,class1){
-            alert("class2==="+class2);
-            alert("class1==="+class1);
             location.href="";
                 $.ajax({
                         url:"/home/toIndexes",
@@ -139,7 +137,7 @@
                 type:"POST",
                 success:function(pageUtil){
                     $.each(pageUtil,function(index,obj){
-                        content += "<li><a href='javascript:getDataTwo("+obj.id+")'>"+obj.flmch1+"</a>";
+                        content += "<li class='linb'><a href='javascript:getDataTwo("+obj.id+")'>"+obj.flmch1+"</a>";
                         content += "<div id='div"+obj.id+"' style='display:none;'></div></li>";      //创建每一个的子二级分类的“容器”
                     });
                     $('.nav_mini ul').html(content);
@@ -148,6 +146,19 @@
                     alert("失败了");
                 }
             });
+        }
+        function ceshi(){
+            $(".linb").hover(
+                function () {
+                    //$(this).addClass("hover");
+                    alert("获取");
+
+                },
+                function () {
+                    //$(this).removeClass("hover");
+                    alert("失去");
+                }
+            );
         }
     </script>
 </head>
