@@ -26,7 +26,8 @@
 					var cont = "";
 					console.log(result);
 					$.each(result,function (index,obj) {
-						cont +="<div class='list' >";
+						cont +="<a target='_blank' href='/toView?viewName=shopBuy&skuid="+obj.id+"'>";
+						cont +="<div  class='list' >";
 						cont +="<div class='img'><img src='"+obj.sh_tp+"' width='200' height='200' alt=''></div>";
 						cont +="<div class='price'>¥"+obj.jg+"</div>";
 						var str = obj.shp_sx.split(",")
@@ -34,6 +35,7 @@
 						cont +="<div class='title'>"+str[0]+"...</div>";
 						cont +="<div class='title'>"+obj.kcdz+"</div>";
 						cont +="</div>"
+						cont +="</a>"
 					})
 					$(".Sbox").html(cont);
 				},
