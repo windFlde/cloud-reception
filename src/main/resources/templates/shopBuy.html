@@ -11,7 +11,6 @@
     $(function () {
         getUserName();
         banben();
-        fuwu();
     })
 
     /* 表头 你好登录样式======================================>  start*/
@@ -46,14 +45,19 @@
     function  banben() {
         var content="";
         content+="<div >选择版本:</div>";
+        /*ajax   start*/
         	$.ajax({
-        			url:"/js/getGoodName",
+        			url:"/js/getAll",
         			type:"POST",
+                    data:{id:1},
         			success:function(pageUtil){
-        			    var sp=pageUtil;
+        			    var sp=pageUtil.shp_sx;
+        			    $("#titleName").html(pageUtil.shp_mch);
+        			    console.log(pageUtil);
+        			    console.log(sp)
         			    var sp1=sp.split(",");
                         $.each(sp1,function (index,obj) {
-                            content+=obj;
+                            content+="  &nbsp&nbsp<font> "+obj+" </font>   &nbsp&nbsp&nbsp&nbsp ";
                         })
                         $("#banben").html(content);
         			},
@@ -61,36 +65,42 @@
         				layer.msg("ajax失败");
         			}
         			});
-
-
-
-
+        	/*ajax    end*/
     }
-    function fuwu() {
-        var content="";
-        content+="<div >服务:</div>";
-        $("#fuwu").html(content);
+    var jia=1;
+    function jia(){
+        $("#jia").click( function () {
+            var num=jia++;
+            $("#number").html(num);
+        });
     }
+    var jian=0;
+    function jian (){
+        $("#jian").click( function () {
+            var num=jian++;
+            $("#number").html(num);
+        });
+    }
+
 </script>
 <body>
-<body>
+<input id="hiddenName" type="hidden" th:value="${session.userf?.id}">
 <div class="top">
     <div class="top_text">
         <a href="">用户登录</a>
         <a href="">用户注册</a>
         <a href="">供应商登录</a>
         <a href="">供应商注册</a>
-        <input id="hiddenName" type="hidden" th:value="${session.userf?.name}">
         <input id="hidden1" type="hidden">
         <div id="username1"></div>
     </div>
 </div>
-<!--<div class="top_img">
-    <img src="./images/top_img.jpg" alt="">
-</div>-->
+<div class="top_img">
+    <img src="/images/top_img.jpg" alt="">
+</div>
 <div class="search searchBac">
     <div class="logo"><img src="/images/logo.png" alt=""></div>
-    <!--<div class="search_on">
+    <div class="search_on">
         <div class="se">
             <input type="text" name="search" class="lf">
             <input type="submit" class="clik" value="搜索">
@@ -101,14 +111,14 @@
             <a href="">吹风机</a>
             <a href="">玉兰油</a>
         </div>
-    </div>-->
+    </div>
     <div class="card">
         <a href="">购物车
-            <div class="num">0</div>
+            <div id="number" class="num">0</div>
         </a>
 
         <!--购物车商品-->
-        <div class="cart_pro">
+        <!--<div id="" class="cart_pro">
             <h6>最新加入的商品</h6>
             <div class="one">
                 <img src="/images/lec1.png">
@@ -147,10 +157,10 @@
                 共<span>2</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
                 共计￥<span>20000</span>
                 <button class="goprice">去购物车</button>
-            </div>
+            </div>-->
 
 
-        </div>
+        </divid>
 
     </div>
 </div>
@@ -227,21 +237,21 @@
             <div class="goods"><img src="/images/img_6.jpg" alt=""></div>
         </div>
         <div class="cent">
-            <div class="title">海信炫彩4K智能电视（黑色）</div>
+            <div id="titleName" class="title">海信炫彩4K智能电视（黑色）</div>
             <div class="bg">
                 <p>市场价：<strong>￥1099.00</strong></p>
                 <p>促销价：<strong>￥1099.00</strong></p>
             </div>
-            <!--选择版本  start-->
+            <!--选择版本  =============================================================>start-->
             <div class="clear" id="banben">
 
             </div>
-            <!--选择版本end-->
-            <!--服务 start-->
+            <!--选择版本  =============================================================>end-->
+            <!--服务   =============================================================>start-->
             <div class="clear" id="fuwu">
 
             </div>
-            <!-- 服务 end -->
+            <!-- 服务   =============================================================>end -->
             <div class="clear" style="margin-top:20px;">
                 <div class="min_t" style="line-height:36px">数量：</div>
                 <div class="num_box">
@@ -275,6 +285,5 @@
     <div class="bottom"><img src="/images/foot.jpg" alt=""></div>
 </div>
 
-</body>
 </body>
 </html>
