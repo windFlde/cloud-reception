@@ -20,10 +20,11 @@ public class ShoppingCarController {
     @RequestMapping("addShopping")
     public String addShopping(Shoping shoping) {
 
+
         Integer i = shoppingCarService.getShoppingById(shoping.getSku_id());
         if(i>0){
             shoppingCarService.addShopping(shoping);
-            shoppingCarService.deleteKc(shoping.getSku_id());
+            shoppingCarService.deleteKc(shoping.getSku_id(),shoping.getTjshl());
             return "1";
         }else {
             return "2";

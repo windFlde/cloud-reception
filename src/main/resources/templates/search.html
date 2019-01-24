@@ -111,16 +111,26 @@
 	}
 
 	function addClass1(name){
-		cont = "<span class='gt'>&gt</span>"
-		cont += "<div class='filter_div'>"+name+"</div>"
+		cont = "<span class='gt' id='pid1'>&gt</span>"
+		cont += "<div class='filter_div' id='pid2'><a href='javascript:void(0)' onclick=showClass1()>"+name+"</a></div>"
 		$("#class").append(cont)
-		$("#pp").remove();
+		$("#pp").hide();
+	}
+	function showClass1() {
+		$("#pid1").remove();
+		$("#pid2").remove();
+		$("#pp").show();
+	}
+	function showClass2(id) {
+		$("#sx"+id+"").remove();
+		$("#sxz"+id+"").remove();
+		$("#"+id+"").show();
 	}
 	function addClass2(id,name){
-		cont = "<span class='gt'>&gt</span>"
-		cont += "<div class='filter_div'>"+name+"</div>"
+		cont = "<span class='gt' id='sx"+id+"'>&gt</span>"
+		cont += "<div class='filter_div' id='sxz"+id+"'><a href='javascript:void(0)' onclick=showClass2("+id+")>"+name+"</a></div>"
 		$("#class").append(cont)
-		$("#"+id+"").remove();
+		$("#"+id+"").hide();
 	}
 
 
