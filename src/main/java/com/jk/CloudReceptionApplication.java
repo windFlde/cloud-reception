@@ -7,6 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
 @EnableDiscoveryClient
+@EnableFeignClients
 @SpringBootApplication
 @MapperScan("com.jk.mapper")
 public class CloudReceptionApplication {

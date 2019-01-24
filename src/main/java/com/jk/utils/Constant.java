@@ -28,4 +28,8 @@ public class Constant {
 
     //判断手机号是不是多次获取验证码
     public static final String multiple_code = "multiple_code_";
+
+    public static final String remPwd="user_pwd";
+
+    public static final String splitChar="xjw1807b";
 }
