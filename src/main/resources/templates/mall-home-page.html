@@ -14,6 +14,8 @@
             getUserName();
             getHiddenName();
             getImg();
+            getUserName();
+            getHiddenName();
             /*
             * 导购
             * */
@@ -147,6 +149,55 @@
                 }
             });
         }
+
+        function getHiddenName() {
+            var cookieVal = null;
+            if (document.cookie != "" & document.cookie != null) {
+                var cookie = document.cookie;
+                var split = null;
+                if (cookie != null) {
+                    split = cookie.split(";");
+                }
+                var sp = split[1];
+                var sp1 = sp.split("=");
+                var sp2 = sp1[1];
+                var sp3 = sp2.split("xjw1807b");
+                cookieVal = sp3[0];
+                console.log(cookieVal);
+                $("#hidden1").val(sp3[0]);
+            }
+        }
+
+        function getUserName() {
+            var hiddenName = $("#hiddenName").val();
+            console.log("作用域中的名字=======" + hiddenName);
+            if (hiddenName != "" & hiddenName != null) {
+                /*start*/
+                var hiddenName = $("#hiddenName").val();
+                if (hiddenName != null & hiddenName!="") {
+                    console.log(hiddenName);
+                    console.log("用户名为"+hiddenName);
+                    $("#username1").html("你好  ,"+hiddenName);
+                }
+                /*end*/
+            } else {
+                var cookieVal = "";
+                if (document.cookie != "" & document.cookie != null) {
+                    var cookie=document.cookie
+                    var s=cookie.split("=")
+                    var sp=s[1]
+                    var sp1=sp.split("xjw1807b");
+                    var sp2=sp1[0]
+                    cookieVal = sp2
+                    $("#hidden1").val(cookieVal);
+                }
+
+                    $("#username1").html("你好,   " + cookieVal + "    ,请登录");
+
+            }
+
+        }
+
     </script>
 </head>
 <body>
