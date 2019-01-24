@@ -14,6 +14,7 @@
             getDataOne();
             getUserName();
             getHiddenName();
+            getImg();
             /*
             * 导购
             * */
@@ -32,6 +33,25 @@
                 }
             });
         })
+        function getImg(){
+                $.ajax({
+                        url:"/home/queryImg",
+                        type:"POST",
+                        success:function(pageUtil){
+                            console.log(pageUtil);
+                            var p = 0 ;
+                            $.each(pageUtil,function (index,obj) {
+                                $("#wows1_"+p).prop("src",obj.img);
+                                $("#wo_"+p).prop("src",obj.img);
+                                p++;
+                            })
+
+                        },
+                        error:function(){
+                            alert("失败了");
+                        }
+                    });
+        }
         //分界线
         function getHiddenName() {
             var cookieVal = null;
@@ -82,12 +102,13 @@
         function toIndexes(class2,class1){
             alert("class2==="+class2);
             alert("class1==="+class1);
+            location.href="";
                 $.ajax({
                         url:"/home/toIndexes",
                         type:"POST",
                         data:{class1:class1,class2:class2},
                         success:function(pageUtil){
-
+                            window.location.href="/toView?viewName="+pageUtil;
                         },
                         error:function(){
                             alert("失败了");
@@ -193,10 +214,10 @@
             </div>
             <div class="ws_bullets">
                 <div>
-                    <a href="#" title="1"><span><img src="/jiaoben/data1/tooltips/1.jpg" alt="1">1</span></a>
-                    <a href="#" title="2"><span><img src="/jiaoben/data1/tooltips/2.jpg" alt="2">2</span></a>
-                    <a href="#" title="3"><span><img src="/jiaoben/data1/tooltips/3.jpg" alt="3">3</span></a>
-                    <a href="#" title="4"><span><img src="/jiaoben/data1/tooltips/4.jpg" alt="4">4</span></a></div>
+                    <a href="#" title="1"><span><img id="wo_0" src="/jiaoben/data1/tooltips/1.jpg" alt="1">1</span></a>
+                    <a href="#" title="2"><span><img id="wo_1" src="/jiaoben/data1/tooltips/2.jpg" alt="2">2</span></a>
+                    <a href="#" title="3"><span><img id="wo_2" src="/jiaoben/data1/tooltips/3.jpg" alt="3">3</span></a>
+                    <a href="#" title="4"><span><img id="wo_3" src="/jiaoben/data1/tooltips/4.jpg" alt="4">4</span></a></div>
                 </div>
             <div class="ws_script" style="position:absolute;left:-99%"></div>
             <div class="ws_shadow"></div>

@@ -1,17 +1,16 @@
 package com.jk.controller;
 
-import com.jk.bean.Img;
-
 import com.jk.bean.GroudUrl;
+import com.jk.bean.Img;
 import com.jk.bean.MallClassOne;
 import com.jk.bean.MallClassTwo;
 import com.jk.service.HomeService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 /**
  * @program: cloud-reception
@@ -56,11 +55,11 @@ public class HomeController {
         List<MallClassTwo> list = homeService.getAllClassTwoData(id);
         return list;
     }
-
+    @ResponseBody
     @RequestMapping("toIndexes")
-    public String toIndexes(String class1, String class2, Model model){
-        model.addAttribute("class1",class1);
-        model.addAttribute("class2",class2);
+    public String toIndexes(String class1, String class2, HttpSession session){
+        session.setAttribute("class1",class1);
+        session.setAttribute("class2",class2);
         return "search";
     }
 
