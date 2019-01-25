@@ -57,7 +57,25 @@ public class GoodController {
     @ResponseBody
     @RequestMapping("getAll")
     public MallSku getAll(Integer id){
+
         return goodService.getAll(id);
     }
+
+
+    //查询
+    @ResponseBody
+    @RequestMapping("getgoulist")
+    public SendPage getBooks(ReceivePage receivePage){
+        SendPage list=goodService.getgoulist(receivePage);
+        return list;
+    }
+    //删除
+    @ResponseBody
+    @RequestMapping("deleteItem")
+    public String deleteItem(String ids){
+        goodService.deleteItem(ids);
+        return "1";
+    }
+
 
 }

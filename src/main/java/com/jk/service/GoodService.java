@@ -21,4 +21,8 @@ public interface GoodService {
     List<MallAttr> getSx(String id);
 
     MallSku getAll(Integer id);
+
+    SendPage getgoulist(ReceivePage receivePage);
+
+    void deleteItem(String ids);
 }

@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
     <script src="/js/jquery-2.1.1.min.js"></script>
-
     <link rel="stylesheet" type="text/css" href="/css/css.css">
-    <link rel="stylesheet" href="/css/style.css">
-
+    <script src="/js/layer/layer.js"></script>
+    <link rel="stylesheet" href="/js/easyui1.5/themes/icon.css">
+    <link rel="stylesheet" href="/js/easyui1.5/themes/default/easyui.css">
+    <script src="/js/easyui1.5/jquery.easyui.min.js"></script>
+    <script src="/js/easyui1.5/locale/easyui-lang-zh_CN.js"></script>
 </head>
-<script type="text/javascript">
+<script type="text/javascript" th:inline="none">
     $(function () {
         getUserName();
+        initDategrid(); //初始化数据表格控件
     })
     /* 表头 你好登录样式======================================>  start*/
     function getUserName() {
@@ -45,8 +49,78 @@
         }
     }
     /* 表头 你好登录 ======================================>   end*/
+
+    //------------------------------------------------------查询开始
+    function initDategrid(){
+        alert("123"),
+        $('#dg').datagrid({
+            url:'/js/getgoulist',
+            striped:true,
+            toolbar: '#tb',
+            pagination:true,
+            pagePosition:top,
+            pageList:[1,2,3,4,5,6,8,10],
+            pageSize: 5, //默认显示多少条 这个值一定在pagelist中存在
+            loadMsg:'正在加载,别着急',
+            columns:[[
+                {field:'xxx',title:'ID',width:'5%',checkbox:true},
+                {field:'id',title:'ID',width:'5%'},
+                {field:'mch',title:'商品名称',width:350,editor:'text'},
+                {field:'tjshl',title:'商品数量',width:100,align:'right'} ,
+                {field:'jg',title:'商品价格',width:100,align:'right'} ,
+               /* {field:'sku_mch',title:'商品属性',width:300,editor:'text'},*/
+                {field:'shptp',title:'商品图片',width:150,align:'right',
+                    formatter: function(value,row,index){
+                        return "<img width='66' src='"+value+"'>";
+                    }} ,
+                {field:'操作',title:'操作',width:100,align:'right',
+                    formatter: function(value,row,index){
+                        var content=""
+                        content+= "<a href='javascript:void(0)' onclick=deleteItemById("+row.id+",'"+row.mch+"')> 删除</a>"
+                        return content;
+                    }
+                },
+            ]],
+            checkOnSelect:false,//-------如果为true，当用户点击行的时候该复选框就会被选中或取消选中。
+                                // 如果为false，当用户仅在点击该复选框的时候才会呗选中或取消。
+
+        });
+    }
+    //-------------------------------------------------------查询结束
+
+    //------------------------------------------------------删除开始
+    function deleteItemById(id,name){
+        $.messager.confirm('删除提示框','您确认想要删除'+name+'这件商品吗？',function(r){
+            if (r){    //点击确认
+                deleteItem(id);
+            }
+        });
+    }
+    //批删,单删
+    function deleteItem(ids){
+        alert(ids);
+        $.ajax({
+            url:"/js/deleteItem?ids="+ids,
+            type:"POST",
+        /*    data:{ids:ids},*/
+            success:function(result){
+                //数据库已经删除成功 页面需要更新
+                $("#dg").datagrid('reload');//reload 会重新请求数据 但会停留在当前页
+                //load 会跑到第一页
+                $.messager.show({
+                    title:'消息',
+                    msg:'删除成功!!',
+                    timeout:5000,
+                    showType:'slide'
+                });
+            },
+            error:function(){
+                alert("ajax访问失败了,查看控制台");
+            }
+        });
+    }
+    //------------------------------------------------------删除结束
 </script>
-<body>
 <body style="zoom: 1;">
 <div class="top">
     <div class="top_text">
@@ -77,7 +151,7 @@
         <a href="">购物车<div class="num">0</div></a>
 
         <!--购物车商品-->
-        <div class="cart_pro">
+     <!--   <div class="cart_pro">
             <h6>最新加入的商品</h6>
             <div class="one">
                 <img src="/images/lec1.png">
@@ -120,58 +194,14 @@
 
 
         </div>
-
+-->
     </div>
 </div>
 
 <div class="Cbox">
-    <table class="table table-striped table-bordered table-hover">
-        <thead>
-        <tr>
-            <th>商品图片</th>
-            <th>商品名称</th>
-            <th>商品属性</th>
-            <th>商品价格</th>
-            <th>商品数量</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td><img src="/images/icon_2.jpg" alt=""></td>
-            <td>商品名称</td>
-            <td>
-                颜色：<span style="color:#ccc">白色</span><br>
-                尺码：<span style="color:#ccc">L</span>
-            </td>
-            <td>199.00</td>
-            <td><input type="text" name="min" value="1" style="width:50px;text-align:center"></td>
-            <td>删除</td>
-        </tr>
-        <tr>
-            <td><img src="/images/icon_2.jpg" alt=""></td>
-            <td>商品名称</td>
-            <td>
-                颜色：<span style="color:#ccc">白色</span><br>
-                尺码：<span style="color:#ccc">L</span>
-            </td>
-            <td>199.00</td>
-            <td><input type="text" name="min" value="1" style="width:50px;text-align:center"></td>
-            <td>删除</td>
-        </tr>
-        <tr>
-            <td><img src="/images/icon_2.jpg" alt=""></td>
-            <td>商品名称</td>
-            <td>
-                颜色：<span style="color:#ccc">白色</span><br>
-                尺码：<span style="color:#ccc">L</span>
-            </td>
-            <td>199.00</td>
-            <td><input type="text" name="min" value="1" style="width:50px;text-align:center"></td>
-            <td>删除</td>
-        </tr>
-        </tbody>
-    </table>
+  <!--  <table class="table table-striped table-bordered table-hover">-->
+    <table id="dg" style="height:240px;width:1200px"></table>
+  <!--  </table>-->
 </div>
 <div class="Cprice">
     <div class="price">总价：199.00</div>
@@ -183,61 +213,6 @@
 </div>
 
 <!-- 模态弹出窗内容 -->
-<div class="modal" id="mymodal-data" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">新添收货地址</h4>
-            </div>
-            <div class="modal-body" style="overflow:hidden">
-                <div class="form-group">
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail1" placeholder="请输入您的所在地区">
-                    </div>
-                    <br>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail2" placeholder="请输入您的详细地址">
-                    </div>
-                    <br>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail3" placeholder="请输入您的邮政编码">
-                    </div>
-                    <br>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail4" placeholder="请输入您的收货人姓名">
-                    </div>
-                    <br>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail5" placeholder="请输入您的手机号码">
-                    </div>
-                    <br>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail6" placeholder="请输入您的电话号码">
-                    </div>
-                    <br>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">保存</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-</body>
 </body>
 </html>

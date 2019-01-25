@@ -1,6 +1,7 @@
 package com.jk.service.impl;
 
 
+import com.github.pagehelper.PageHelper;
 import com.jk.bean.*;
 
 import com.jk.mapper.GoodMapper;
@@ -50,4 +51,20 @@ public class GoodServiceImpl implements GoodService {
 
         return goodMapper.getAll(id);
     }
+
+    @Override
+    public SendPage getgoulist(ReceivePage receivePage) {
+        List <Shoping> sum=goodMapper.getgoulist(); //计算数据库符合条件的总条数   条数是固
+        PageHelper.startPage(receivePage.getPage(), receivePage.getRows());
+        List <Shoping> list=goodMapper.getgoulist(); //当前页面数据 其大小取决于 每页多少条
+        SendPage sendPage=new SendPage(sum.size(),list);
+        return sendPage;
+    }
+
+    @Override
+    public void deleteItem(String ids) {
+        goodMapper.deleteItem(ids);
+    }
+
+
 }
