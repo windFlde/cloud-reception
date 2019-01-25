@@ -50,11 +50,14 @@ public class LoginController {
                 str = cookie.getValue();
             }
         }
-        List<Shoping> list = redisTemplate.opsForList().range(str, 0, -1);
-        for (Shoping shoping : list) {
-            shoppingCarService.addShopping(shoping);
+        if (str!="") {
+            List<Shoping> list = redisTemplate.opsForList().range(str, 0, -1);
+            for (Shoping shoping : list) {
+                shoppingCarService.addShopping(shoping);
+            }
+            redisTemplate.delete(str);
         }
-        redisTemplate.delete(str);
+
         if (userFromDB != null) {
             System.out.println(userFromDB);
         }
