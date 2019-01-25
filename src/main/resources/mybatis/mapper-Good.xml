@@ -4,7 +4,7 @@
  <!--   List<MallSku> getGoodName(Integer id);-->
     <select id="getGoodName" resultType="MallSku">
 
-SELECT sp.shp_mch shp_mch,sp.shp_tp sh_tp,kc.jg,kc.kcdz,GROUP_CONCAT(sxm.shxm_mch,sxz.shxzh,sxz.shxzh_mch) shp_sx FROM
+SELECT kc.id,sp.shp_mch shp_mch,sp.shp_tp sh_tp,kc.jg,kc.kcdz,GROUP_CONCAT(sxm.shxm_mch,sxz.shxzh,sxz.shxzh_mch) shp_sx FROM
 t_mall_product sp,
 t_mall_sku kc,
 t_mall_sku_attr_value sxg,
@@ -44,5 +44,28 @@ AND sxg.shxzh_id=sxz.Id AND sp.flbh2=#{id}  group by shp_mch
         WHERE sp.Id=kc.shp_id   AND kc.Id=sxg.sku_id AND sxg.shxm_id=sxm.Id
         AND sxg.shxzh_id=sxz.Id AND kc.Id=#{id}  group by shp_mch
     </select>
+
+   <!-- List<Shoping> getgoulist();-->
+    <select id="getgoulist" resultType="Shoping">
+SELECT
+	ms.Id,
+	ms.tjshl,
+	sk.sku_mch mch,
+	sk.jg jg,
+	ms.chjshj sj,
+	mp.shp_tp shptp
+FROM
+	t_mall_shoppingcar ms,
+	t_mall_product mp,
+	t_mall_sku sk
+WHERE
+	ms.shp_id = mp.id
+AND ms.sku_id = sk.id
+    </select>
+
+ <!--   void deleteItem(String ids);-->
+    <delete id="deleteItem">
+    delete t_mall_shoppingcar where id in (${_parameter})
+    </delete>
 
 </mapper>

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @program: cloud-reception
@@ -24,6 +26,18 @@ public class ProductCommentController {
     @ResponseBody
     @RequestMapping("addProductComment")
     public void addProductComment(MallProductComment mallProductComment){
+        mallProductComment.setPlshj(new Date());
+        Integer name = mallProductComment.getYh_id();
+        if (name == null) {
+            //游客登录
+            mallProductComment.setYh_id(8);
+        }
         productCommentService.addProductComment(mallProductComment);
+    }
+    @ResponseBody
+    @RequestMapping("getAllProductComment")
+    public List<MallProductComment> getAllProductComment(MallProductComment mallProductComment){
+        List<MallProductComment> list = productCommentService.getAllProductComment(mallProductComment);
+        return list;
     }
 }

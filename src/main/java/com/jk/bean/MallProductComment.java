@@ -29,7 +29,7 @@ public class MallProductComment {
      * dd_id(订单id)      Integer
      */
     Integer id;
-    String yh_id;
+    Integer yh_id;
     String plnr;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -40,4 +40,7 @@ public class MallProductComment {
     Integer shp_id;
     String shp_mch;
     Integer dd_id;
+    Integer start = 0;
+
+    String yhmz;
 }
