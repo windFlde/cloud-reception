@@ -43,7 +43,7 @@
                 cookieVal = sp2
                 $("#hidden1").val(cookieVal);
             }
-            $("#username1").html("你好,   " + cookieVal + "    ,请登录");
+            $("#username1").html("你好,   " + cookieVal + " ,请登录");
         }
     }
 
@@ -176,24 +176,45 @@
             layer.msg("请填写正确信息！");
         }
     }
+    function removeUser(){
+        var userf = $("#hiddenName").val();
+        console.log("作用域中是否有值"+userf)
+        if(userf==null){
+            layer.msg("您已经注销了");
+            return ;
+        }else{
+            /*ajax   start*/
+            $.ajax({
+                url:"/login/removeUser",
+                type:"POST",
+                success:function(a){
+                    layer.msg("注销成功");
+                    location.reload();
+                },
+                error:function(){
+                    layer.msg("ajax失败");
+                }
+            });
+            /*ajax   end*/
+        }
+
+    }
 </script>
 <body>
 <input type="hidden" id="skuid1" th:value="${param?.skuid}">
 <input id="hiddenName" type="hidden" th:value="${session.userf?.name}">
 <input id="hiddenName1" type="hidden" th:value="${session.userf?.id}">
+<input id="hidden1" type="hidden">
 <div class="top">
     <div class="top_text">
+        <a href="javascript:void(0)" onclick="removeUser()">注销</a>
         <a href="">用户登录</a>
         <a href="">用户注册</a>
         <a href="">供应商登录</a>
         <a href="">供应商注册</a>
-        <input id="hidden1" type="hidden">
         <div id="username1"></div>
     </div>
 </div>
-<!--<div class="top_img">-->
-    <!--<img src="/images/top_img.jpg" alt="">-->
-<!--</div>-->
 <div class="search searchBac">
     <div class="logo"><img src="/images/logo.png" alt=""></div>
     <!--<div class="search_on">-->
