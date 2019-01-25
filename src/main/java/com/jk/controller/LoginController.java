@@ -40,11 +40,11 @@ public class LoginController {
         //判断有没有记住密码
         if (user.getRemempwd()!=null) {
 
-            String jsonString = JSONObject.toJSONString(user);
-            String encode = URLEncoder.encode(jsonString, "utf-8");
+//            String jsonString = JSONObject.toJSONString(user);
+//            String encode = URLEncoder.encode(jsonString, "utf-8");
+//            Cookie pwd = new Cookie("pwd",encode);
+//            response.addCookie(pwd);
             Cookie cookie=new Cookie(Constant.remPwd,user.getName()+Constant.splitChar+user.getPassword());
-            Cookie pwd = new Cookie("pwd",encode);
-            response.addCookie(pwd);
             //设置cookie的时间
             cookie.setMaxAge(410381);
             cookie.setPath("/");
@@ -84,6 +84,12 @@ public class LoginController {
         public String toView(String viewName) {
 
             return viewName;
+        }
+        @ResponseBody
+        @RequestMapping("removeUser")
+        public String removeUser(HttpSession session){
+            session.removeAttribute("userf");
+            return "1";
         }
 
 

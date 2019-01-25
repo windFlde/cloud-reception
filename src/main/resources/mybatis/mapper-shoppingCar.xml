@@ -3,7 +3,7 @@
 <mapper namespace="com.jk.mapper.ShoppingCarMapper">
 
     <insert id="addShopping">
-      insert into t_mall_shoppingCar (hj,yh_id,shp_id,sku_id) value(#{price},#{yh_id},#{shp_id},#{sku_id})
+      insert into t_mall_shoppingCar (tjshl,hj,yh_id,sku_id) value(#{tjshl},#{price},#{yh_id},#{sku_id})
     </insert>
 
     <select id="getShopping" resultType="Shoping">

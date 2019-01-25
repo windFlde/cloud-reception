@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -65,7 +66,7 @@ public class GoodController {
     //查询
     @ResponseBody
     @RequestMapping("getgoulist")
-    public SendPage getBooks(ReceivePage receivePage){
+    public SendPage getBooks(ReceivePage receivePage, HttpSession session){
         SendPage list=goodService.getgoulist(receivePage);
         return list;
     }
@@ -75,6 +76,12 @@ public class GoodController {
     public String deleteItem(String ids){
         goodService.deleteItem(ids);
         return "1";
+    }
+    //js
+    @ResponseBody
+    @RequestMapping("queryGood")
+    public List<Shoping> queryGood(){
+        return goodService.queryGood();
     }
 
 
