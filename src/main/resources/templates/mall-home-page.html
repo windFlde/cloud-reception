@@ -102,7 +102,7 @@
                 success:function(pageUtil){
                     var as = "";
                     $.each(pageUtil,function(index,obj){
-                        as += "<a href='javascript:toIndexes("+obj.id+","+obj.flbh1+")'><font color='blue'>"+obj.flmch2+"</font></a>   ";
+                        as += "<a href='javascript:toIndexes("+obj.id+","+obj.flbh1+")'>"+obj.flmch2+"</a>   ";
                     });
                     $("#tw_"+id+"").html(as);
                 },
@@ -127,7 +127,7 @@
                 success:function(pageUtil){
                     $.each(pageUtil,function(index,obj){
                         content += "<li class='linb'><a href='javascript:getDataTwo("+obj.id+")'><font size='2'>"+obj.flmch1+"</font></a>";
-                        content += "<div id='tw_"+obj.id+"' class='two_nav' style='width:180px;height:66px;'></div></li>";      //创建每一个的子二级分类的“容器”
+                        content += "<div id='tw_"+obj.id+"' class='two_nav' style='background-color: #0f0f0f;width:180px;height:66px;'></div></li>";      //创建每一个的子二级分类的“容器”
                         getDataTwo(obj.id);
                     });
                     $('.nav_mini ul').html(content);
