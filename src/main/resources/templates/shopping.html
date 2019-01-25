@@ -45,11 +45,7 @@
                 cookieVal = sp2
                 $("#hidden1").val(cookieVal);
             }
-            if (cookieVal == "" & cookieVal != null) {
-                $("#username1").html("<font color='red'>你好   ,请登录</font>");
-            } else {
-                $("#username1").html("你好,   " + cookieVal + "    ,请登录");
-            }
+            $("#username1").html("你好,   " + cookieVal + " ,请登录");
         }
     }
     /* 表头 你好登录 ======================================>   end*/
@@ -57,38 +53,82 @@
     //------------------------------------------------------查询开始
     function initDategrid(){
 
-        $('#dg').datagrid({
-            url:'/js/getgoulist',
-            striped:true,
-            toolbar: '#tb',
-            pagination:true,
-            pagePosition:top,
-            pageList:[1,2,3,4,5,6,8,10],
-            pageSize: 5, //默认显示多少条 这个值一定在pagelist中存在
-            loadMsg:'正在加载,别着急',
-            columns:[[
-                {field:'xxx',title:'ID',width:'5%',checkbox:true},
-                {field:'id',title:'ID',width:'5%'},
-                {field:'mch',title:'商品名称',width:350,editor:'text'},
-                {field:'tjshl',title:'商品数量',width:100,align:'right'} ,
-                {field:'jg',title:'商品价格',width:100,align:'right'} ,
-               /* {field:'sku_mch',title:'商品属性',width:300,editor:'text'},*/
-                {field:'shptp',title:'商品图片',width:150,align:'right',
-                    formatter: function(value,row,index){
-                        return "<img width='66' src='"+value+"'>";
-                    }} ,
-                {field:'操作',title:'操作',width:100,align:'right',
-                    formatter: function(value,row,index){
-                        var content=""
-                        content+= "<a href='javascript:void(0)' onclick=deleteItemById("+row.id+",'"+row.mch+"')> 删除</a>"
-                        return content;
-                    }
-                },
-            ]],
-            checkOnSelect:false,//-------如果为true，当用户点击行的时候该复选框就会被选中或取消选中。
-                                // 如果为false，当用户仅在点击该复选框的时候才会呗选中或取消。
+        var hiddenName=$("#hiddenName").val();
+        var hiddenName1=$("#hiddenName1").val();
+        console.log(hiddenName1)
+        console.log(hiddenName)
+        if(hiddenName==null  &&  hiddenName1==null){
+            /*展示  session中   没有值   start*/
+            $('#dg').datagrid({
+                url:'/shopping/getShopingTemp',
+                striped:true,
+                toolbar: '#tb',
+                pagination:true,
+                pagePosition:top,
+                pageList:[1,2,3,4,5,6,8,10],
+                pageSize: 5, //默认显示多少条 这个值一定在pagelist中存在
+                loadMsg:'正在加载,别着急',
+                columns:[[
+                    {field:'xxx',title:'ID',width:'5%',checkbox:true},
+                    {field:'id',title:'ID',width:'5%'},
+                    {field:'mch',title:'商品名称',width:350,editor:'text'},
+                    {field:'tjshl',title:'商品数量',width:100,align:'right'} ,
+                    {field:'jg',title:'商品价格',width:100,align:'right'} ,
+                    /* {field:'sku_mch',title:'商品属性',width:300,editor:'text'},*/
+                    {field:'shptp',title:'商品图片',width:150,align:'right',
+                        formatter: function(value,row,index){
+                            return "<img width='66' src='"+value+"'>";
+                        }} ,
+                    {field:'操作',title:'操作',width:100,align:'right',
+                        formatter: function(value,row,index){
+                            var content=""
+                            content+= "<a href='javascript:void(0)' onclick=deleteItemById("+row.id+",'"+row.mch+"')> 删除</a>"
+                            return content;
+                        }
+                    },
+                ]],
+                checkOnSelect:false,//-------如果为true，当用户点击行的时候该复选框就会被选中或取消选中。
+                                    // 如果为false，当用户仅在点击该复选框的时候才会呗选中或取消。
+            });
+            /*展示  session中    没有值   end*/
+        }else{
+            /*展示  session中有值   start*/
+            $('#dg').datagrid({
+                url:'/js/getgoulist',
+                striped:true,
+                toolbar: '#tb',
+                pagination:true,
+                pagePosition:top,
+                pageList:[1,2,3,4,5,6,8,10],
+                pageSize: 5, //默认显示多少条 这个值一定在pagelist中存在
+                loadMsg:'正在加载,别着急',
+                columns:[[
+                    {field:'xxx',title:'ID',width:'5%',checkbox:true},
+                    {field:'id',title:'ID',width:'5%'},
+                    {field:'mch',title:'商品名称',width:350,editor:'text'},
+                    {field:'tjshl',title:'商品数量',width:100,align:'right'} ,
+                    {field:'jg',title:'商品价格',width:100,align:'right'} ,
+                   /* {field:'sku_mch',title:'商品属性',width:300,editor:'text'},*/
+                    {field:'shptp',title:'商品图片',width:150,align:'right',
+                        formatter: function(value,row,index){
+                            return "<img width='66' src='"+value+"'>";
+                        }} ,
+                    {field:'操作',title:'操作',width:100,align:'right',
+                        formatter: function(value,row,index){
+                            var content=""
+                            content+= "<a href='javascript:void(0)' onclick=deleteItemById("+row.id+",'"+row.mch+"')> 删除</a>"
+                            return content;
+                        }
+                    },
+                ]],
+                checkOnSelect:false,//-------如果为true，当用户点击行的时候该复选框就会被选中或取消选中。
+                                    // 如果为false，当用户仅在点击该复选框的时候才会呗选中或取消。
 
-        });
+            });
+            /*展示  session中有值   end*/
+        }
+
+
     }
     //-------------------------------------------------------查询结束
 
@@ -144,12 +184,17 @@
     //---------------------------------------------------计算总价结束
 </script>
 <body style="zoom: 1;">
+<input type="hidden" id="skuid1" th:value="${param?.skuid}">
+<input id="hiddenName" type="hidden" th:value="${session.userf?.name}">
+<input id="hiddenName1" type="hidden" th:value="${session.userf?.id}">
+<input id="hidden1" type="hidden">
 <div class="top">
     <div class="top_text">
         <a href="">用户登录</a>
         <a href="">用户注册</a>
         <a href="">供应商登录</a>
         <a href="">供应商注册</a>
+        <div id="username1"></div>
     </div>
 </div>
 <div class="top_img">
