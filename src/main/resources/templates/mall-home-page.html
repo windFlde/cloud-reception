@@ -23,7 +23,7 @@
                 type:"POST",
                 success:function(data){
                     $.each(data,function(index,obj){
-                        content += "<li><a href=''><font size='3'>"+obj.groudName+"</font></a>";
+                        content += "<li><a href='"+obj.groudUrl+"'><font size='3'>"+obj.groudName+"</font></a></li>";
                     });
                     $('#asd').html(content)
                 },
@@ -140,6 +140,9 @@
         }
     </script>
 </head>
+<head th:replace="miniCar :: head">
+
+</head>
 <body>
 <div class="top">
     <div class="top_text">
@@ -169,8 +172,11 @@
             <a href="">玉兰油</a>
         </div>
     </div>
-    <div class="card">
+    <!--<div class="card">
         <a href="">购物车<div class="num">0</div></a>
+    </div>-->
+    <div th:replace="miniCar :: miniCar" style="position: absolute">
+
     </div>
 </div>
 <br><br>
