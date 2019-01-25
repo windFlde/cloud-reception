@@ -91,23 +91,45 @@
     }
 
     function addShopping() {
+       var hiddenName=$("#hiddenName").val();
+       var hiddenName1=$("#hiddenName1").val();
+        var tjshl=$("#number").val();
+        var price=price1;
+        var skuid=$("#skuid1").val();
+        if(hiddenName==null  &&  hiddenName1==null){
+                /*ajax   start*/
+                        $.ajax({
+                           url:"/shopping/redisAddShoping",
+                           type:"POST",
+                            data:{tjshl:tjshl,price:price,skuid:skuid},
+                           success:function(a){
+                               window.location.href="/toView?viewName=shopping";
+                           },
+                           error:function(){
+                              layer.msg("ajax失败");
+                           }
+                      });
+                     /*ajax   end*/
+
+        }else{
             var yh_id=$("#hiddenName1").val();
             var tjshl=$("#number").val();
             var price=price1;
             var skuid=$("#skuid1").val();
             /*ajax sku_id*/
-                	$.ajax({
-                			url:"/shopping/addShopping",
-                			type:"POST",
-                			data:{yh_id:yh_id,tjshl:tjshl,price:price,skuid:skuid},
-                			success:function(a){
-                			    window.location.href="/toView?viewName=shopping";
-                			},
-                			error:function(){
-                				layer.msg("ajax失败");
-                			}
-                			});
-                	/*ajax end*/
+            $.ajax({
+                url:"/shopping/addShopping",
+                type:"POST",
+                data:{yh_id:yh_id,tjshl:tjshl,price:price,skuid:skuid},
+                success:function(a){
+                    window.location.href="/toView?viewName=shopping";
+                },
+                error:function(){
+                    layer.msg("ajax失败");
+                }
+            });
+            /*ajax end*/
+        }
 
     }
     function loadComment(){
