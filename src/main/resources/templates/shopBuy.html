@@ -55,7 +55,6 @@
         var content="";
         content+="<div >选择版本:</div>";
         var skuid=$("#skuid1").val();
-        alert(skuid);
         /*ajax   start*/
         	$.ajax({
         			url:"/js/getAll",
@@ -96,10 +95,6 @@
             var tjshl=$("#number").val();
             var price=price1;
             var skuid=$("#skuid1").val();
-            alert("用户id="+yh_id);
-            alert("添加数量="+tjshl);
-            alert("skuid=="+skuid);
-            alert("价格=="+price);
             /*ajax sku_id*/
                 	$.ajax({
                 			url:"/shopping/addShopping",
