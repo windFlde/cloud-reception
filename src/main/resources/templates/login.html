@@ -15,25 +15,14 @@
     })
 
     function cookieHui() {
-        /*
-            th:value="${user?.name}"
-            th:value="${user?.password}"
-            th:checked="${user?.password}==null?'false':'checked'"
-        */
         if(document.cookie!=null & document.cookie!=""){
             var cookie=document.cookie;
-            var split=cookie.split(";");
-            var sp=split[1];
-            var sp1=sp.split("=");
-            console.log(sp1[1]);
-            var sp2=sp1[1];
-            var sp3=sp2.split("xjw1807b");
-            console.log(sp3);
-            $("#name1").val(sp3[0]);
-            console.log($("#name1").val(sp3[0]));
-            $("#password1").val(sp3[1]);
-            console.log($("#password1").val(sp3[1]));
-            if ($("#password1").val(sp3[1]) != null) {
+            var sp=cookie.split("=");
+            var sp1=sp[1];
+            var sp2=sp1.split("xjw1807b");
+            $("#name1").val(sp2[0]);
+            $("#password1").val(sp2[1]);
+            if ($("#password1").val(sp2[1]) != null) {
                 $("#checkbox1").attr("checked",true);
             }
         }else{

@@ -54,11 +54,13 @@
     function  banben() {
         var content="";
         content+="<div >选择版本:</div>";
+        var skuid=$("#skuid1").val();
+        alert(skuid);
         /*ajax   start*/
         	$.ajax({
         			url:"/js/getAll",
         			type:"POST",
-                    data:{id:3},
+                    data:{id:skuid},
         			success:function(pageUtil){
         			    var sp=pageUtil.shp_sx;
         			    $("#titleName").html(pageUtil.shp_mch);
@@ -91,41 +93,28 @@
 
     function addShopping() {
             var yh_id=$("#hiddenName1").val();
-            var sku_id=$("#number").val();
+            var tjshl=$("#number").val();
             var price=price1;
-            alert(yh_id);
-            alert(sku_id);
-            alert(price);
+            var skuid=$("#skuid1").val();
+            alert("用户id="+yh_id);
+            alert("添加数量="+tjshl);
+            alert("skuid=="+skuid);
+            alert("价格=="+price);
             /*ajax sku_id*/
-                	// $.ajax({
-                	// 		url:"/",
-                	// 		type:"POST",
-                	// 		data:{yh_id:yh_id,sku_id:sku_id,jg:price},
-                	// 		success:function(a){
-                	// 		    window.location.href="/view?viewName="+shopping;
-                	// 		},
-                	// 		error:function(){
-                	// 			layer.msg("ajax失败");
-                	// 		}
-                	// 		});
+                	$.ajax({
+                			url:"/shopping/addShopping",
+                			type:"POST",
+                			data:{yh_id:yh_id,tjshl:tjshl,price:price,skuid:skuid},
+                			success:function(a){
+                			    window.location.href="/toView?viewName="+shopping;
+                			},
+                			error:function(){
+                				layer.msg("ajax失败");
+                			}
+                			});
                 	/*ajax end*/
 
     }
-    var jia=1;
-    function jia(){
-        $("#jia").click( function () {
-            var num=jia++;
-            $("#number").html(num);
-        });
-    }
-    var jian=0;
-    function jian (){
-        $("#jian").click( function () {
-            var num=jian++;
-            $("#number").html(num);
-        });
-    }
-
     function loadComment(){
         $.ajax({
             url:"/comment/getAllProductComment",
@@ -173,6 +162,7 @@
     }
 </script>
 <body>
+<input type="hidden" id="skuid1" th:value="${param?.skuid}">
 <input id="hiddenName" type="hidden" th:value="${session.userf?.name}">
 <input id="hiddenName1" type="hidden" th:value="${session.userf?.id}">
 <div class="top">
