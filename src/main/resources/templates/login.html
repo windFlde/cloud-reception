@@ -16,7 +16,9 @@
 
     function cookieHui() {
         if(document.cookie!=null & document.cookie!=""){
+            //decodeURIComponent  解码
             var cookie=document.cookie;
+            console.log("-=====>"+cookie)
             var sp=cookie.split("=");
             var sp1=sp[1];
             var sp2=sp1.split("xjw1807b");
