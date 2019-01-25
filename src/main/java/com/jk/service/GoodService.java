@@ -25,4 +25,6 @@ public interface GoodService {
     SendPage getgoulist(ReceivePage receivePage);
 
     void deleteItem(String ids);
+
+    List<Shoping> queryGood();
 }

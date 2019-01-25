@@ -68,7 +68,6 @@ public class GoodController {
     @RequestMapping("getgoulist")
     public SendPage getBooks(ReceivePage receivePage, HttpSession session){
         SendPage list=goodService.getgoulist(receivePage);
-        session.setAttribute("miniCar",list);
         return list;
     }
     //删除
@@ -77,6 +76,12 @@ public class GoodController {
     public String deleteItem(String ids){
         goodService.deleteItem(ids);
         return "1";
+    }
+    //js
+    @ResponseBody
+    @RequestMapping("queryGood")
+    public List<Shoping> queryGood(){
+        return goodService.queryGood();
     }
 
 

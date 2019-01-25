@@ -11,56 +11,47 @@
 <script type="text/javascript">
         $(function(){
             $('.cart_pro').hide();
+            queryGood()
         })
 
     function loadCar(){
         $('.cart_pro').show();
+
     }
     function removeCar(){
             $('.cart_pro').hide();
         }
+    function queryGood() {
+        $.ajax({
+            url: "/js/queryGood",
+            success: function (result) {
+                cont = "";
+                $.each(result,function (index,obj) {
+                    cont+="<div class='one border'>";
+                    cont+="<img src='"+obj.shptp+"' width='60' height='60'>";
+                    cont+="<span class='one_name'>"+obj.mch+"</span>";
+                    cont+="<span class='one_prece'><b>￥"+obj.jg+"</b><br />删除</span>";
+                    cont+="</div>"
+                })
+                $(".cart_pro").html(cont);
+
+            },
+            error: function () {
+                alert("失败了");
+            }
+        });
+    }
+        
 </script>
 </head>
 <body>
 <div th:fragment="miniCar" ><!--style="position: absolute"-->
-<div class="card">
+<div class="card" onmouseleave="removeCar()">
 
-    <a href="" onmouseenter="loadCar()" onmouseleave="removeCar()">购物车<div class="num">0</div></a>
+    <a href="" onmouseenter="loadCar()" >购物车<div class="num">0</div></a>
 
     <!--购物车商品-->
     <div class="cart_pro">
-        <h6>最新加入的商品</h6>
-        <div class="one">
-            <img src="images/lec1.png"/>
-            <span class="one_name">
-						商品名称商品名称商品名称商品名称
-					</span>
-            <span class="one_prece">
-						<b>￥20000</b><br />
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
-					</span>
-        </div>
-
-        <div class="one border">
-            <img src="images/lec1.png"/>
-            <span class="one_name">
-						商品名称商品名称商品名称商品名称
-					</span>
-            <span class="one_prece">
-						<b>￥20000</b><br />
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
-					</span>
-        </div>
-        <div class="one border">
-            <img src="images/lec1.png"/>
-            <span class="one_name">
-						商品名称商品名称商品名称商品名称
-					</span>
-            <span class="one_prece">
-						<b>￥20000</b><br />
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
-					</span>
-        </div>
 
 
         <div class="gobottom">
