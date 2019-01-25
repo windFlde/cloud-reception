@@ -20,4 +20,8 @@ public interface GoodMapper {
     List<MallAttr> getSx(String id);
 
     MallSku getAll(Integer id);
+
+    List<Shoping> getgoulist();
+
+    void deleteItem(String ids);
 }

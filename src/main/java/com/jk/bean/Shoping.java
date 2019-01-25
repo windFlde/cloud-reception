@@ -3,11 +3,12 @@ package com.jk.bean;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 public class Shoping implements Serializable {
 
-    Integer Id;//(编号)          PKInteger
+    Integer id;//(编号)          PKInteger
 
     Integer tjshl=1;//(添加数量)   Integer
     Integer hj;//(合计)          decimal
@@ -19,5 +20,10 @@ public class Shoping implements Serializable {
     Integer shfxz=1;//(是否选中)   String(1)
 
 
+
+    Double jg;
+    String mch;
+    String shptp;
+    Date sj;
 
 }
