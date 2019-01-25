@@ -34,4 +34,9 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
         shoppingCarMapper.deleteKc(sku_id,tjsl);
     }
 
+    @Override
+    public Shoping getShoppingBySkuid(Integer sku_id) {
+        return shoppingCarMapper.getShoppingBySkuid(sku_id);
+    }
+
 }
