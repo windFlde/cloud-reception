@@ -80,7 +80,7 @@ public class ShoppingCarController {
                 for (int i = 0; i < shopingFormDb.size(); i++) {
 
                     if (shopingFormDb.get(i).getSku_id().equals(shoping.getSku_id())) {
-                        Integer tjsh1 = shopingFormDb.get(i).getTjshl() + 1;
+                        Integer tjsh1 = shopingFormDb.get(i).getTjshl() + shoping.getTjshl();
                         shopingFormDb.get(i).setTjshl(tjsh1);
                         redisTemplate.opsForList().set(str, i, shopingFormDb.get(i));
                         tag = false;

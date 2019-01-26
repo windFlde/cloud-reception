@@ -36,7 +36,7 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
 
     @Override
     public Shoping getShoppingBySkuid(Integer sku_id) {
-        return null;
+        return shoppingCarMapper.getShoppingBySkuid(sku_id);
     }
 
 }
