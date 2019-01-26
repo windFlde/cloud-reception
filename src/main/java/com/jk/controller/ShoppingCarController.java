@@ -29,22 +29,19 @@ public class ShoppingCarController {
     public String addShopping(Shoping shoping) {
 
 
-        Integer i = shoppingCarService.getShoppingById(shoping.getSku_id());
+       /* Integer i = shoppingCarService.getShoppingById(shoping.getSku_id());*/
 
-        if(i>0 ){
             Shoping zf = shoppingCarService.getShoppingZF(shoping.getSku_id());
-            if(zf!=null){
+        if (zf != null) {
+            if(zf.getSku_id().equals(shoping.getSku_id())){
                 shoppingCarService.addTjsl(shoping.getTjshl(),shoping.getSku_id());
             }else {
                 shoppingCarService.addShopping(shoping);
-                shoppingCarService.deleteKc(shoping.getTjshl(),shoping.getSku_id());
             }
-
-
-            return "1";
-        }else {
-            return "2";
+            shoppingCarService.deleteKc(shoping.getTjshl(),shoping.getSku_id());
         }
+            return "1";
+
 
     }
 

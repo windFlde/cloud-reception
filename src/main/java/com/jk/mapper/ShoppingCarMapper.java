@@ -12,7 +12,7 @@ public interface ShoppingCarMapper{
 
     Integer getShoppingById(Integer sku_id);
 
-    void deleteKc(@Param("tjsl") Integer tjsl, @Param("sku_id") Integer sku_id);
+    void deleteKc(@Param("tjshl")Integer tjshl,@Param("sku_id")Integer sku_id);
 
     Shoping getShoppingBySkuid(Integer sku_id);
 

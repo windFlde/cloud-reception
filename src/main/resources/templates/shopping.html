@@ -57,7 +57,7 @@
         var hiddenName1=$("#hiddenName1").val();
         console.log(hiddenName1)
         console.log(hiddenName)
-        if(hiddenName==null  &&  hiddenName1==null){
+        if(hiddenName==""  &&  hiddenName1==""){
             /*展示  session中   没有值   start*/
             $('#dg').datagrid({
                 url:'/shopping/getShopingTemp',
@@ -94,7 +94,7 @@
         }else{
             /*展示  session中有值   start*/
             $('#dg').datagrid({
-                url:'/shopping/getShopingTemp',
+                url:'/js/getgoulist',
                 striped:true,
                 toolbar: '#tb',
                 pagination:true,
