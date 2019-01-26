@@ -51,6 +51,9 @@
     /* 表头 你好登录 ======================================>   end*/
     var price1=0;
     function  banben() {
+        var hiddenName=$("#hiddenName").val();
+        var hiddenName1=$("#hiddenName1").val();
+        console.log(hiddenName+"    ////////"+hiddenName1);
         var content="";
         content+="<div >选择版本:</div>";
         var skuid=$("#skuid1").val();
@@ -61,11 +64,14 @@
             data: {id: skuid},
             success: function (pageUtil) {
                 var sp = pageUtil.shp_sx;
-                $("#titleName").html(pageUtil.shp_mch);
+                var kucun=pageUtil.kc;
+                console.log("库存"+kucun);
+                $("#kucun").html("剩余库存:"+kucun);//库存
+                $("#titleName").html(pageUtil.shp_mch);//商品名字
                 $("#shpmingzi").val(pageUtil.shp_mch);
-                price1 = pageUtil.jg;
+                price1 = pageUtil.jg;//单价
                 $("#jg").html("&nbsp; &nbsp; &nbsp;<font color='red'>" + pageUtil.jg + "</font>");
-                $("#sp_tp").prop("src", pageUtil.sh_tp);//
+                $("#sp_tp").prop("src", pageUtil.sh_tp);//商品图片
                 /*五张图片 start*/
                 $("#tp1").prop("src", pageUtil.sh_tp);//
                 $("#tp2").prop("src", pageUtil.sh_tp);//
@@ -73,8 +79,6 @@
                 $("#tp4").prop("src", pageUtil.sh_tp);//
                 $("#tp5").prop("src", pageUtil.sh_tp);//
                 /*五张图片 end*/
-                //console.log(pageUtil);
-                //console.log(sp)
                 var sp1 = sp.split(",");
                 $.each(sp1, function (index, obj) {
                     content += "  &nbsp&nbsp<font> " + obj + " </font>   &nbsp&nbsp&nbsp&nbsp ";
@@ -94,39 +98,47 @@
         var tjshl=$("#number").val();
         var price=price1;
         var skuid=$("#skuid1").val();
-        if(hiddenName==null  &&  hiddenName1==null){
+        var number=$("#number").val();
+        if(number>=tjshl){
+            /*if start*/
+            if(hiddenName==""  &&  hiddenName1==""){
                 /*ajax   start*/
-                        $.ajax({
-                           url:"/shopping/redisAddShoping",
-                           type:"POST",
-                            data:{tjshl:tjshl,price:price,skuid:skuid},
-                           success:function(a){
-                               window.location.href="/toView?viewName=shopping";
-                           },
-                           error:function(){
-                              layer.msg("ajax失败");
-                           }
-                      });
-                     /*ajax   end*/
+                $.ajax({
+                    url:"/shopping/redisAddShoping",
+                    type:"POST",
+                    data:{tjshl:tjshl,price:price,sku_id:skuid},
+                    success:function(a){
+                        window.location.href="/toView?viewName=shopping";
+                    },
+                    error:function(){
+                        layer.msg("ajax失败");
+                    }
+                });
+                /*ajax   end*/
 
-        }else{
-            var yh_id=$("#hiddenName1").val();
-            var tjshl=$("#number").val();
-            var price=price1;
-            var skuid=$("#skuid1").val();
-            /*ajax sku_id*/
-            $.ajax({
-                url:"/shopping/addShopping",
-                type:"POST",
-                data:{yh_id:yh_id,tjshl:tjshl,price:price,skuid:skuid},
-                success:function(a){
-                    window.location.href="/toView?viewName=shopping";
-                },
-                error:function(){
-                    layer.msg("ajax失败");
-                }
-            });
-            /*ajax end*/
+            }else{
+                var yh_id=$("#hiddenName1").val();
+                var tjshl=$("#number").val();
+                var price=price1;
+                var skuid=$("#skuid1").val();
+                /*ajax sku_id*/
+                $.ajax({
+                    url:"/shopping/addShopping",
+                    type:"POST",
+                    data:{yh_id:yh_id,tjshl:tjshl,price:price,skuid:skuid},
+                    success:function(a){
+                        window.location.href="/toView?viewName=shopping";
+                    },
+                    error:function(){
+                        layer.msg("ajax失败");
+                    }
+                });
+                /*ajax end*/
+            }
+            /*if end*/
+        }else {
+            layer.msg("购买数量大于库存数量");
+            return ;
         }
 
     }
@@ -201,7 +213,8 @@
 <input id="hiddenName1" type="hidden" th:value="${session.userf?.id}">
 <div class="top">
     <div class="top_text">
-        <a href="">用户登录</a>
+        <a href='javascript:void(0)' onclick=removeUser()>注销</a>
+        <a href='javascript:void(0)' onclick=toLogin()>用户登录</a>
         <a href="">用户注册</a>
         <a href="">供应商登录</a>
         <a href="">供应商注册</a>
@@ -319,15 +332,17 @@
             </div>
             <!-- 服务   =============================================================>end -->
             <div class="clear" style="margin-top:20px;">
+                <div id="kucun"></div>
                 <div class="min_t" style="line-height:36px">数量：</div>
                 <div class="num_box">
-                    <input id="number" class="easyui-numberspinner" th:value="1" style="width:80px;"  required="required" data-options="min:1,max:100,editable:false">
-                    <div class="rg">
+                    <div id="rgdiv" class="rg">
+                        <input id="number" class="easyui-numberspinner" th:value="1" style="width:80px;" required="required"
+                               data-options="min:1,max:100,editable:false">
                     </div>
                 </div>
             </div>
             <div class="clear" style="margin-top:20px;">
-                <input type="button" class="btn btn-default" onclick="addShopping()" value="加入购物车">
+                <input type="button" class="btn btn-default" id="addShop" onclick="addShopping()" value="加入购物车">
             </div>
         </div>
     </div>
@@ -369,6 +384,7 @@
 <div class="footer">
     <div class="top"></div>
     <div class="bottom"><img src="/images/foot.jpg" alt=""></div>
+</div>
 </div>
 </body>
 </html>

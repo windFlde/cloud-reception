@@ -14,4 +14,9 @@ public interface ShoppingCarService {
 
     void deleteKc(Integer tjsl, Integer sku_id);
 
+    Shoping getShoppingBySkuid(Integer sku_id);
+
+    Shoping getShoppingZF(Integer sku_id);
+
+    void addTjsl(Integer tjshl,Integer sku_id);
 }

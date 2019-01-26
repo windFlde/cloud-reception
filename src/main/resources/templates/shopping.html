@@ -94,7 +94,7 @@
         }else{
             /*展示  session中有值   start*/
             $('#dg').datagrid({
-                url:'/js/getgoulist',
+                url:'/shopping/getShopingTemp',
                 striped:true,
                 toolbar: '#tb',
                 pagination:true,
@@ -175,7 +175,6 @@
                             $.each(rows,function(index,obj){
                            ids+=obj.jg*obj.tjshl;
                             });
-                            alert(ids);
                             $("#sss").html(ids);
             }
         });
