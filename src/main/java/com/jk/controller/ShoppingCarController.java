@@ -2,12 +2,10 @@ package com.jk.controller;
 
 import com.jk.bean.Shoping;
 import com.jk.service.ShoppingCarService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -30,8 +28,17 @@ public class ShoppingCarController {
     @RequestMapping("addShopping")
     public String addShopping(Shoping shoping) {
 
-        shoppingCarService.addShopping(shoping);
-        return "";
+
+        Integer i = shoppingCarService.getShoppingById(shoping.getSku_id());
+        if(i>0 && shoping.getSku_id()!=null){
+            shoppingCarService.addShopping(shoping);
+            shoppingCarService.deleteKc(shoping.getTjshl(),shoping.getSku_id());
+
+            return "1";
+        }else {
+            return "2";
+        }
+
     }
 
     @ResponseBody
