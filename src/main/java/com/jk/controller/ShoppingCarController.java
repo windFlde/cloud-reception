@@ -31,7 +31,7 @@ public class ShoppingCarController {
 
         Integer i = shoppingCarService.getShoppingById(shoping.getSku_id());
 
-        if(i>0 && shoping.getSku_id()!=null){
+        if(i>0 ){
             Shoping zf = shoppingCarService.getShoppingZF(shoping.getSku_id());
             if(zf!=null){
                 shoppingCarService.addTjsl(shoping.getTjshl(),shoping.getSku_id());
