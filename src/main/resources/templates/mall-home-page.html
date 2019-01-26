@@ -137,12 +137,33 @@
                 }
             });
         }
+
+        function removeUser() {
+            /*ajax   start*/
+            $.ajax({
+                url:"/login/removeUser",
+                type:"POST",
+                data:$("form").serialize(),
+                success:function(a){
+                    location.reload();
+                },
+                error:function(){
+                    layer.msg("ajax失败");
+                }
+            });
+            /*ajax   end*/
+        }
+
+        function toLogin() {
+            window.location.href="/login/toLoginHtml";
+        }
     </script>
 </head>
 <body>
 <div class="top">
     <div class="top_text">
-        <a href="">用户登录</a>
+        <a href='javascript:void(0)' onclick=removeUser()>注销</a>
+        <a href='javascript:void(0)' onclick=toLogin()>用户登录</a>
         <a href="">用户注册</a>
         <a href="">供应商登录</a>
         <a href="">供应商注册</a>

@@ -35,11 +35,12 @@ public class ShoppingCarController {
         if (zf != null) {
             if(zf.getSku_id().equals(shoping.getSku_id())){
                 shoppingCarService.addTjsl(shoping.getTjshl(),shoping.getSku_id());
-            }else {
-                shoppingCarService.addShopping(shoping);
             }
-            shoppingCarService.deleteKc(shoping.getTjshl(),shoping.getSku_id());
+
+        }else {
+            shoppingCarService.addShopping(shoping);
         }
+        shoppingCarService.deleteKc(shoping.getTjshl(),shoping.getSku_id());
             return "1";
 
 
