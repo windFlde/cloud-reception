@@ -67,8 +67,13 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
-    public List<Shoping> queryGood() {
-        return goodMapper.queryGood();
+    public List<Shoping> queryGood(Integer yh_id) {
+        return goodMapper.queryGood(yh_id);
+    }
+
+    @Override
+    public Integer countGood(Integer yh_id) {
+        return goodMapper.countGood(yh_id);
     }
 
 }

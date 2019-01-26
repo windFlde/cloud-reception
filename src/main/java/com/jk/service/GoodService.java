@@ -26,5 +26,8 @@ public interface GoodService {
 
     void deleteItem(String ids);
 
-    List<Shoping> queryGood();
+    List<Shoping> queryGood(Integer yh_id);
+
+    Integer countGood(Integer yh_id);
+
 }

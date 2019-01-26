@@ -11,7 +11,8 @@
 <script type="text/javascript">
         $(function(){
             $('.cart_pro').hide();
-            queryGood()
+            queryGood();
+            countGood();
         })
 
     function loadCar(){
@@ -22,8 +23,13 @@
             $('.cart_pro').hide();
         }
     function queryGood() {
+            var id = $("#session").val()
+            if(id==null){
+                id=0
+            }
         $.ajax({
             url: "/js/queryGood",
+            data:{yh_id:id},
             success: function (result) {
                 cont = "";
                 $.each(result,function (index,obj) {
@@ -41,17 +47,34 @@
             }
         });
     }
-        
+        function countGood() {
+            var id = $("#session").val()
+            if(id==null){
+                id=0
+            }
+            $.ajax({
+                url: "/js/countGood",
+                data:{yh_id:id},
+                success: function (result) {
+                    $("#num").html(result);
+                },
+                error: function () {
+                    alert("失败了");
+                }
+            });
+        }
+
 </script>
 </head>
 <body>
+<input id="session"  th:value="${session.userf?.id}">
 <div th:fragment="miniCar" ><!--style="position: absolute"-->
 <div class="card" onmouseleave="removeCar()">
 
-    <a href="" onmouseenter="loadCar()" >购物车<div class="num">0</div></a>
+    <a href="" onmouseenter="loadCar()" >购物车<div class="num" id="num">0</div></a>
 
     <!--购物车商品-->
-    <div class="cart_pro">
+    <div class="cart_pro" style="height:320px;width:320px;overflow:auto">
 
 
         <div class="gobottom">

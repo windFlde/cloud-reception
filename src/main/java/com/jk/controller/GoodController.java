@@ -80,8 +80,15 @@ public class GoodController {
     //js
     @ResponseBody
     @RequestMapping("queryGood")
-    public List<Shoping> queryGood(){
-        return goodService.queryGood();
+    public List<Shoping> queryGood(Integer yh_id){
+        return goodService.queryGood(yh_id);
+    }
+
+    @ResponseBody
+    @RequestMapping("countGood")
+    public Integer countGood(Integer yh_id){
+
+        return goodService.countGood(yh_id);
     }
 
 
