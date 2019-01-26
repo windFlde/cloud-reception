@@ -9,9 +9,10 @@
         plnr,
         plshj,
         hpjb,
+        sku_id,
         shp_mch,
         start)
-        values(#{yh_id},#{plnr},#{plshj},#{hpjb},#{shp_mch},#{start})
+        values(#{yh_id},#{plnr},#{plshj},#{hpjb},#{sku_id},#{shp_mch},#{start})
 </insert>
         <!--List<MallProductComment> getAllProductComment(MallProductComment mallProductComment);-->
         <select id="getAllProductComment" resultType="MallProductComment">
@@ -20,5 +21,6 @@
              t_user u
         where  t.yh_id = u.id
               and start = 1
+              and sku_id = #{sku_id}
         </select>
 </mapper>
