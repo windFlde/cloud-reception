@@ -20,6 +20,7 @@
     $(function () {
         getUserName();
         banben();
+        daoBuy();
         loadComment();
     })
     /* 表头 你好登录样式======================================>  start*/
@@ -151,7 +152,25 @@
             }
         });
     }
-
+         /*
+          * 导购
+          * */
+    function daoBuy(){
+        var content = "";
+        $.ajax({
+            url:"/home/getQueryDG",
+            type:"POST",
+            success:function(data){
+                $.each(data,function(index,obj){
+                    content += "<li><a href='"+obj.groudUrl+"'><font size='3'>"+obj.groudName+"</font></a></li>";
+                });
+                $('#asd').html(content)
+            },
+            error:function(){
+                alert("失败了");
+            }
+        });
+    }
     function submitData() {
         var hpjbzhi = $("[name='hpjb']").val();
         if (hpjbzhi >= 11) {
@@ -243,41 +262,10 @@
     <div class="nav">
         <div class="navs">
           <div class="left_nav">
-                全部商品分类
-                <div class="nav_mini" style="display: none" >
-                    <ul>
-                        <li>
-                            <a href="">家用电器</a>
-                            <div class="two_nav">
-                            </div>
-                        </li>
-                        <li><a href="">手机、数码、通信</a></li>
-                        <li><a href="">电脑、办公</a></li>
-                        <li><a href="">家具、家居、家装</a></li>
-                        <li><a href="">男装、女装、内衣</a></li>
-                        <li><a href="">个户化妆</a></li>
-                        <li><a href="">鞋靴</a></li>
-                        <li><a href="">户外运动</a></li>
-                        <li><a href="">汽车</a></li>
-                        <li><a href="">母婴</a></li>
-                        <li><a href="">食品</a></li>
-                        <li><a href="">营养保健</a></li>
-                        <li><a href="">图书</a></li>
-                        <li><a href="">彩票</a></li>
-                        <li><a href="">理财</a></li>
-                    </ul>
-                </div>
+              <div class="logo"><img src="http://img20.360buyimg.com/da/jfs/t1/23377/26/6007/190377/5c46b6dcE6a2e665e/323a50ca6adbc492.gif?t=1548243688388" width="150" height="120" alt=""></div>
             </div>
             <ul>
-                <li><a href="">服装城</a></li>
-                <li><a href="">美妆馆</a></li>
-                <li><a href="">超市</a></li>
-                <li><a href="">全球购</a></li>
-                <li><a href="">闪购</a></li>
-                <li><a href="">团购</a></li>
-                <li><a href="">拍卖</a></li>
-                <li><a href="">金融</a></li>
-                <li><a href="">智能</a></li>
+                <li id="asd"></li>
             </ul>
     </div>
 </div>
