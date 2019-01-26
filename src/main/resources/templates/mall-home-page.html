@@ -22,7 +22,7 @@
                 type:"POST",
                 success:function(data){
                     $.each(data,function(index,obj){
-                        content += "<li><a href=''><font size='3'>"+obj.groudName+"</font></a>";
+                        content += "<li><a href='"+obj.groudUrl+"'><font size='3'>"+obj.groudName+"</font></a>";
                     });
                     $('#asd').html(content)
                 },
@@ -39,6 +39,8 @@
                             console.log(pageUtil);
                             var p = 0 ;
                             $.each(pageUtil,function (index,obj) {
+
+
                                 $("#wows1_"+p).prop("src",obj.img);
                                 $("#wo_"+p).prop("src",obj.img);
                                 p++;
@@ -192,30 +194,33 @@
         </div>
     </div>
 </div>
-<div class="banner">
+
+
+<div class="banner" >
     <div class="ban">
         <div id="wowslider-container1">
             <div class="ws_images">
             <ul id="imgsad">
                 <li><img src="/jiaoben/data1/images/1.jpg" alt="1" title="1" id="wows1_0"></li>
                 <li><img src="/jiaoben/data1/images/2.jpg" alt="2" title="2" id="wows1_1"></li>
-                <li><a href="http://wowslider.com/vi"><img src="/jiaoben/data1/images/3.jpg" alt="bootstrap carousel" title="3" id="wows1_2"></a></li>
+                <li><img src="/jiaoben/data1/images/3.jpg" alt="3" title="3" id="wows1_2"></li>
                 <li><img src="/jiaoben/data1/images/4.jpg" alt="4" title="4" id="wows1_3"></li>
             </ul>
             </div>
             <div class="ws_bullets">
                 <div>
-                    <a href="#" title="1"><span><img id="wo_0" src="/jiaoben/data1/tooltips/1.jpg" alt="1">1</span></a>
-                    <a href="#" title="2"><span><img id="wo_1" src="/jiaoben/data1/tooltips/2.jpg" alt="2">2</span></a>
-                    <a href="#" title="3"><span><img id="wo_2" src="/jiaoben/data1/tooltips/3.jpg" alt="3">3</span></a>
-                    <a href="#" title="4"><span><img id="wo_3" src="/jiaoben/data1/tooltips/4.jpg" alt="4">4</span></a></div>
+                    <a href="#" title=""><span></span></a>
+                    <a href="#" title="2"><span></span></a>
+                    <a href="#" title="3"><span></span></a>
+                    <a href="#" title="4"><span></span></a>
                 </div>
+            </div>
             <div class="ws_script" style="position:absolute;left:-99%"></div>
             <div class="ws_shadow"></div>
         </div>
-        <script src="/jiaoben/engine1/wowslider.js"></script>
-        <script src="/jiaoben/engine1/script.js"></script>
     </div>
+    <script src="/jiaoben/engine1/wowslider.js"></script>
+    <script src="/jiaoben/engine1/script.js"></script>
 </div>
 
 </body>
