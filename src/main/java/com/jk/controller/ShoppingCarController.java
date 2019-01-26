@@ -59,6 +59,9 @@ public class ShoppingCarController {
     public void redisAddShoping(Shoping shoping, HttpServletRequest request, HttpServletResponse response) {
         Shoping shopingFromDb = shoppingCarService.getShoppingBySkuid(shoping.getSku_id());
         shopingFromDb.setHj(shoping.getPrice()*shoping.getTjshl());
+        shopingFromDb.setTjshl(shoping.getTjshl());
+        shopingFromDb.setPrice(shoping.getPrice());
+        shopingFromDb.setShfxz(shoping.getShfxz());
         Cookie[] cookies = request.getCookies();
         String str = "";
         if (cookies!=null) {

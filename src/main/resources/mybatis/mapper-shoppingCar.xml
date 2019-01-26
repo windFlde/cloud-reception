@@ -28,21 +28,9 @@
     </update>
 
     <select id="getShoppingBySkuid" resultType="Shoping">
-        SELECT
-	ms.Id,
-	ms.tjshl,
-	sk.sku_mch mch,
-	sk.jg jg,
-	ms.chjshj sj,
-	mp.shp_tp shptp
-FROM
-	t_mall_shoppingcar ms,
-	t_mall_product mp,
-	t_mall_sku sk
-WHERE
-	ms.shp_id = mp.id
-AND ms.sku_id = sk.id
-AND sk.Id = #{sku_id}
+        SELECT sk.id sku_id,sk.sku_mch mch,
+	sk.jg jg,mp.shp_tp shptp FROM t_mall_product mp,t_mall_sku sk WHERE mp.id = sk.shp_id AND sk.id = #{sku_id}
+
     </select>
 
 </mapper>
