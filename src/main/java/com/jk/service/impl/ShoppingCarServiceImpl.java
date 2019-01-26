@@ -30,8 +30,9 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
     }
 
     @Override
-    public void deleteKc(Integer tjsl, Integer sku_id) {
-        shoppingCarMapper.deleteKc(sku_id,tjsl);
+    public void deleteKc(Integer tjshl, Integer sku_id) {
+
+        shoppingCarMapper.deleteKc(tjshl,sku_id);
     }
 
     @Override

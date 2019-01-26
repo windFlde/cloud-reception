@@ -12,7 +12,7 @@ public interface ShoppingCarService {
 
     Integer getShoppingById(Integer sku_id);
 
-    void deleteKc(Integer tjsl, Integer sku_id);
+    void deleteKc(Integer tjshl, Integer sku_id);
 
     Shoping getShoppingBySkuid(Integer sku_id);
 

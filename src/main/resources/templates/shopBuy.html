@@ -125,7 +125,7 @@
                 $.ajax({
                     url:"/shopping/addShopping",
                     type:"POST",
-                    data:{yh_id:yh_id,tjshl:tjshl,price:price,skuid:skuid},
+                    data:{yh_id:yh_id,tjshl:tjshl,price:price,sku_id:skuid},
                     success:function(a){
                         window.location.href="/toView?viewName=shopping";
                     },

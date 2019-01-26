@@ -3,7 +3,7 @@
 <mapper namespace="com.jk.mapper.ShoppingCarMapper">
 
     <insert id="addShopping">
-      insert into t_mall_shoppingCar (hj,yh_id,shp_id,sku_id) value(#{price},#{yh_id},#{shp_id},#{sku_id})
+      insert into t_mall_shoppingCar (tjshl,hj,yh_id,shp_id,sku_id) value(#{tjshl},#{price},#{yh_id},#{shp_id},#{sku_id})
     </insert>
 
     <select id="getShopping" resultType="Shoping">
@@ -23,7 +23,7 @@
     </select>
 
     <update id="deleteKc">
-        UPDATE t_mall_shoppingCar sh,t_mall_sku s set s.kc = s.kc - #{tjsl}
+        UPDATE t_mall_shoppingCar sh,t_mall_sku s set s.kc = s.kc - #{tjshl}
         where sh.sku_id = s.Id and sh.sku_id = #{sku_id}
     </update>
 
@@ -35,24 +35,15 @@
 
     <select id="getShoppingZF" resultType="Shoping">
         SELECT
-            ms.Id,
-            ms.tjshl,
-            sk.sku_mch mch,
-            sk.jg jg,
-            ms.chjshj sj,
-            mp.shp_tp shptp
+            *
         FROM
-            t_mall_shoppingcar ms,
-            t_mall_product mp,
-            t_mall_sku sk
+            t_mall_shoppingcar
         WHERE
-            ms.shp_id = mp.id
-        AND ms.sku_id = sk.id
-        AND sk.Id = #{sku_id}
+        sku_id = #{id}
     </select>
     
     <update id="addTjsl">
-        UPDATE t_mall_shoppingCar sh,t_mall_sku s set s.kc = s.kc + #{tjshl}
+        UPDATE t_mall_shoppingCar sh,t_mall_sku s set sh.tjshl = sh.tjshl + #{tjshl}
         where sh.sku_id = s.Id and sh.sku_id = #{sku_id}
     </update>
 
