@@ -15,4 +15,8 @@ public interface ShoppingCarMapper{
     void deleteKc(@Param("tjsl") Integer tjsl, @Param("sku_id") Integer sku_id);
 
     Shoping getShoppingBySkuid(Integer sku_id);
+
+    Shoping getShoppingZF(Integer sku_id);
+
+    void addTjsl(@Param("tjshl")Integer tjshl,@Param("sku_id")Integer sku_id);
 }

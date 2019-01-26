@@ -39,4 +39,15 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
         return shoppingCarMapper.getShoppingBySkuid(sku_id);
     }
 
+    @Override
+    public Shoping getShoppingZF(Integer sku_id) {
+
+        return shoppingCarMapper.getShoppingZF(sku_id);
+    }
+
+    @Override
+    public void addTjsl(Integer tjshl,Integer sku_id) {
+         shoppingCarMapper.addTjsl(tjshl,sku_id);
+    }
+
 }

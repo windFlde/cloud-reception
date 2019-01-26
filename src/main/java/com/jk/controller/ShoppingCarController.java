@@ -30,18 +30,20 @@ public class ShoppingCarController {
 
 
         Integer i = shoppingCarService.getShoppingById(shoping.getSku_id());
-        if(i>0 && shoping.getPrice()!=null){
-            shoppingCarService.addShopping(shoping);
-            shoppingCarService.deleteKc(shoping.getTjshl(),shoping.getSku_id());
+
+        if(i>0 ){
+            Shoping zf = shoppingCarService.getShoppingZF(shoping.getSku_id());
+            if(zf!=null){
+                shoppingCarService.addTjsl(shoping.getTjshl(),shoping.getSku_id());
+            }else {
+                shoppingCarService.addShopping(shoping);
+                shoppingCarService.deleteKc(shoping.getTjshl(),shoping.getSku_id());
+            }
+
 
             return "1";
         }else {
-            if(i>0){
-                return "2";
-            }else {
-                return "3";
-            }
-
+            return "2";
         }
 
     }
