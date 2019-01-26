@@ -17,7 +17,7 @@ public class Shoping implements Serializable {
     Integer price;
     Integer sku_id;//(skuid)     Integer
 
-    Integer shfxz;//(是否选中)   String(1)
+    Integer shfxz=1;//(是否选中)   String(1)
 
 
 

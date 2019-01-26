@@ -61,7 +61,7 @@ public class HomeController {
         session.setAttribute("class1",class1);
         session.setAttribute("class2",class2);
         return "search";
-        }
+    }
 
     /*
     * 导购

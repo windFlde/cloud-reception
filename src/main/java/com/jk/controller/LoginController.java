@@ -1,9 +1,12 @@
 package com.jk.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jk.bean.Shoping;
 import com.jk.bean.User;
 import com.jk.client.LoginClient;
+import com.jk.service.ShoppingCarService;
 import com.jk.utils.Constant;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 
 @Controller
 @RequestMapping("login")
@@ -24,6 +28,11 @@ public class LoginController {
     @Resource
     LoginClient loginClient;
 
+    @Resource
+    private RedisTemplate<String, Shoping> redisTemplate;
+
+    @Resource
+    ShoppingCarService shoppingCarService;
 
     @ResponseBody
     @RequestMapping("toLoginByNameAndPassword")
@@ -33,6 +42,22 @@ public class LoginController {
             return "2";
         }
             session.setAttribute("userf",userFromDB);
+
+        Cookie[] cookies = request.getCookies();
+        String str = "";
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("keyUUid")) {
+                str = cookie.getValue();
+            }
+        }
+        if (!str.equals("")) {
+            List<Shoping> list = redisTemplate.opsForList().range(str, 0, -1);
+            for (Shoping shoping : list) {
+                shoppingCarService.addShopping(shoping);
+            }
+        }
+
+        redisTemplate.delete(str);
         if (userFromDB != null) {
             System.out.println(userFromDB);
         }

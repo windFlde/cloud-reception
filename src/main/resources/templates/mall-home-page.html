@@ -7,7 +7,6 @@
     <script src="/js/jquery-2.1.1.min.js"></script>
     <link rel="stylesheet" href="/jiaoben/engine1/style.css">
     <script src="/jiaoben/engine1/jquery.js"></script>
-
     <script type="text/javascript">
 
         $(function(){
@@ -23,7 +22,7 @@
                 type:"POST",
                 success:function(data){
                     $.each(data,function(index,obj){
-                        content += "<li><a href='"+obj.groudUrl+"'><font size='3'>"+obj.groudName+"</font></a></li>";
+                        content += "<li><a href=''><font size='3'>"+obj.groudName+"</font></a>";
                     });
                     $('#asd').html(content)
                 },
@@ -140,9 +139,6 @@
         }
     </script>
 </head>
-<head th:replace="miniCar :: head">
-
-</head>
 <body>
 <div class="top">
     <div class="top_text">
@@ -172,11 +168,8 @@
             <a href="">玉兰油</a>
         </div>
     </div>
-    <!--<div class="card">
+    <div class="card">
         <a href="">购物车<div class="num">0</div></a>
-    </div>-->
-    <div th:replace="miniCar :: miniCar" style="position: absolute">
-
     </div>
 </div>
 <br><br>
@@ -196,9 +189,7 @@
         </div>
     </div>
 </div>
-
-
-<div class="banner" style="margin-left:-8px;z-index:-100;position: relative;">
+<div class="banner">
     <div class="ban">
         <div id="wowslider-container1">
             <div class="ws_images">
@@ -219,9 +210,10 @@
             <div class="ws_script" style="position:absolute;left:-99%"></div>
             <div class="ws_shadow"></div>
         </div>
+        <script src="/jiaoben/engine1/wowslider.js"></script>
+        <script src="/jiaoben/engine1/script.js"></script>
     </div>
-    <script src="/jiaoben/engine1/wowslider.js"></script>
-    <script src="/jiaoben/engine1/script.js"></script>
 </div>
+
 </body>
 </html>
