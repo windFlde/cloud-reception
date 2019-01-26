@@ -60,12 +60,16 @@
             type: "POST",
             data: {id: skuid},
             success: function (pageUtil) {
+                console.log("pageutil"+pageUtil);
                 var sp = pageUtil.shp_sx;
-                $("#titleName").html(pageUtil.shp_mch);
+                var kucun=pageUtil.kc;
+                console.log("库存"+kucun);
+                $("#kucun").html("剩余库存:"+kucun);//库存
+                $("#titleName").html(pageUtil.shp_mch);//商品名字
                 $("#shpmingzi").val(pageUtil.shp_mch);
-                price1 = pageUtil.jg;
+                price1 = pageUtil.jg;//单价
                 $("#jg").html("&nbsp; &nbsp; &nbsp;<font color='red'>" + pageUtil.jg + "</font>");
-                $("#sp_tp").prop("src", pageUtil.sh_tp);//
+                $("#sp_tp").prop("src", pageUtil.sh_tp);//商品图片
                 /*五张图片 start*/
                 $("#tp1").prop("src", pageUtil.sh_tp);//
                 $("#tp2").prop("src", pageUtil.sh_tp);//
@@ -73,8 +77,6 @@
                 $("#tp4").prop("src", pageUtil.sh_tp);//
                 $("#tp5").prop("src", pageUtil.sh_tp);//
                 /*五张图片 end*/
-                //console.log(pageUtil);
-                //console.log(sp)
                 var sp1 = sp.split(",");
                 $.each(sp1, function (index, obj) {
                     content += "  &nbsp&nbsp<font> " + obj + " </font>   &nbsp&nbsp&nbsp&nbsp ";
@@ -193,6 +195,40 @@
     function alertItem(value) {
         if (value >= 11) {
             layer.msg("请填写正确信息！");
+        }
+    }
+
+    function saveNumber() {
+            /*ajax   start*/
+                    // $.ajax({
+                    //    url:"/getPersons",
+                    //    type:"POST",
+                    //    data:$("form").serialize(),
+                    //    success:function(a){
+                    //        if(a==1){
+                               var jia=$("#number").val();
+                               jia++;
+                               $("#number").val(jia);
+                       //     }else{
+                       //         layer.msg("超过库存数量");
+                       //     }
+                       // },
+                       // error:function(){
+                       //    layer.msg("ajax失败");
+                       // }
+                   // });
+                 /*ajax   end*/
+
+    }
+
+    function jianNumber() {
+        var jian=$("#number").val();
+        if(jian<=1){
+            layer.msg("购买数量不能低于1");
+            return ;
+        }else{
+            jian--;
+            $("#number").html(jian);
         }
     }
 </script>
@@ -325,11 +361,13 @@
             </div>
             <!-- 服务   =============================================================>end -->
             <div class="clear" style="margin-top:20px;">
+                <div id="kucun"></div>
                 <div class="min_t" style="line-height:36px">数量：</div>
                 <div class="num_box">
-                    <input id="number" class="easyui-numberspinner" th:value="1" style="width:80px;" required="required"
-                           data-options="min:1,max:100,editable:false">
                     <div class="rg">
+                        <input type="button" onclick="saveNumber()" value="+">
+                        <input id="number" type="text" th:value="1">
+                        <input type="button" onclick="jianNumber()" value="-">
                     </div>
                 </div>
             </div>

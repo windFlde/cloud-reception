@@ -35,7 +35,7 @@ AND sxg.shxzh_id=sxz.Id AND sp.flbh2=#{id}  group by shp_mch
     </select>
 
     <select id="getAll" resultType="MallSku">
-        SELECT sp.Id,shp_mch,sp.shp_tp sh_tp,kc.jg,kc.kcdz,GROUP_CONCAT(sxm.shxm_mch,sxz.shxzh,sxz.shxzh_mch) shp_sx FROM
+        SELECT sp.Id,shp_mch,sp.shp_tp sh_tp,kc.jg,kc.kcdz,kc.kc,GROUP_CONCAT(sxm.shxm_mch,sxz.shxzh,sxz.shxzh_mch) shp_sx FROM
         t_mall_product sp,
         t_mall_sku kc,
         t_mall_sku_attr_value sxg,
