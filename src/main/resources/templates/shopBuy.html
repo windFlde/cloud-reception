@@ -51,6 +51,9 @@
     /* 表头 你好登录 ======================================>   end*/
     var price1=0;
     function  banben() {
+        var hiddenName=$("#hiddenName").val();
+        var hiddenName1=$("#hiddenName1").val();
+        console.log(hiddenName+"    ////////"+hiddenName1);
         var content="";
         content+="<div >选择版本:</div>";
         var skuid=$("#skuid1").val();
@@ -61,6 +64,9 @@
             data: {id: skuid},
             success: function (pageUtil) {
                 console.log("pageutil"+pageUtil);
+                if(pageUtil.kc<=0){
+                    $("#addShop").attr("disabled",true);
+                }
                 var sp = pageUtil.shp_sx;
                 var kucun=pageUtil.kc;
                 console.log("库存"+kucun);
@@ -96,40 +102,49 @@
         var tjshl=$("#number").val();
         var price=price1;
         var skuid=$("#skuid1").val();
-        if(hiddenName==null  &&  hiddenName1==null){
+        var number=$("#number").val();
+        if(number>=tjshl){
+            /*if start*/
+            if(hiddenName==""  &&  hiddenName1==""){
                 /*ajax   start*/
-                        $.ajax({
-                           url:"/shopping/redisAddShoping",
-                           type:"POST",
-                            data:{tjshl:tjshl,price:price,skuid:skuid},
-                           success:function(a){
-                               window.location.href="/toView?viewName=shopping";
-                           },
-                           error:function(){
-                              layer.msg("ajax失败");
-                           }
-                      });
-                     /*ajax   end*/
+                $.ajax({
+                    url:"/shopping/redisAddShoping",
+                    type:"POST",
+                    data:{tjshl:tjshl,price:price,sku_id:skuid},
+                    success:function(a){
+                        window.location.href="/toView?viewName=shopping";
+                    },
+                    error:function(){
+                        layer.msg("ajax失败");
+                    }
+                });
+                /*ajax   end*/
 
-        }else{
-            var yh_id=$("#hiddenName1").val();
-            var tjshl=$("#number").val();
-            var price=price1;
-            var skuid=$("#skuid1").val();
-            /*ajax sku_id*/
-            $.ajax({
-                url:"/shopping/addShopping",
-                type:"POST",
-                data:{yh_id:yh_id,tjshl:tjshl,price:price,skuid:skuid},
-                success:function(a){
-                    window.location.href="/toView?viewName=shopping";
-                },
-                error:function(){
-                    layer.msg("ajax失败");
-                }
-            });
-            /*ajax end*/
+            }else{
+                var yh_id=$("#hiddenName1").val();
+                var tjshl=$("#number").val();
+                var price=price1;
+                var skuid=$("#skuid1").val();
+                /*ajax sku_id*/
+                $.ajax({
+                    url:"/shopping/addShopping",
+                    type:"POST",
+                    data:{yh_id:yh_id,tjshl:tjshl,price:price,skuid:skuid},
+                    success:function(a){
+                        window.location.href="/toView?viewName=shopping";
+                    },
+                    error:function(){
+                        layer.msg("ajax失败");
+                    }
+                });
+                /*ajax end*/
+            }
+            /*if end*/
+        }else {
+            layer.msg("购买数量大于库存数量");
+            return ;
         }
+
 
     }
 
@@ -198,39 +213,6 @@
         }
     }
 
-    function saveNumber() {
-            /*ajax   start*/
-                    // $.ajax({
-                    //    url:"/getPersons",
-                    //    type:"POST",
-                    //    data:$("form").serialize(),
-                    //    success:function(a){
-                    //        if(a==1){
-                               var jia=$("#number").val();
-                               jia++;
-                               $("#number").val(jia);
-                       //     }else{
-                       //         layer.msg("超过库存数量");
-                       //     }
-                       // },
-                       // error:function(){
-                       //    layer.msg("ajax失败");
-                       // }
-                   // });
-                 /*ajax   end*/
-
-    }
-
-    function jianNumber() {
-        var jian=$("#number").val();
-        if(jian<=1){
-            layer.msg("购买数量不能低于1");
-            return ;
-        }else{
-            jian--;
-            $("#number").html(jian);
-        }
-    }
 </script>
 <body>
 <input type="hidden" id="skuid1" th:value="${param?.skuid}">
@@ -364,15 +346,14 @@
                 <div id="kucun"></div>
                 <div class="min_t" style="line-height:36px">数量：</div>
                 <div class="num_box">
-                    <div class="rg">
-                        <input type="button" onclick="saveNumber()" value="+">
-                        <input id="number" type="text" th:value="1">
-                        <input type="button" onclick="jianNumber()" value="-">
+                    <div id="rgdiv" class="rg">
+                        <input id="number" class="easyui-numberspinner" th:value="1" style="width:80px;" required="required"
+                               data-options="min:1,max:100,editable:false">
                     </div>
                 </div>
             </div>
             <div class="clear" style="margin-top:20px;">
-                <input type="button" class="btn btn-default" onclick="addShopping()" value="加入购物车">
+                <input type="button" class="btn btn-default" id="addShop" onclick="addShopping()" value="加入购物车">
             </div>
         </div>
     </div>
