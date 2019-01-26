@@ -118,12 +118,17 @@ public class ShoppingCarController {
         List<Shoping> list = null;
         Cookie[] cookies = request.getCookies();
         String str = "";
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("keyUUid")) {
-                str = cookie.getValue();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("keyUUid")) {
+                    str = cookie.getValue();
+                }
             }
         }
-        list = redisTemplate.opsForList().range(str, 0, -1);
+
+        if (!str.equals("")) {
+            list = redisTemplate.opsForList().range(str, 0, -1);
+        }
 
         return list;
     }

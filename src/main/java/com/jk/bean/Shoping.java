@@ -12,7 +12,7 @@ public class Shoping implements Serializable {
 
     Integer tjshl;//(添加数量)   Integer
     Integer hj;//(合计)          decimal
-    Integer yh_id;//(用户id)     Integer
+    Integer yh_id=0;//(用户id)     Integer
     Integer shp_id;//(商品id)    Integer
     Integer price;
     Integer sku_id;//(skuid)     Integer
