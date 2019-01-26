@@ -66,9 +66,5 @@ public class GoodServiceImpl implements GoodService {
         goodMapper.deleteItem(ids);
     }
 
-    @Override
-    public List<Shoping> queryGood() {
-        return goodMapper.queryGood();
-    }
 
 }

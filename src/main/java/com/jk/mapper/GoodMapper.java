@@ -24,6 +24,4 @@ public interface GoodMapper {
     List<Shoping> getgoulist();
 
     void deleteItem(String ids);
-
-    List<Shoping> queryGood();
 }

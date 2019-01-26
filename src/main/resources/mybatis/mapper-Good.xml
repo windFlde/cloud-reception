@@ -65,7 +65,7 @@ AND ms.sku_id = sk.id
 
  <!--   void deleteItem(String ids);-->
     <delete id="deleteItem">
-    delete t_mall_shoppingcar where id in (${_parameter})
+    delete from t_mall_shoppingcar where id in (${_parameter})
     </delete>
     <select id="queryGood" resultType="Shoping">
         SELECT

@@ -45,10 +45,10 @@ public class ShoppingCarController {
     @ResponseBody
     @RequestMapping("redisAddShoping")
     public void redisAddShoping(Shoping shoping, HttpServletRequest request, HttpServletResponse response) {
-        Shoping shopingFromDb = shoppingCarService.getShoppingBySkuid(shoping.getSku_id());
+
         String uuid = UUID.randomUUID().toString();
         String keyUUid = uuid.replaceAll("-", "");
-            Cookie[] cookies = request.getCookies();
+        Cookie[] cookies = request.getCookies();
         String str = "";
         if (cookies!=null) {
             for (Cookie cookie : cookies) {
@@ -62,12 +62,6 @@ public class ShoppingCarController {
         if (redisTemplate.hasKey(str)) {
             List<Shoping> shopingFormDb = redisTemplate.opsForList().range(str, 0, -1);
             for (int i = 0; i < shopingFormDb.size(); i++) {
-                System.out.println("---------");
-                System.out.println(shopingFormDb.get(i).getSku_id());
-                System.out.println(shoping.getSku_id());
-                boolean state = shopingFormDb.get(i).getSku_id() == shoping.getSku_id();
-                System.out.println(state);
-                System.out.println("---------");
                 if (shopingFormDb.get(i).getSku_id()==shoping.getSku_id()) {
                     Integer tjsh1 = shopingFormDb.get(i).getTjshl() + 1;
                     shopingFormDb.get(i).setTjshl(tjsh1);
@@ -75,11 +69,10 @@ public class ShoppingCarController {
 
                 }
             }
-            redisTemplate.opsForList().leftPush(str, shopingFromDb);
+            redisTemplate.opsForList().leftPush(str, shoping);
         } else {
             shoping.setHj(shoping.getPrice()*shoping.getTjshl());
-
-            redisTemplate.opsForList().leftPush(keyUUid, shopingFromDb);
+            redisTemplate.opsForList().leftPush(keyUUid, shoping);
             Cookie ShopingTemp = new Cookie("keyUUid",keyUUid);
             response.addCookie(ShopingTemp);
             //设置cookie的时间

@@ -85,12 +85,6 @@ public class LoginController {
 
             return viewName;
         }
-        @ResponseBody
-        @RequestMapping("removeUser")
-        public String removeUser(HttpSession session){
-            session.removeAttribute("userf");
-            return "1";
-        }
 
 
 }

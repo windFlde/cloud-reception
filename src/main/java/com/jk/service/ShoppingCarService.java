@@ -14,5 +14,4 @@ public interface ShoppingCarService {
 
     void deleteKc(Integer tjsl, Integer sku_id);
 
-    Shoping getShoppingBySkuid(Integer sku_id);
 }
