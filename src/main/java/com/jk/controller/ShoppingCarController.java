@@ -80,12 +80,12 @@ public class ShoppingCarController {
             String uuid = UUID.randomUUID().toString();
             String keyUUid = uuid.replaceAll("-", "");
             Cookie ShopingTemp = new Cookie("keyUUid",keyUUid);
-            response.addCookie(ShopingTemp);
+
             //设置cookie的时间
             ShopingTemp.setMaxAge(410381);
             ShopingTemp.setPath("/");
 
-
+            response.addCookie(ShopingTemp);
 
             //shopingFromDb
             redisTemplate.opsForList().leftPush(keyUUid, shopingFromDb);
