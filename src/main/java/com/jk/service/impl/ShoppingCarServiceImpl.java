@@ -16,7 +16,17 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
 
     @Override
     public void addShopping(Shoping shoping) {
+
+        Shoping zf = getShoppingZF(shoping.getSku_id());
+        if (zf != null) {
+            if(zf.getSku_id().equals(shoping.getSku_id())){
+                addTjsl(shoping.getTjshl(),shoping.getSku_id());
+            }
+
+        }else {
         shoppingCarMapper.addShopping(shoping);
+        }
+        deleteKc(shoping.getTjshl(),shoping.getSku_id());
     }
 
     @Override
