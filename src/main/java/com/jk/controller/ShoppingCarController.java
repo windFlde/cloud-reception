@@ -29,19 +29,8 @@ public class ShoppingCarController {
     @RequestMapping("addShopping")
     public String addShopping(Shoping shoping) {
 
-
-       /* Integer i = shoppingCarService.getShoppingById(shoping.getSku_id());*/
-
-            Shoping zf = shoppingCarService.getShoppingZF(shoping.getSku_id());
-        if (zf != null) {
-            if(zf.getSku_id().equals(shoping.getSku_id())){
-                shoppingCarService.addTjsl(shoping.getTjshl(),shoping.getSku_id());
-            }
-
-        }else {
             shoppingCarService.addShopping(shoping);
-        }
-        shoppingCarService.deleteKc(shoping.getTjshl(),shoping.getSku_id());
+
             return "1";
 
 
@@ -64,6 +53,7 @@ public class ShoppingCarController {
         shopingFromDb.setTjshl(shoping.getTjshl());
         shopingFromDb.setPrice(shoping.getPrice());
         shopingFromDb.setShfxz(shoping.getShfxz());
+        shopingFromDb.setShp_id(shoping.getShp_id());
         Cookie[] cookies = request.getCookies();
         String str = "";
         if (cookies!=null) {

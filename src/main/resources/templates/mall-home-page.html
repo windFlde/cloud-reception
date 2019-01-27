@@ -13,6 +13,7 @@
             getDataOne();
             getUserName();
             getImg();
+            getHotSearch();
             /*
             * 导购
             * */
@@ -159,6 +160,22 @@
         function toLogin() {
             window.location.href="/login/toLoginHtml";
         }
+        function  getHotSearch() {
+                $.ajax({
+                        url:"/home/getHotSearch",
+                        type:"POST",
+                        success:function(pageUtil){
+                           var conment = "";
+                           $.each(pageUtil,function(index,obj){
+                               conment +=" <a href='"+obj.url+"' style='font-size: 3'>"+obj.name+"</a>";
+                           });
+                           $("#hot").html(conment);
+                        },
+                        error:function(){
+                            alert("失败了");
+                        }
+                    });
+        }
     </script>
 </head>
 <head th:replace="miniCar :: head">
@@ -187,12 +204,9 @@
             <input type="text" name="search" class="lf">
             <input type="submit" class="clik" value="搜索">
         </div>
-        <div class="se">
-            <a href="">取暖神奇</a>
-            <a href="">1元秒杀</a>
-            <a href="">吹风机</a>
-            <a href="">玉兰油</a>
+        <div class="se" id="hot">
         </div>
+
     </div>
     <div th:replace="miniCar :: miniCar" style="position: absolute">
 
