@@ -64,12 +64,16 @@
             });
         }
 
+        function loadShopping() {
+            window.location.href="/toView?viewName=shopping";
+        }
 </script>
 </head>
 <body>
-<input id="session"  th:value="${session.userf?.id}">
+
 <div th:fragment="miniCar" ><!--style="position: absolute"-->
-<div class="card" onmouseleave="removeCar()">
+    <input id="session"   th:value="${session.userf?.name}">
+<div class="card" onclick="loadShopping()" onmouseleave="removeCar()">
 
     <a href="" onmouseenter="loadCar()" >购物车<div class="num" id="num">0</div></a>
 

@@ -141,6 +141,9 @@
         }
     </script>
 </head>
+<head th:replace="miniCar :: head">
+
+</head>
 <body>
 <div class="top">
     <div class="top_text">
@@ -170,8 +173,8 @@
             <a href="">玉兰油</a>
         </div>
     </div>
-    <div class="card">
-        <a href="">购物车<div class="num">0</div></a>
+    <div th:replace="miniCar :: miniCar" style="position: absolute">
+
     </div>
 </div>
 <br><br>
