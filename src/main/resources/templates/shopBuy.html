@@ -66,6 +66,10 @@
             type: "POST",
             data: {id: skuid},
             success: function (pageUtil) {
+                console.log("pageutil"+pageUtil);
+                if(pageUtil.kc<=0){
+                    $("#addShop").attr("disabled",true);
+                }
                 var sp = pageUtil.shp_sx;
                 var kucun=pageUtil.kc;
                 console.log("库存"+kucun);
@@ -208,11 +212,29 @@
             layer.msg("请填写正确信息！");
         }
     }
+function removeUser() {
+        /*ajax   start*/
+                $.ajax({
+                   url:"/login/removeUser",
+                   type:"POST",
+                   data:$("form").serialize(),
+                   success:function(a){
+                       location.reload();
+                   },
+                   error:function(){
+                      layer.msg("ajax失败");
+                   }
+               });
+             /*ajax   end*/
+}
+
+    function toLogin() {
+        window.location.href="/login/toLoginHtml";
+    }
 </script>
-
-
 <body>
 <input type="hidden" id="skuid1" th:value="${param?.skuid}">
+<input type="hidden" id="shp_id" th:value="${param?.shid}">
 <input id="hiddenName" type="hidden" th:value="${session.userf?.name}">
 <input id="hiddenName1" type="hidden" th:value="${session.userf?.id}">
 <div class="top">
@@ -283,7 +305,9 @@
         <div class="cent">
             <div id="titleName" class="title">海信炫彩4K智能电视（黑色）</div>
             <div class="bg">
-                <p>市场价：<div id="jg"></div></p>
+                <p>市场价：
+                <div id="jg"></div>
+                </p>
             </div>
             <!--选择版本  =============================================================>start-->
             <div class="clear" id="banben">

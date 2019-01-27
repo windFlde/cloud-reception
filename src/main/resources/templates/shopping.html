@@ -6,16 +6,11 @@
     <title>Title</title>
     <script src="/js/jquery-2.1.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/css.css">
-    <script src="/js/layer/layer.js"></script>
     <link rel="stylesheet" href="/js/easyui1.5/themes/icon.css">
     <link rel="stylesheet" href="/js/easyui1.5/themes/default/easyui.css">
     <script src="/js/easyui1.5/jquery.easyui.min.js"></script>
-    <script src="/js/easyui1.5/locale/easyui-lang-zh_CN.js"></script>
 
 
-
-</head>
-<head th:replace="miniCar :: head">
 
 </head>
 <script type="text/javascript" th:inline="none">
@@ -184,6 +179,26 @@
 
     }
     //---------------------------------------------------计算总价结束
+
+    function removeUser() {
+        /*ajax   start*/
+        $.ajax({
+            url:"/login/removeUser",
+            type:"POST",
+            data:$("form").serialize(),
+            success:function(a){
+                location.reload();
+            },
+            error:function(){
+                layer.msg("ajax失败");
+            }
+        });
+        /*ajax   end*/
+    }
+
+    function toLogin() {
+        window.location.href="/login/toLoginHtml";
+    }
 </script>
 <body style="zoom: 1;">
 <input type="hidden" id="skuid1" th:value="${param?.skuid}">
@@ -192,7 +207,8 @@
 <input id="hidden1" type="hidden">
 <div class="top">
     <div class="top_text">
-        <a href="">用户登录</a>
+        <a href='javascript:void(0)' onclick=removeUser()>注销</a>
+        <a href='javascript:void(0)' onclick=toLogin()>用户登录</a>
         <a href="">用户注册</a>
         <a href="">供应商登录</a>
         <a href="">供应商注册</a>
@@ -216,9 +232,6 @@
             <a href="">玉兰油</a>
         </div>
     </div>
-    <div th:replace="miniCar :: miniCar" style="position: absolute">
-
-    </div>
 </div>
 
 <div class="Cbox">
@@ -237,6 +250,6 @@
 </div>
 
 <!-- 模态弹出窗内容 -->
-
+<input type="hidden" id="yh_id" th:value="${param?.yh_id}">
 </body>
 </html>

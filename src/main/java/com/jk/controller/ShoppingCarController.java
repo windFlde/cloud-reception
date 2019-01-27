@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 @RequestMapping("shopping")
@@ -35,11 +36,12 @@ public class ShoppingCarController {
         if (zf != null) {
             if(zf.getSku_id().equals(shoping.getSku_id())){
                 shoppingCarService.addTjsl(shoping.getTjshl(),shoping.getSku_id());
-            }else {
-                shoppingCarService.addShopping(shoping);
             }
-            shoppingCarService.deleteKc(shoping.getTjshl(),shoping.getSku_id());
+
+        }else {
+            shoppingCarService.addShopping(shoping);
         }
+        shoppingCarService.deleteKc(shoping.getTjshl(),shoping.getSku_id());
             return "1";
 
 
@@ -48,6 +50,7 @@ public class ShoppingCarController {
     @ResponseBody
     @RequestMapping("getShopping")
     public List<Shoping> getShopping() {
+
 
 
         return  shoppingCarService.getShopping();
@@ -86,6 +89,7 @@ public class ShoppingCarController {
 
             //shopingFromDb
             redisTemplate.opsForList().leftPush(keyUUid, shopingFromDb);
+            redisTemplate.expire(keyUUid,7, TimeUnit.DAYS);
         }else{
             //有cookie 查reid  包含或者不包含
             boolean tag = true;

@@ -3,10 +3,12 @@ package com.jk.controller;
 import com.jk.bean.*;
 import com.jk.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -16,6 +18,8 @@ public class GoodController {
 
     @Autowired
     private GoodService goodService;
+
+
 
 
     @ResponseBody
@@ -66,8 +70,10 @@ public class GoodController {
     //查询
     @ResponseBody
     @RequestMapping("getgoulist")
-    public SendPage getBooks(ReceivePage receivePage, HttpSession session){
-        SendPage list=goodService.getgoulist(receivePage);
+    public SendPage getBooks(ReceivePage receivePage, HttpSession session,Integer yhid){
+
+        SendPage list = goodService.getgoulist(receivePage);
+
         return list;
     }
     //删除

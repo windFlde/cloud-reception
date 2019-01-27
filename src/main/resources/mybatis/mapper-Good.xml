@@ -4,7 +4,7 @@
  <!--   List<MallSku> getGoodName(Integer id);-->
     <select id="getGoodName" resultType="MallSku">
 
-SELECT kc.id,sp.shp_mch shp_mch,sp.shp_tp sh_tp,kc.jg,kc.kcdz,GROUP_CONCAT(sxm.shxm_mch,sxz.shxzh,sxz.shxzh_mch) shp_sx FROM
+SELECT sp.id shp_id,kc.id,sp.shp_mch shp_mch,sp.shp_tp sh_tp,kc.jg,kc.kcdz,GROUP_CONCAT(sxm.shxm_mch,sxz.shxzh,sxz.shxzh_mch) shp_sx FROM
 t_mall_product sp,
 t_mall_sku kc,
 t_mall_sku_attr_value sxg,
