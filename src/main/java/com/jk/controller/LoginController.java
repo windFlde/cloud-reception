@@ -42,7 +42,7 @@ public class LoginController {
             return "2";
         }
             session.setAttribute("userf",userFromDB);
-
+        String mycookie=request.getHeader("cookie");
         Cookie[] cookies = request.getCookies();
         String str = "";
         for (Cookie cookie : cookies) {
@@ -55,9 +55,10 @@ public class LoginController {
             for (Shoping shoping : list) {
                 shoppingCarService.addShopping(shoping);
             }
+            redisTemplate.delete(str);
         }
 
-        redisTemplate.delete(str);
+
         if (userFromDB != null) {
             System.out.println(userFromDB);
         }

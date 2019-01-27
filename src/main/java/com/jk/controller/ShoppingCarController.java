@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 @RequestMapping("shopping")
@@ -51,6 +52,7 @@ public class ShoppingCarController {
     public List<Shoping> getShopping() {
 
 
+
         return  shoppingCarService.getShopping();
     }
 
@@ -87,6 +89,7 @@ public class ShoppingCarController {
 
             //shopingFromDb
             redisTemplate.opsForList().leftPush(keyUUid, shopingFromDb);
+            redisTemplate.expire(keyUUid,7, TimeUnit.DAYS);
         }else{
             //有cookie 查reid  包含或者不包含
             boolean tag = true;
