@@ -19,4 +19,8 @@
           select * from t_mall_class_2 where flbh1 = #{id}
     </select>
 
+    <!--List<HotSerarch> getHotSearch(String num);-->
+    <select id="getHotSearch" resultType="HotSerarch">
+        select * from t_mall_hotsearch order by rand() limit 4
+    </select>
 </mapper>
