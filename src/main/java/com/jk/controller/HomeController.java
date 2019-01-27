@@ -1,9 +1,6 @@
 package com.jk.controller;
 
-import com.jk.bean.GroudUrl;
-import com.jk.bean.Img;
-import com.jk.bean.MallClassOne;
-import com.jk.bean.MallClassTwo;
+import com.jk.bean.*;
 import com.jk.service.HomeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,4 +73,14 @@ public class HomeController {
         return groudUrlList;
     }
 
+    /**
+     * HotSeach查询
+     */
+    @ResponseBody
+    @RequestMapping("getHotSearch")
+    public List<HotSerarch> getHotSearch(String num){
+        num = "4";
+        List<HotSerarch> list = homeService.getHotSearch(num);
+        return list;
+    }
 }
