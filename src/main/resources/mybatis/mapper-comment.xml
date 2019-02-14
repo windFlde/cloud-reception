@@ -16,11 +16,14 @@
 </insert>
         <!--List<MallProductComment> getAllProductComment(MallProductComment mallProductComment);-->
         <select id="getAllProductComment" resultType="MallProductComment">
-        select t.*,u.name yhmz
-        from t_mall_product_comment t ,
-             t_user u
-        where  t.yh_id = u.id
-              and start = 1
-              and sku_id = #{sku_id}
+            SELECT
+                t.*, u.username yhmz
+            FROM
+                t_mall_product_comment t
+            LEFT JOIN t_user u ON t.yh_id = u.id
+            WHERE
+                t.sku_id = #{sku_id}
+            AND
+              start = 1
         </select>
 </mapper>
