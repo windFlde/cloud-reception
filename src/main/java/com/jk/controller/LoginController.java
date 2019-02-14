@@ -71,7 +71,7 @@ public class LoginController {
 //            String encode = URLEncoder.encode(jsonString, "utf-8");
 //            Cookie pwd = new Cookie("pwd",encode);
 //            response.addCookie(pwd);
-            Cookie cookie=new Cookie(Constant.remPwd,user.getUsername()+Constant.splitChar+user.getUserpswd());
+            Cookie cookie=new Cookie(Constant.remPwd,user.getLoginacct()+Constant.splitChar+user.getUserpswd());
             //设置cookie的时间
             cookie.setMaxAge(410381);
             cookie.setPath("/");
