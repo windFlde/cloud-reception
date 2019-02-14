@@ -25,6 +25,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
+        </dependency>
+
         <!--redis依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

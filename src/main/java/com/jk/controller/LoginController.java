@@ -1,6 +1,5 @@
 package com.jk.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.jk.bean.Shoping;
 import com.jk.bean.User;
 import com.jk.client.LoginClient;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 
 @Controller
@@ -42,6 +40,7 @@ public class LoginController {
             return "2";
         }
             session.setAttribute("userf",userFromDB);
+
         String mycookie=request.getHeader("cookie");
         Cookie[] cookies = request.getCookies();
         String str = "";
@@ -53,6 +52,8 @@ public class LoginController {
         if (!str.equals("")) {
             List<Shoping> list = redisTemplate.opsForList().range(str, 0, -1);
             for (Shoping shoping : list) {
+
+                shoping.setYh_id(userFromDB.getId());
                 shoppingCarService.addShopping(shoping);
             }
             redisTemplate.delete(str);
@@ -70,7 +71,7 @@ public class LoginController {
 //            String encode = URLEncoder.encode(jsonString, "utf-8");
 //            Cookie pwd = new Cookie("pwd",encode);
 //            response.addCookie(pwd);
-            Cookie cookie=new Cookie(Constant.remPwd,user.getName()+Constant.splitChar+user.getPassword());
+            Cookie cookie=new Cookie(Constant.remPwd,user.getLoginacct()+Constant.splitChar+user.getUserpswd());
             //设置cookie的时间
             cookie.setMaxAge(410381);
             cookie.setPath("/");
@@ -93,8 +94,8 @@ public class LoginController {
                     String val = cookie.getValue();
                     String[] strings = val.split(Constant.splitChar);
                     User user = new User();
-                    user.setName(strings[0]);
-                    user.setPassword(strings[1]);
+                    user.setLoginacct(strings[0]);
+                    user.setUserpswd(strings[1]);
                     m.addAttribute("user", user);
                 }
             }

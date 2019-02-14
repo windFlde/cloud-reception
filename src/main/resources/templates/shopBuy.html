@@ -72,6 +72,7 @@
                 }
                 var sp = pageUtil.shp_sx;
                 var kucun=pageUtil.kc;
+                $("#kucun1").val(kucun);
                 console.log("库存"+kucun);
                 $("#kucun").html("剩余库存:"+kucun);//库存
                 $("#titleName").html(pageUtil.shp_mch);//商品名字
@@ -105,15 +106,16 @@
         var tjshl=$("#number").val();
         var price=price1;
         var skuid=$("#skuid1").val();
-        var number=$("#number").val();
-        if(number>=tjshl){
+        var shpid = $("#shp_id").val();
+        var number=$("#kucun1").val();
+        if(tjshl<=number){
             /*if start*/
             if(hiddenName==""  &&  hiddenName1==""){
                 /*ajax   start*/
                 $.ajax({
                     url:"/shopping/redisAddShoping",
                     type:"POST",
-                    data:{tjshl:tjshl,price:price,sku_id:skuid},
+                    data:{tjshl:tjshl,price:price,sku_id:skuid,shp_id:shpid},
                     success:function(a){
                         window.location.href="/toView?viewName=shopping";
                     },
@@ -128,11 +130,12 @@
                 var tjshl=$("#number").val();
                 var price=price1;
                 var skuid=$("#skuid1").val();
+                var shpid = $("#shp_id").val();
                 /*ajax sku_id*/
                 $.ajax({
                     url:"/shopping/addShopping",
                     type:"POST",
-                    data:{yh_id:yh_id,tjshl:tjshl,price:price,sku_id:skuid},
+                    data:{yh_id:yh_id,tjshl:tjshl,price:price,sku_id:skuid,shp_id:shpid},
                     success:function(a){
                         window.location.href="/toView?viewName=shopping";
                     },
@@ -233,9 +236,10 @@ function removeUser() {
     }
 </script>
 <body>
+<input type="hidden" id="kucun1" value="">
 <input type="hidden" id="skuid1" th:value="${param?.skuid}">
 <input type="hidden" id="shp_id" th:value="${param?.shid}">
-<input id="hiddenName" type="hidden" th:value="${session.userf?.name}">
+<input id="hiddenName" type="hidden" th:value="${session.userf?.loginacct}">
 <input id="hiddenName1" type="hidden" th:value="${session.userf?.id}">
 <div class="top">
     <div class="top_text">
