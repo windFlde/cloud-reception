@@ -71,7 +71,7 @@ public class LoginController {
 //            String encode = URLEncoder.encode(jsonString, "utf-8");
 //            Cookie pwd = new Cookie("pwd",encode);
 //            response.addCookie(pwd);
-            Cookie cookie=new Cookie(Constant.remPwd,user.getName()+Constant.splitChar+user.getPassword());
+            Cookie cookie=new Cookie(Constant.remPwd,user.getLoginacct()+Constant.splitChar+user.getUserpswd());
             //设置cookie的时间
             cookie.setMaxAge(410381);
             cookie.setPath("/");
@@ -94,8 +94,8 @@ public class LoginController {
                     String val = cookie.getValue();
                     String[] strings = val.split(Constant.splitChar);
                     User user = new User();
-                    user.setName(strings[0]);
-                    user.setPassword(strings[1]);
+                    user.setLoginacct(strings[0]);
+                    user.setUserpswd(strings[1]);
                     m.addAttribute("user", user);
                 }
             }
