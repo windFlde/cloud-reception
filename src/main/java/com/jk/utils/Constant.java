@@ -32,4 +32,5 @@ public class Constant {
     public static final String remPwd="user_pwd";
 
     public static final String splitChar="xjw1807b";
+
 }
