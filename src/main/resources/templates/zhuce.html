@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <script src="/js/jquery-2.1.1.min.js"></script>
+    <script src="/js/layer/layer.js"></script>
+    <link rel="stylesheet" href="/css/body.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/js/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="/js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+</head>
+<script type="text/javascript">
+    function zhuce() {
+            /*ajax   start*/
+                    $.ajax({
+                       url:"/login/getPersons",
+                       type:"POST",
+                       data:$("form").serialize(),
+                       success:function(a){
+
+                       },
+                       error:function(){
+                          layer.msg("ajax失败");
+                       }
+                   });
+                 /*ajax   end*/
+    }
+</script>
+<body>
+<div  class="container" style="background: #00aeef;width: 75%;height: 100%;">
+    <section id="content">
+
+        <h1>欢迎注册</h1>
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active"><a href="#home" data-toggle="tab"> 用户注册</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" style="background: #419641" id="home">
+                <br/>
+                <form id="form">
+                    <div>
+                        <input type="text" placeholder="账号" required="true" name="loginacct" />
+                    </div>
+                    <div>
+                        <input type="password" placeholder="密码" required="true" name="userpswd" />
+                    </div>
+                    <div>
+                        <input type="password" placeholder="用户名" required="true" name="username" />
+                    </div>
+                    <div>
+                        <input type="password" placeholder="邮箱" required="true" name="email" />
+                    </div>
+                    <div>
+                        <input type="password" placeholder="电话" required="true" name="phone" />
+                    </div>
+                    <div class="">
+                        <span class="help-block u-errormessage" id="js-server-helpinfo">&nbsp;</span>			</div>
+                    <div>
+                        <!-- Button trigger modal -->
+                        <input type="button" onclick="zhuce()" value="注册" class="btn btn-success"/>
+                        <!-- Button trigger modal -->
+                        <a href="#" onclick="">忘记密码?</a>
+                    </div>
+                </form><!-- form -->
+            </div>
+
+        </div>
+
+        <div class="button">
+            <span class="help-block u-errormessage" id="1js-server-helpinfo">&nbsp;</span>
+        </div> <!-- button -->
+    </section><!-- content -->
+</div>
+<br><br><br><br>
+<div style="text-align:center;">
+    <p>来源:More Templates  - Collect from </p>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+
+    </div>
+</div>
+
+</body>
+</html>
