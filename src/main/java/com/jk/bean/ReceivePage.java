@@ -7,13 +7,13 @@
  */  
 package com.jk.bean;
 
-/** 
+/**
  * <pre>项目名称：ssm    
  * 类名称：ReceivePage    
 
  * @version </pre>    
  */
-public class ReceivePage {
+public class ReceivePage  {
     private Integer page;  //当前第几页
 	
     private Integer rows;  //每页几条
