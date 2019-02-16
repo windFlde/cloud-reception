@@ -131,7 +131,7 @@ public class LoginController {
     @ResponseBody
     @RequestMapping("registerUser")
     public String registerUser(User user) {
-        User userFromRegister=loginClient.registerUser(user);
+        loginClient.registerUser(user);
         return "1";
     }
 
