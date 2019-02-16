@@ -7,6 +7,10 @@
     <link rel="shortcut icon" type="image/icon" href="/images/jd.ico">
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <script src="/js/layer/layer.js"></script>
+    <link rel="stylesheet" href="/css/body.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/js/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="/js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
 </head>
 <script type="text/javascript">
 
@@ -50,8 +54,133 @@
 				}
 		});
     }
+    var temp=null;
+    var time=60;
+    function timeDown(){
+        /*ajax start*/
+        $.ajax({
+            url:"/phoneLogin/sendCode",
+            type:"POST",
+            data:$("#form").serialize(),
+            success:function(result){
+                if(result.code==1){ //验证码发送成功  开始倒计时
+                    $("#sendCode").prop("disabled",true)
+                    temp = setInterval("changeBtnText()",1000);
+                }else if(result.code==2){
+                    $("#sendCode").prop("disabled",true)
+                    layer.msg("已经发送验证码,请查看手机!");
+                }else if(result.code==3){
+                    layer.msg("您的手机号已经在黑名单中");
+                }
+            },
+            error:function(){
+                layer.msg("ajax访问失,请看控制台");
+            }
+        });
+        /*ajax end*/
+    }
+    function changeBtnText(){
+        time--;
+        $("#sendCode").html("还剩"+time+"秒");
+        if(time<=0){
+            time=60;
+            $("#sendCode").prop("disabled",false);
+            $("#sendCode").html("重新发送");
+            clearInterval(temp);
+        }
+    }
+    function checkPhone(){
+        var phone=$("[name='phone_no']").val();
+        if(phone.length!=11){
+            layer.msg("手机号码必须为11位");
+            return ;
+        }else{
+            timeDown();
+        }
+    }
+    function checkCode(){
+        $.ajax({
+            url:"/phoneLogin/checkCode",
+            type:"POST",
+            data:$("#form").serialize(),
+            success:function(result){
+                if(result==2){
+                    layer.msg("您的手机号已经在黑名单中");
+                }else if(result==1){
+                    window.location.href="/toView?viewName=mall-home-page";
+                }else if(result==3){
+                    layer.msg("没有检测到您的手机号");
+                }
+            },
+            error:function(){
+                layer.msg("ajax访问失败,请看控制台");
+            }
+        });
+    }
+    function toLogin(viewName) {
+        window.location.href="/login/toView?viewName="+viewName;
+    }
 </script>
 <body>
+<!--模态框start-->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">您好,欢迎您注册!</h4>
+            </div>
+            <div class="modal-body">
+                <!--内容start-->
+                <form id="form1">
+                    <div style="width: 60%">
+                        <div>
+                            <input name="loginacct" type="text" class="form-control"
+                                   placeholder="账号">
+                        </div>
+                    </div>
+                    <div style="width: 60%">
+                        <div>
+                            <input name="userpswd" type="password" class="form-control"
+                                   placeholder="密码">
+                        </div>
+                    </div>
+                    <div style="width: 60%">
+                        <div>
+                            <input name="loginacct" type="text" class="form-control"
+                                   placeholder="用户名">
+                        </div>
+                    </div>
+                    <div style="width: 70%">
+                        <div>
+                            <input name="email" type="text" class="form-control"
+                                   placeholder="邮箱">
+                        </div>
+                    </div>
+                    <div style="width: 70%">
+                        <div>
+                            <input name="phone" type="text" class="form-control"
+                                   placeholder="电话">
+                        </div>
+                    </div>
+                    <div class="">
+                        <span class="help-block u-errormessage" id="js-server-helpinfo">&nbsp;</span>			</div>
+                    <div>
+                        <!-- Button trigger modal -->
+                        <a href="#" onclick="">忘记密码?</a>
+                    </div>
+                </form><!-- form -->
+                <!--内容end-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">注册</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--模态框end-->
 <div class="up" >
     <img src="/div1.jpg" height="45px;" class="hy_img">
     <div class="hy">
@@ -60,53 +189,134 @@
 </div>
 <div class="middle" style="background:#ccffff">
     <div>
-         <div style="margin-top: 50px;background: #ef4d4d;height: 70px" >
+        <div style="margin-top: 50px;background: #ef4d4d;height: 70px" >
 
-         </div>
+        </div>
     </div>
+    <!--login start-->
     <div class="login">
-        <div class="l1 ">
-            <div class="l1_font_01 ">The first team <font color="red">VIP</font></div>
-            <a class="l1_font_02 " href="/login/toView?viewName=zhuce">用户注册</a>
+        <!--ul start-->
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="#home" data-toggle="tab">
+                    账号密码登录
+                </a>
+            </li>
+            <li>
+                <a href="#ios" data-toggle="tab">
+                    手机登录
+                </a>
+            </li>
+
+        </ul>
+        <!--ul end-->
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="home">
+                <!--start-->
+                <div class="l1 ">
+                    <div class="l1_font_01 ">您好,欢迎登录!</div>
+                    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                    <button  class="btn btn-success" data-toggle="modal" data-target="#myModal">用户注册</button>
+                </div>
+                <div class="blank_01"></div>
+                <div class="ts">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="blank_01"></div>
+                <form  id="login_form" method="post">
+                    <div class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button">
+							账号
+						</button>
+					</span>
+                        <input type="text" id="name1" name="loginacct"  class="form-control">
+                    </div>
+                    <div class="blank_01"></div>
+                    <div class="blank_01"></div>
+                    <div class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button">
+							密码
+						</button>
+					</span>
+                        <input type="password" id="password1" name="userpswd"  class="form-control">
+                    </div>
+                    <div class="blank_01"></div>
+                    <div class="blank_01"></div>
+                    <div class="box_01">
+                        <input id="checkbox1" type="checkbox" value="1" name="remempwd"  class="box_01_box">
+                        <div class="box_01_both">
+                            <div class="box_01_both_1">记住密码</div>
+                            <div class="box_01_both_2">忘记密码？</div>
+                        </div>
+                    </div>
+                </form>
+                <div class="blank_01"></div>
+                <a href="#" class="aline">
+                    <div style="background: #FF8C69;" class="red_button" onclick="to_submit()">
+                        登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录
+                    </div>
+                </a>
+                <div class="blank_01"></div>
+                <div class="blank_01"></div>
+                <div class="box_down">
+                    <div class="box_down_1">使用合作网站账号登录京东：</div>
+                    <div class="box_down_1">京东钱包&nbsp;&nbsp;|&nbsp;&nbsp;QQ
+                        &nbsp;&nbsp;|&nbsp;&nbsp;微信
+                    </div>
+                </div>
+                <!--end-->
+            </div>
+            <div class="tab-pane fade" id="ios">
+                <!--start-->
+                <div class="l1 ">
+                    <div class="l1_font_01 ">您好,欢迎登录!</div>
+                    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                    <button  class="btn btn-info" data-toggle="modal" data-target="#myModal">用户注册</button>
+                </div>
+                <div class="blank_01"></div>
+                <div class="ts">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="blank_01"></div>
+                <form id="form">
+                    <div style="width: 70%">
+                        <div>
+                            <input name="phone_no" type="text" class="form-control" id="inputPassword"
+                                   placeholder="手机号">
+                        </div>
+                    </div>
+                    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                    <button style="width: 100px;height: 30px" type="button" onclick="checkPhone()" id="sendCode" class="btn btn-default">发送验证码</button>
+                    <div style="width: 70%">
+                        <div>
+                            <input  id="yzm" name="verify_code" type="text" class="form-control"  placeholder="验证码">
+                        </div>
+                    </div>
+                    <div>
+                    </div>
+                </form>
+                <div class="blank_01"></div>
+                <a href="#" class="aline">
+                    <div style="background: #FF8C69;" class="red_button" onclick="checkCode()">
+                        登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录
+                    </div>
+                </a>
+                <div class="blank_01"></div>
+                <div class="blank_01"></div>
+                <div class="box_down">
+                    <div class="box_down_1">使用合作网站账号登录京东：</div>
+                    <div class="box_down_1">京东钱包&nbsp;&nbsp;|&nbsp;&nbsp;QQ
+                        &nbsp;&nbsp;|&nbsp;&nbsp;微信
+                    </div>
+                </div>
+                <!--end-->
+            </div>
+
         </div>
-        <div class="blank_01"></div>
-        <div class="ts">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-        <div class="blank_01"></div>
-        <form  id="login_form" method="post">
-            <div class="input1">
-                <input type="text" class="input1_01" id="name1" name="loginacct"  >
-            </div>
-            <div class="blank_01"></div>
-            <div class="blank_01"></div>
-            <div class="input2">
-                <input type="text" class="input1_01" id="password1" name="userpswd" >
-            </div>
-        <div class="blank_01"></div>
-        <div class="blank_01"></div>
-        <div class="box_01">
-            <input id="checkbox1" type="checkbox" value="1" name="remempwd"  class="box_01_box">
-            <div class="box_01_both">
-                <div class="box_01_both_1">记住密码</div>
-                <div class="box_01_both_2">忘记密码？</div>
-            </div>
-        </div>
-        </form>
-        <div class="blank_01"></div>
-        <a href="#" class="aline">
-            <div style="background: #FF8C69;" class="red_button" onclick="to_submit()">
-                登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录
-            </div>
-        </a>
-        <div class="blank_01"></div>
-        <div class="blank_01"></div>
-        <div class="box_down">
-            <div class="box_down_1">使用合作网站账号登录京东：</div>
-            <div class="box_down_1">京东钱包&nbsp;&nbsp;|&nbsp;&nbsp;QQ
-                &nbsp;&nbsp;|&nbsp;&nbsp;微信
-            </div>
-        </div>
+
+        <!--login end-->
     </div>
 </div>
 
@@ -114,7 +324,6 @@
     <br>
     <font size="5px">最终解释权归第一组所有!!!!!</font>
 </div>
-
 </body>
 </html>
 
