@@ -45,6 +45,9 @@ public class LoginController {
         if (userFromDB==null) {
             return "2";
         }
+        if(userFromDB.getStatus()==2){
+            return "12";
+        }
             session.setAttribute("userf",userFromDB);
 
         String mycookie=request.getHeader("cookie");
