@@ -1,15 +1,14 @@
 package com.jk.controller;
 
-import com.jk.bean.QueryParam;
-import com.jk.bean.Result;
 import com.jk.bean.Shoping;
 import com.jk.bean.User;
 import com.jk.client.LoginClient;
 import com.jk.service.ShoppingCarService;
 import com.jk.utils.Constant;
-import org.apache.ibatis.annotations.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Controller
 @RequestMapping("login")
@@ -30,6 +28,9 @@ public class LoginController {
 
     @Resource
     LoginClient loginClient;
+
+    @Autowired
+    private JavaMailSenderImpl mailSender;
 
     @Resource
     private RedisTemplate<String, Shoping> redisTemplate;
@@ -131,7 +132,18 @@ public class LoginController {
     @ResponseBody
     @RequestMapping("registerUser")
     public String registerUser(User user) {
-        User userFromRegister=loginClient.registerUser(user);
+        loginClient.registerUser(user);
+
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        // 设置收件人，寄件人
+        simpleMailMessage.setTo(new String[]{user.getEmail()});
+        simpleMailMessage.setFrom("xzh120101@163.com");
+        simpleMailMessage.setSubject("注册信息");
+        simpleMailMessage.setText("恭喜"+user.getUsername()+"注册成功！！！");
+        // 发送邮件
+        mailSender.send(simpleMailMessage);
+        System.out.println("邮件已发送");
+
         return "1";
     }
 
