@@ -13,4 +13,7 @@ public interface LoginClient {
 
     @RequestMapping("user/sendCode")
     User sendCode(QueryParam queryParam);
+
+    @RequestMapping("user/registerUser")
+    User registerUser(User user);
 }

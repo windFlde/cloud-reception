@@ -128,7 +128,12 @@ public class LoginController {
             session.removeAttribute("userf");
             return "1";
         }
-
+    @ResponseBody
+    @RequestMapping("registerUser")
+    public String registerUser(User user) {
+        User userFromRegister=loginClient.registerUser(user);
+        return "1";
+    }
 
 }
 
