@@ -69,13 +69,13 @@ public class PhoneLoginController {
         /*if start <<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         if(codeFromRedis!=null&&codeFromRedis.equals(verify_code)) {
             //用户验证码是对的;
-            User userPhone=loginClient.sendCode(queryParam);
+            User userf=loginClient.sendCode(queryParam);
             /*if start----------======*/
-            if(userPhone!=null){
+            if(userf!=null){
                 /*if start*/
-                if (userPhone.getStatus() ==1) {
+                if (userf.getStatus() ==1) {
                     //用户的手机号没有在黑名单中 继续执行
-                    session.setAttribute("userPhone", userPhone);
+                    session.setAttribute("userf", userf);
                     //登录成功后验证码就失效
                     redisTemplate.delete(Constant.phone_code+queryParam.getPhone_no());
                     return "1";
