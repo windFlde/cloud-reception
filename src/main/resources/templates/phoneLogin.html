@@ -11,49 +11,13 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/js/bootstrap-3.3.7-dist/css/bootstrap.css">
     <script src="/js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <script src="/js/bootstrap-bootbox/bootbox.js"></script>
+    <script src="/js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="/js/bootStrap-addTabs/bootstrap.addtabs.css">
+    <script src="/js/bootStrap-addTabs/bootstrap.addtabs.min.js"></script>
 </head>
 <script type="text/javascript">
-
-    $(function () {
-        cookieHui();
-    })
-
-    function cookieHui() {
-        if(document.cookie!=null & document.cookie!=""){
-            //decodeURIComponent  解码
-            var cookie=document.cookie;
-            console.log("-=====>"+cookie)
-            var sp=cookie.split("=");
-            var sp1=sp[1];
-            var sp2=sp1.split("xjw1807b");
-            $("#name1").val(sp2[0]);
-            $("#password1").val(sp2[1]);
-            if ($("#password1").val(sp2[1]) != null) {
-                $("#checkbox1").attr("checked",true);
-            }
-        }else{
-            return ;
-        }
-    }
-
-    function to_submit() {
-		$.ajax({
-				url:"/login/toLoginByNameAndPassword",
-				type:"POST",
-				data:$("#login_form").serialize(),
-				success:function(a){
-                    if (a == 1) {
-                         layer.msg("成功");
-                         window.location.href="/toView?viewName=mall-home-page";
-                    } else if(a==2){
-                        layer.msg("登录失败,账号密码错误");
-                    }
-				},
-				error:function(){
-					layer.msg("ajax失败");
-				}
-		});
-    }
     var temp=null;
     var time=60;
     function timeDown(){
@@ -109,7 +73,7 @@
                 }else if(result==1){
                     window.location.href="/toView?viewName=mall-home-page";
                 }else if(result==3){
-                    layer.msg("没有检测到您的手机号");
+                 layer.msg("没有检测到您的手机号");
                 }
             },
             error:function(){
@@ -117,6 +81,7 @@
             }
         });
     }
+
     function toLogin(viewName) {
         window.location.href="/login/toView?viewName="+viewName;
     }
@@ -189,9 +154,9 @@
 </div>
 <div class="middle" style="background:#ccffff">
     <div>
-        <div style="margin-top: 50px;background: #ef4d4d;height: 70px" >
+         <div style="margin-top: 50px;background: #ef4d4d;height: 70px" >
 
-        </div>
+         </div>
     </div>
     <!--login start-->
     <div class="login">
@@ -215,8 +180,9 @@
                 <!--start-->
                 <div class="l1 ">
                     <div class="l1_font_01 ">您好,欢迎登录!</div>
-                    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                    <button  class="btn btn-success" data-toggle="modal" data-target="#myModal">用户注册</button>
+                    &nbsp &nbsp &nbsp
+                    <button type="button" onclick="toLogin('phoneLogin')" class="btn btn-success">手机登录</button>
+                    <button  class="btn btn-info" data-toggle="modal" data-target="#myModal">用户注册</button>
                 </div>
                 <div class="blank_01"></div>
                 <div class="ts">
@@ -272,9 +238,11 @@
                 <!--start-->
                 <div class="l1 ">
                     <div class="l1_font_01 ">您好,欢迎登录!</div>
-                    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                    &nbsp &nbsp &nbsp
+                    <button type="button" onclick="toLogin('login')" class="btn btn-primary">账号密码</button>
                     <button  class="btn btn-info" data-toggle="modal" data-target="#myModal">用户注册</button>
                 </div>
+                <div class="blank_01"></div>
                 <div class="blank_01"></div>
                 <div class="ts">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -316,7 +284,7 @@
 
         </div>
 
-        <!--login end-->
+    <!--login end-->
     </div>
 </div>
 
@@ -324,6 +292,7 @@
     <br>
     <font size="5px">最终解释权归第一组所有!!!!!</font>
 </div>
+
 </body>
 </html>
 

@@ -1,10 +1,14 @@
 package com.jk.controller;
 
+import com.jk.bean.QueryParam;
+import com.jk.bean.Result;
 import com.jk.bean.Shoping;
 import com.jk.bean.User;
 import com.jk.client.LoginClient;
 import com.jk.service.ShoppingCarService;
 import com.jk.utils.Constant;
+import org.apache.ibatis.annotations.Results;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 @RequestMapping("login")
@@ -28,6 +33,7 @@ public class LoginController {
 
     @Resource
     private RedisTemplate<String, Shoping> redisTemplate;
+
 
     @Resource
     ShoppingCarService shoppingCarService;
@@ -103,18 +109,19 @@ public class LoginController {
             return "login";
         }
 
-        @RequestMapping("toIndex")
-        public String toIndex() {
+    @RequestMapping("toIndex")
+    public String toIndex() {
             return "html/index";
         }
-        @RequestMapping("toView")
-        public String toView(String viewName) {
+
+    @RequestMapping("toView")
+    public String toView(String viewName) {
 
             return viewName;
         }
-        @ResponseBody
-        @RequestMapping("removeUser")
-        public String removeUser(HttpSession session){
+    @ResponseBody
+    @RequestMapping("removeUser")
+    public String removeUser(HttpSession session){
             session.removeAttribute("userf");
             return "1";
         }

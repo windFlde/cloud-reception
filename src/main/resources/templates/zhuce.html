@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>登录页面</title>
-    <script src="/js/jquery-2.1.1.min.js"></script>
-    <script src="/js/layer/layer.js"></script>
-    <link rel="stylesheet" href="/css/body.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/js/bootstrap-3.3.7-dist/css/bootstrap.css">
-    <script src="/js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <!--<script src="/js/jquery-2.1.1.min.js"></script>-->
+    <!--<script src="/js/layer/layer.js"></script>-->
+    <!--<link rel="stylesheet" href="/css/body.css">-->
+    <!--<link rel="stylesheet" href="/css/style.css">-->
+    <!--<link rel="stylesheet" href="/js/bootstrap-3.3.7-dist/css/bootstrap.css">-->
+    <!--<script src="/js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>-->
 </head>
 <script type="text/javascript">
     function zhuce() {
@@ -16,8 +16,13 @@
                     $.ajax({
                        url:"/login/getPersons",
                        type:"POST",
-                       data:$("form").serialize(),
+                       data:$("#form").serialize(),
                        success:function(a){
+                           var today=new Date();
+                           var year=today.getFullYear();
+                           var month=today.getMonth();
+                           var day=today.getDate();
+                            layer.msg("注册成功,"+"您的注册时间为<font color='red'>"+year+"年"+month+"月"+day+"日</font>");
 
                        },
                        error:function(){
