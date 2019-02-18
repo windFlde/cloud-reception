@@ -141,7 +141,8 @@ public class LoginController {
         mail+="-";
         mail+=user.getEmail();
         return mail;
-    }@ResponseBody
+    }
+    @ResponseBody
     @RequestMapping("userLoginAccount")
     public String userLoginAccount(User user) {
         Integer userCount=loginClient.queryLoginAccount(user);
