@@ -16,4 +16,7 @@ public interface LoginClient {
 
     @RequestMapping("user/registerUser")
     void registerUser(User user);
+
+    @RequestMapping("user/queryLoginAccount")
+    Integer queryLoginAccount(User user);
 }

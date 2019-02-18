@@ -5,7 +5,6 @@ import com.jk.bean.User;
 import com.jk.client.LoginClient;
 import com.jk.service.ShoppingCarService;
 import com.jk.utils.Constant;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -29,7 +28,7 @@ public class LoginController {
     @Resource
     LoginClient loginClient;
 
-    @Autowired
+    @Resource
     private JavaMailSenderImpl mailSender;
 
     @Resource
@@ -76,6 +75,7 @@ public class LoginController {
         //正确
         //判断有没有记住密码
         if (user.getRemempwd()!=null) {
+
 //            String jsonString = JSONObject.toJSONString(user);
 //            String encode = URLEncoder.encode(jsonString, "utf-8");
 //            Cookie pwd = new Cookie("pwd",encode);
@@ -119,6 +119,7 @@ public class LoginController {
 
     @RequestMapping("toView")
     public String toView(String viewName) {
+
             return viewName;
         }
     @ResponseBody
@@ -136,6 +137,17 @@ public class LoginController {
         mail+="-";
         mail+=user.getEmail();
         return mail;
+    }
+
+    @ResponseBody
+    @RequestMapping("userLoginAccount")
+    public String userLoginAccount(User user) {
+        Integer userCount=loginClient.queryLoginAccount(user);
+        if (userCount>0) {
+            return "loginUser";
+        }else{
+            return "1";
+        }
     }
     /**
      * 发送邮箱
