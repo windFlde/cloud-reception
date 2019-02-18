@@ -131,12 +131,25 @@ public class LoginController {
     @ResponseBody
     @RequestMapping("registerUser")
     public String registerUser(User user) {
+        Integer userCount=loginClient.queryLoginAccount(user);
+        if (userCount>0) {
+            return "loginUser";
+        }
         loginClient.registerUser(user);
         String mail="";
         mail+=user.getUsername();
         mail+="-";
         mail+=user.getEmail();
         return mail;
+    }@ResponseBody
+    @RequestMapping("userLoginAccount")
+    public String userLoginAccount(User user) {
+        Integer userCount=loginClient.queryLoginAccount(user);
+        if (userCount>0) {
+            return "loginUser";
+        }else{
+            return "1";
+        }
     }
     @ResponseBody
     @RequestMapping("sendMailUser")
@@ -152,6 +165,7 @@ public class LoginController {
         System.out.println("邮件已发送");
         return "";
     }
+
 
 }
 

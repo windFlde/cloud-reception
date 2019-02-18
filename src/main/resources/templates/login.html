@@ -123,6 +123,14 @@
         window.location.href="/login/toView?viewName="+viewName;
     }
 
+    function qingchu() {
+        $("[name='loginacct']").val("");
+        $("[name='userpswd']").val("");
+        $("[name='username']").val("");
+        $("[name='email']").val("");
+        $("[name='phone']").val("");
+        registerUserAccount();
+    }
     function registerUser() {
             /*ajax   start*/
                     $.ajax({
@@ -130,8 +138,13 @@
                        type:"POST",
                        data:$("#registerForm").serialize(),
                        success:function(a){
-                          layer.msg("注册成功");
-                           sendMail(a);
+                           if (a=="loginUser") {
+                               layer.msg("用户名已经存在");
+                           }else{
+                               layer.msg("注册成功");
+                               qingchu();
+                               sendMail(a);
+                           }
                            console.log(a);
                        },
                        error:function(){
@@ -163,6 +176,27 @@
                    });
                  /*ajax   end*/
     }
+    function registerUserAccount() {
+        var loginacctaa=$("[name='loginacct']").val();
+            /*ajax   start*/
+                    $.ajax({
+                       url:"/login/userLoginAccount",
+                       type:"POST",
+                       data:{loginacct:loginacctaa},
+                       success:function(a){
+                           if (a=="loginUser") {
+                               $("#s1").html("<font color='red'>     用户名已经存在</font>");
+                           }else{
+                               $("#s1").html("");
+                           }
+                       },
+                       error:function(){
+                          layer.msg("ajax失败");
+                       }
+                   });
+                 /*ajax   end*/
+
+    }
 </script>
 <body>
 <!--模态框start-->
@@ -180,7 +214,8 @@
                     <div style="width: 60%">
                         <div>
                             <input name="loginacct" type="text" class="form-control"
-                                   placeholder="账号">
+                                   placeholder="账号" onblur="registerUserAccount()">
+                            <span id="s1"></span>
                         </div>
                     </div>
                     <div style="width: 60%">
@@ -218,7 +253,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" onclick="registerUser()" class="btn btn-primary">注册</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" onclick="qingchu()" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
