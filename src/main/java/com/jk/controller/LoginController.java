@@ -5,7 +5,10 @@ import com.jk.bean.User;
 import com.jk.client.LoginClient;
 import com.jk.service.ShoppingCarService;
 import com.jk.utils.Constant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Controller
 @RequestMapping("login")
@@ -28,7 +29,7 @@ public class LoginController {
     @Resource
     LoginClient loginClient;
 
-    @Resource
+    @Autowired
     private JavaMailSenderImpl mailSender;
 
     @Resource
@@ -75,7 +76,6 @@ public class LoginController {
         //正确
         //判断有没有记住密码
         if (user.getRemempwd()!=null) {
-
 //            String jsonString = JSONObject.toJSONString(user);
 //            String encode = URLEncoder.encode(jsonString, "utf-8");
 //            Cookie pwd = new Cookie("pwd",encode);
@@ -119,7 +119,6 @@ public class LoginController {
 
     @RequestMapping("toView")
     public String toView(String viewName) {
-
             return viewName;
         }
     @ResponseBody
@@ -138,15 +137,17 @@ public class LoginController {
         mail+=user.getEmail();
         return mail;
     }
-    @ResponseBody
-    @RequestMapping("sendMailUser")
-    public String sendMailUser(User user) {
+    /**
+     * 发送邮箱
+     */
+    @RequestMapping("sendEmail")
+    public String sendEmail(String username,String email){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         // 设置收件人，寄件人
-        simpleMailMessage.setTo(new String[]{user.getEmail()});
-        simpleMailMessage.setFrom("1632622685@qq.com");
+        simpleMailMessage.setTo(new String[]{email});
+        simpleMailMessage.setFrom("xzh120101@163.com");
         simpleMailMessage.setSubject("注册信息");
-        simpleMailMessage.setText("恭喜"+user.getUsername()+"注册成功！！！");
+        simpleMailMessage.setText("恭喜"+username+"注册成功！！！");
         // 发送邮件
         mailSender.send(simpleMailMessage);
         System.out.println("邮件已发送");
