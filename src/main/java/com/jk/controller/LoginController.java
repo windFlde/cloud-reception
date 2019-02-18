@@ -28,7 +28,7 @@ public class LoginController {
     @Resource
     LoginClient loginClient;
 
-    @Autowired
+    @Resource
     private JavaMailSenderImpl mailSender;
 
     @Resource
@@ -132,19 +132,25 @@ public class LoginController {
     @RequestMapping("registerUser")
     public String registerUser(User user) {
         loginClient.registerUser(user);
-
+        String mail="";
+        mail+=user.getUsername();
+        mail+="-";
+        mail+=user.getEmail();
+        return mail;
+    }
+    @ResponseBody
+    @RequestMapping("sendMailUser")
+    public String sendMailUser(User user) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         // 设置收件人，寄件人
         simpleMailMessage.setTo(new String[]{user.getEmail()});
-        simpleMailMessage.setFrom("xzh120101@163.com");
+        simpleMailMessage.setFrom("1632622685@qq.com");
         simpleMailMessage.setSubject("注册信息");
         simpleMailMessage.setText("恭喜"+user.getUsername()+"注册成功！！！");
         // 发送邮件
         mailSender.send(simpleMailMessage);
         System.out.println("邮件已发送");
-
-        loginClient.registerUser(user);
-        return "1";
+        return "";
     }
 
 }

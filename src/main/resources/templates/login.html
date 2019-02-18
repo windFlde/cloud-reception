@@ -122,6 +122,47 @@
     function toLogin(viewName) {
         window.location.href="/login/toView?viewName="+viewName;
     }
+
+    function registerUser() {
+            /*ajax   start*/
+                    $.ajax({
+                       url:"/login/registerUser",
+                       type:"POST",
+                       data:$("#registerForm").serialize(),
+                       success:function(a){
+                          layer.msg("注册成功");
+                           sendMail(a);
+                           console.log(a);
+                       },
+                       error:function(){
+                          layer.msg("ajax失败");
+                       }
+                   });
+                 /*ajax   end*/
+    }
+
+    function sendMail(userMail) {
+        console.log(userMail);
+        var username="";
+        var email="";
+        var userMm=userMail;
+        var mm=userMm.split("-");
+        username=mm[0];
+        email=mm[1];
+            /*ajax   start*/
+                    $.ajax({
+                       url:"/login/sendMailUser",
+                       type:"POST",
+                       data:{username:username,email:email},
+                       success:function(a){
+                            layer.msg("已经发送邮件到您注册的邮箱");
+                       },
+                       error:function(){
+                          layer.msg("ajax失败");
+                       }
+                   });
+                 /*ajax   end*/
+    }
 </script>
 <body>
 <!--模态框start-->
@@ -135,7 +176,7 @@
             </div>
             <div class="modal-body">
                 <!--内容start-->
-                <form id="form1">
+                <form id="registerForm">
                     <div style="width: 60%">
                         <div>
                             <input name="loginacct" type="text" class="form-control"
@@ -150,7 +191,7 @@
                     </div>
                     <div style="width: 60%">
                         <div>
-                            <input name="loginacct" type="text" class="form-control"
+                            <input name="username" type="text" class="form-control"
                                    placeholder="用户名">
                         </div>
                     </div>
@@ -176,7 +217,7 @@
                 <!--内容end-->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">注册</button>
+                <button type="button" onclick="registerUser()" class="btn btn-primary">注册</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
