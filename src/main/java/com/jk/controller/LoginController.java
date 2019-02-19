@@ -61,7 +61,6 @@ public class LoginController {
         if (!str.equals("")) {
             List<Shoping> list = redisTemplate.opsForList().range(str, 0, -1);
             for (Shoping shoping : list) {
-
                 shoping.setYh_id(userFromDB.getId());
                 shoppingCarService.addShopping(shoping);
             }

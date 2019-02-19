@@ -5,6 +5,8 @@ import com.jk.bean.User;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @FeignClient("provider")
 public interface LoginClient {
 
@@ -19,4 +21,7 @@ public interface LoginClient {
 
     @RequestMapping("user/queryLoginAccount")
     Integer queryLoginAccount(User user);
+
+    @RequestMapping("user/getALlLoginAccount")
+    List<User> getALlLoginAccount(User user);
 }

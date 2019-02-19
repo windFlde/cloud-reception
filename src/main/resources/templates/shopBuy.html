@@ -23,6 +23,7 @@
         daoBuy();
         loadComment();
     })
+    var ii=0;
     /* 表头 你好登录样式======================================>  start*/
     function getUserName() {
         var hiddenName = $("#hiddenName").val();
@@ -65,6 +66,12 @@
             url: "/js/getAll",
             type: "POST",
             data: {id: skuid},
+            beforeSend:function(){
+                ii = layer.msg('加载中', {
+                    icon: 16
+                    ,shade: 0.01
+                });
+            },
             success: function (pageUtil) {
                 console.log("pageutil"+pageUtil);
                 if(pageUtil.kc<=0){
@@ -95,6 +102,8 @@
             },
             error: function () {
                 layer.msg("ajax失败");
+            },complete:function(){
+                layer.close(ii);
             }
         });
         /*ajax    end*/
@@ -116,11 +125,19 @@
                     url:"/shopping/redisAddShoping",
                     type:"POST",
                     data:{tjshl:tjshl,price:price,sku_id:skuid,shp_id:shpid},
+                    beforeSend:function(){
+                        ii = layer.msg('加载中', {
+                            icon: 16
+                            ,shade: 0.01
+                        });
+                    },
                     success:function(a){
                         window.location.href="/toView?viewName=shopping";
                     },
                     error:function(){
                         layer.msg("ajax失败");
+                    },complete:function(){
+                        layer.close(ii);
                     }
                 });
                 /*ajax   end*/
@@ -136,11 +153,19 @@
                     url:"/shopping/addShopping",
                     type:"POST",
                     data:{yh_id:yh_id,tjshl:tjshl,price:price,sku_id:skuid,shp_id:shpid},
+                    beforeSend:function(){
+                        ii = layer.msg('加载中', {
+                            icon: 16
+                            ,shade: 0.01
+                        });
+                    },
                     success:function(a){
                         window.location.href="/toView?viewName=shopping";
                     },
                     error:function(){
                         layer.msg("ajax失败");
+                    },complete:function(){
+                        layer.close(ii);
                     }
                 });
                 /*ajax end*/
@@ -157,6 +182,12 @@
             url: "/comment/getAllProductComment",
             type: "POST",
             data:{sku_id:$("#skuId").val()},
+            beforeSend:function(){
+                ii = layer.msg('加载中', {
+                    icon: 16
+                    ,shade: 0.01
+                });
+            },
             success: function (pageUtil) {
                 var content = "";
                 $.each(pageUtil, function (index, obj) {
@@ -167,6 +198,8 @@
             },
             error: function () {
                 alert("失败了");
+            },complete:function(){
+                layer.close(ii);
             }
         });
     }
@@ -178,6 +211,12 @@
         $.ajax({
             url:"/home/getQueryDG",
             type:"POST",
+            beforeSend:function(){
+                ii = layer.msg('加载中', {
+                    icon: 16
+                    ,shade: 0.01
+                });
+            },
             success:function(data){
                 $.each(data,function(index,obj){
                     content += "<li><a href='"+obj.groudUrl+"'><font size='3'>"+obj.groudName+"</font></a></li>";
@@ -186,6 +225,8 @@
             },
             error:function(){
                 alert("失败了");
+            },complete:function(){
+                layer.close(ii);
             }
         });
     }
@@ -198,6 +239,12 @@
                 url: "/comment/addProductComment",
                 type: "POST",
                 data: $("#form").serialize(),
+                beforeSend:function(){
+                    ii = layer.msg('加载中', {
+                        icon: 16
+                        ,shade: 0.01
+                    });
+                },
                 success: function () {
                     layer.msg("评论成功！")
 
@@ -206,6 +253,8 @@
                 },
                 error: function () {
                     alert("失败了");
+                },complete:function(){
+                    layer.close(ii);
                 }
             });
         }
@@ -221,12 +270,20 @@ function removeUser() {
                    url:"/login/removeUser",
                    type:"POST",
                    data:$("form").serialize(),
+                    beforeSend:function(){
+                        ii = layer.msg('加载中', {
+                            icon: 16
+                            ,shade: 0.01
+                        });
+                    },
                    success:function(a){
                        location.reload();
                    },
                    error:function(){
                       layer.msg("ajax失败");
-                   }
+                   },complete:function(){
+                        layer.close(ii);
+                    }
                });
              /*ajax   end*/
 }
