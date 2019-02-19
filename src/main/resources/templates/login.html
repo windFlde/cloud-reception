@@ -108,7 +108,7 @@
                     temp = setInterval("changeBtnText()",1000);
                 }else if(result.code==2){
                     $("#sendCode").prop("disabled",true)
-                    layer.msg("已经发送验证码,请查看手机!");
+                    layer.msg("已经发送验证码,请勿重复发送!");
                 }else if(result.code==3){
                     layer.msg("您的手机号已经在黑名单中");
                 }
@@ -138,6 +138,7 @@
             return ;
         }else{
             timeDown();
+            layer.msg("验证码发送成功");
         }
     }
     function checkCode(){
@@ -345,8 +346,9 @@
 
         </div>
     </div>
+    <div style="margin-left: 50px;margin-top: 50px;"><img src="/images/20190107164001.jpg" height="300px" width="300px"/></div>
     <!--login start-->
-    <div class="login">
+    <div class="login" style="margin-top: -300px;margin-left: 100px;">
         <!--ul start-->
         <ul id="myTab" class="nav nav-tabs">
             <li class="active">
@@ -413,7 +415,6 @@
                 <div class="blank_01"></div>
                 <div class="blank_01"></div>
                 <div class="box_down">
-                    <div class="box_down_1">使用合作网站账号登录京东：</div>
                     <div class="box_down_1">京东钱包&nbsp;&nbsp;|&nbsp;&nbsp;QQ
                         &nbsp;&nbsp;|&nbsp;&nbsp;微信
                     </div>
@@ -458,7 +459,6 @@
                 <div class="blank_01"></div>
                 <div class="blank_01"></div>
                 <div class="box_down">
-                    <div class="box_down_1">使用合作网站账号登录京东：</div>
                     <div class="box_down_1">京东钱包&nbsp;&nbsp;|&nbsp;&nbsp;QQ
                         &nbsp;&nbsp;|&nbsp;&nbsp;微信
                     </div>
