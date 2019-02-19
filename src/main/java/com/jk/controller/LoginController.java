@@ -151,6 +151,7 @@ public class LoginController {
     /**
      * 发送邮箱
      */
+    @ResponseBody
     @RequestMapping("sendEmail")
     public String sendEmail(String username,String email){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
