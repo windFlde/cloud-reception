@@ -25,7 +25,7 @@
 
     <dependencies>
 
-        <!--发送邮箱-->
+        <!--发送邮件-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>

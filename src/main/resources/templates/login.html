@@ -220,7 +220,7 @@
         email=mm[1];
             /*ajax   start*/
                     $.ajax({
-                       url:"/login/sendMailUser",
+                       url:"/login/sendEmail",
                        type:"POST",
                        data:{username:username,email:email},
                         beforeSend:function(){
@@ -238,7 +238,7 @@
                             layer.close(ii);
                         }
                    });
-                 /*ajax   end*/
+                 /*ajax  end*/
     }
     function registerUserAccount() {
         var loginacctaa=$("[name='loginacct']").val();
