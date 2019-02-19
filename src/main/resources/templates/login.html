@@ -201,9 +201,9 @@
                            if (a=="loginUser") {
                                layer.msg("用户名已经存在");
                            }else{
-                               layer.msg('注册成功', {time: 3000, icon:6});
                                qingchu();
-                               sendMail(a);
+                               layer.msg('注册成功', {time: 3000, icon:6});
+                               // sendMail(a);
                            }
                            console.log(a);
                        },
@@ -229,20 +229,13 @@
                        url:"/login/sendEmail",
                        type:"POST",
                        data:{username:username,email:email},
-                        beforeSend:function(){
-                            ii = layer.msg('加载中', {
-                                icon: 16
-                                ,shade: 0.01
-                            });
-                        },
+
                        success:function(a){
                             layer.msg("已经发送邮件到您注册的邮箱");
                        },
                        error:function(){
                           layer.msg("ajax失败");
-                       },complete:function(){
-                            layer.close(ii);
-                        }
+                       }
                    });
                  /*ajax  end*/
     }
@@ -340,7 +333,7 @@
 </div>
 <!--模态框end-->
 <div class="up" >
-    <img src="/div1.jpg" height="45px;" class="hy_img">
+    <img src="/images/huangkuang.jpg" width="50px" height="60px;" class="hy_img">
     <div class="hy">
         欢迎登录
     </div>

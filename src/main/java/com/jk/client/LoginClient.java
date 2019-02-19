@@ -22,6 +22,6 @@ public interface LoginClient {
     @RequestMapping("user/queryLoginAccount")
     Integer queryLoginAccount(User user);
 
-    @RequestMapping("user/getALlLoginAccount")
+    @RequestMapping("account/getALlLoginAccount")
     List<User> getALlLoginAccount(User user);
 }
