@@ -178,19 +178,48 @@
     }
 
     function qingchu() {
-        $("[name='loginacct']").val("");
-        $("[name='userpswd']").val("");
+        $("#loginacct11").val("");
+        $("#userpswd11").val("");
         $("[name='username']").val("");
         $("[name='email']").val("");
         $("[name='phone']").val("");
         registerUserAccount();
     }
+
+    function queryLoginAccountIf() {
+        /*ajax   start*/
+        $.ajax({
+            url:"/login/registerUser",
+            type:"POST",
+            data:$("#registerForm").serialize(),
+            beforeSend:function(){
+                ii = layer.msg('加载中', {
+                    icon: 16
+                    ,shade: 0.01
+                });
+            },
+            success:function(a){
+                qingchu();
+                $('#myModal').modal('hide')
+                layer.msg('注册成功', {time: 3000, icon:6});
+                sendMail(a);
+                console.log(a);
+            },
+            error:function(){
+                layer.msg("ajax失败");
+            },complete:function(){
+                layer.close(ii);
+            }
+        });
+        /*ajax   end*/
+    }
     function registerUser() {
+        var loginacctaa=$("#loginacct11").val();
             /*ajax   start*/
                     $.ajax({
-                       url:"/login/registerUser",
+                       url:"/login/userLoginAccount",
                        type:"POST",
-                       data:$("#registerForm").serialize(),
+                       data:{loginacct:loginacctaa},
                         beforeSend:function(){
                             ii = layer.msg('加载中', {
                                 icon: 16
@@ -199,13 +228,11 @@
                         },
                        success:function(a){
                            if (a=="loginUser") {
-                               layer.msg("用户名已经存在");
-                           }else{
-                               qingchu();
-                               layer.msg('注册成功', {time: 3000, icon:6});
-                               // sendMail(a);
+                               layer.msg("对不起您的用户名已经被抢先注册");
+                           }else if(a==1){
+                               queryLoginAccountIf();
                            }
-                           console.log(a);
+
                        },
                        error:function(){
                           layer.msg("ajax失败");
@@ -240,7 +267,7 @@
                  /*ajax  end*/
     }
     function registerUserAccount() {
-        var loginacctaa=$("[name='loginacct']").val();
+        var loginacctaa=$("#loginacct11").val();
             /*ajax   start*/
                     $.ajax({
                        url:"/phoneLogin/haveLoginAccount",
@@ -286,14 +313,14 @@
                 <form id="registerForm">
                     <div style="width: 60%">
                         <div>
-                            <input name="loginacct" type="text" class="form-control"
+                            <input id="loginacct11" name="loginacct" type="text" class="form-control"
                                    placeholder="账号" onblur="registerUserAccount()">
                             <span id="s1"></span>
                         </div>
                     </div>
                     <div style="width: 60%">
                         <div>
-                            <input name="userpswd" type="password" class="form-control"
+                            <input id="userpswd11" name="userpswd" type="password" class="form-control"
                                    placeholder="密码">
                         </div>
                     </div>
