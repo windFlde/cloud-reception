@@ -16,7 +16,31 @@
 
     $(function () {
         cookieHui();
+        getALlLoginAccount();
     })
+    var ii=0;
+    function getALlLoginAccount() {
+            /*ajax   start*/
+                    $.ajax({
+                       url:"/phoneLogin/getALlLoginAccount",
+                       type:"POST",
+                        beforeSend:function(){
+                            ii = layer.msg('加载中', {
+                                icon: 16
+                                ,shade: 0.01
+                            });
+                        },
+                       success:function(a){
+                           layer.msg('欢迎您', {time:2500, icon:1,shift:1});
+                       },
+                       error:function(){
+                          layer.msg("getALlLoginAccount方法失败");
+                       },complete:function(){
+                            layer.close(ii);
+                        }
+                   });
+                 /*ajax   end*/
+    }
 
     function cookieHui() {
         if(document.cookie!=null & document.cookie!=""){
@@ -41,17 +65,27 @@
 				url:"/login/toLoginByNameAndPassword",
 				type:"POST",
 				data:$("#login_form").serialize(),
+                beforeSend:function(){
+                    ii = layer.msg('加载中', {
+                        icon: 16
+                        ,shade: 0.01
+                    });
+                },
 				success:function(a){
                     if (a == 1) {
                          layer.msg("成功");
                          window.location.href="/toView?viewName=mall-home-page";
                     } else if(a==2){
                         layer.msg("登录失败,账号密码错误");
+                    }else if(a==12){
+                        layer.msg("您的账号已经在黑名单中");
                     }
 				},
 				error:function(){
 					layer.msg("ajax失败");
-				}
+				},complete:function(){
+                layer.close(ii);
+            }
 		});
     }
     var temp=null;
@@ -62,19 +96,27 @@
             url:"/phoneLogin/sendCode",
             type:"POST",
             data:$("#form").serialize(),
+            beforeSend:function(){
+                ii = layer.msg('加载中', {
+                    icon: 16
+                    ,shade: 0.01
+                });
+            },
             success:function(result){
                 if(result.code==1){ //验证码发送成功  开始倒计时
                     $("#sendCode").prop("disabled",true)
                     temp = setInterval("changeBtnText()",1000);
                 }else if(result.code==2){
                     $("#sendCode").prop("disabled",true)
-                    layer.msg("已经发送验证码,请查看手机!");
+                    layer.msg("已经发送验证码,请勿重复发送!");
                 }else if(result.code==3){
                     layer.msg("您的手机号已经在黑名单中");
                 }
             },
             error:function(){
                 layer.msg("ajax访问失,请看控制台");
+            },complete:function(){
+                layer.close(ii);
             }
         });
         /*ajax end*/
@@ -96,6 +138,7 @@
             return ;
         }else{
             timeDown();
+            layer.msg("验证码发送成功");
         }
     }
     function checkCode(){
@@ -103,6 +146,12 @@
             url:"/phoneLogin/checkCode",
             type:"POST",
             data:$("#form").serialize(),
+            beforeSend:function(){
+                ii = layer.msg('加载中', {
+                    icon: 16
+                    ,shade: 0.01
+                });
+            },
             success:function(result){
                 if(result==2){
                     layer.msg("您的手机号已经在黑名单中");
@@ -114,11 +163,114 @@
             },
             error:function(){
                 layer.msg("ajax访问失败,请看控制台");
+            },complete:function(){
+                layer.close(ii);
             }
         });
     }
     function toLogin(viewName) {
         window.location.href="/login/toView?viewName="+viewName;
+    }
+
+    function qingchu() {
+        $("[name='loginacct']").val("");
+        $("[name='userpswd']").val("");
+        $("[name='username']").val("");
+        $("[name='email']").val("");
+        $("[name='phone']").val("");
+        registerUserAccount();
+    }
+    function registerUser() {
+            /*ajax   start*/
+                    $.ajax({
+                       url:"/login/registerUser",
+                       type:"POST",
+                       data:$("#registerForm").serialize(),
+                        beforeSend:function(){
+                            ii = layer.msg('加载中', {
+                                icon: 16
+                                ,shade: 0.01
+                            });
+                        },
+                       success:function(a){
+                           if (a=="loginUser") {
+                               layer.msg("用户名已经存在");
+                           }else{
+                               layer.msg("注册成功");
+                               qingchu();
+                               sendMail(a);
+                           }
+                           console.log(a);
+                       },
+                       error:function(){
+                          layer.msg("ajax失败");
+                       },complete:function(){
+                            layer.close(ii);
+                        }
+                   });
+                 /*ajax   end*/
+    }
+
+    function sendMail(userMail) {
+        console.log(userMail);
+        var username="";
+        var email="";
+        var userMm=userMail;
+        var mm=userMm.split("-");
+        username=mm[0];
+        email=mm[1];
+            /*ajax   start*/
+                    $.ajax({
+                       url:"/login/sendEmail",
+                       type:"POST",
+                       data:{username:username,email:email},
+                        beforeSend:function(){
+                            ii = layer.msg('加载中', {
+                                icon: 16
+                                ,shade: 0.01
+                            });
+                        },
+                       success:function(a){
+                            layer.msg("已经发送邮件到您注册的邮箱");
+                       },
+                       error:function(){
+                          layer.msg("ajax失败");
+                       },complete:function(){
+                            layer.close(ii);
+                        }
+                   });
+                 /*ajax  end*/
+    }
+    function registerUserAccount() {
+        var loginacctaa=$("[name='loginacct']").val();
+            /*ajax   start*/
+                    $.ajax({
+                       url:"/phoneLogin/haveLoginAccount",
+                       type:"POST",
+                       data:{loginacct:loginacctaa},
+                        beforeSend:function(){
+                            ii = layer.msg('加载中', {
+                                icon: 16
+                                ,shade: 0.01
+                            });
+                        },
+                       success:function(a){
+                           if (a==1) {
+                               $("#s1").html("<font color='red'>&nbsp &nbsp 用户名已经存在</font>");
+                               $("#zhuce").attr("disabled",true);
+                           }else{
+                               $("#s1").html("");
+                               $("#zhuce").attr("disabled",false);
+                           }
+                       },
+                       error:function(){
+                          layer.msg("ajax失败");
+                       },complete:function(){
+                            layer.close(ii);
+                        }
+                   });
+                 /*ajax   end*/
+
     }
 </script>
 <body>
@@ -133,11 +285,12 @@
             </div>
             <div class="modal-body">
                 <!--内容start-->
-                <form id="form1">
+                <form id="registerForm">
                     <div style="width: 60%">
                         <div>
                             <input name="loginacct" type="text" class="form-control"
-                                   placeholder="账号">
+                                   placeholder="账号" onblur="registerUserAccount()">
+                            <span id="s1"></span>
                         </div>
                     </div>
                     <div style="width: 60%">
@@ -148,7 +301,7 @@
                     </div>
                     <div style="width: 60%">
                         <div>
-                            <input name="loginacct" type="text" class="form-control"
+                            <input name="username" type="text" class="form-control"
                                    placeholder="用户名">
                         </div>
                     </div>
@@ -174,8 +327,8 @@
                 <!--内容end-->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">注册</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" id="zhuce" onclick="registerUser()" class="btn btn-primary">注册</button>
+                <button type="button" onclick="qingchu()" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
@@ -193,8 +346,9 @@
 
         </div>
     </div>
+    <div style="margin-left: 50px;margin-top: 50px;"><img src="/images/20190107164001.jpg" height="300px" width="300px"/></div>
     <!--login start-->
-    <div class="login">
+    <div class="login" style="margin-top: -300px;margin-left: 100px;">
         <!--ul start-->
         <ul id="myTab" class="nav nav-tabs">
             <li class="active">
@@ -261,7 +415,6 @@
                 <div class="blank_01"></div>
                 <div class="blank_01"></div>
                 <div class="box_down">
-                    <div class="box_down_1">使用合作网站账号登录京东：</div>
                     <div class="box_down_1">京东钱包&nbsp;&nbsp;|&nbsp;&nbsp;QQ
                         &nbsp;&nbsp;|&nbsp;&nbsp;微信
                     </div>
@@ -306,7 +459,6 @@
                 <div class="blank_01"></div>
                 <div class="blank_01"></div>
                 <div class="box_down">
-                    <div class="box_down_1">使用合作网站账号登录京东：</div>
                     <div class="box_down_1">京东钱包&nbsp;&nbsp;|&nbsp;&nbsp;QQ
                         &nbsp;&nbsp;|&nbsp;&nbsp;微信
                     </div>

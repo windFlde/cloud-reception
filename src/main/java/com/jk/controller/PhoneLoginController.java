@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Controller
@@ -51,7 +52,7 @@ public class PhoneLoginController {
 
                 String result = HttpClient.sendGet("http://v.juhe.cn/sms/send", params);
                 System.out.println(result);
-                redisTemplate.opsForValue().set(Constant.multiple_code + queryParam.getPhone_no(), "jk", 1,
+                redisTemplate.opsForValue().set(Constant.multiple_code + queryParam.getPhone_no(), "jk", 60,
                         TimeUnit.SECONDS);
             }
             /*redis end*/
@@ -92,6 +93,29 @@ public class PhoneLoginController {
         }
         /*if end>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
             return "";
+    }
+
+    @ResponseBody
+    @RequestMapping("getALlLoginAccount")
+    public String  getALlLoginAccount(User user) {
+        List<User>listUserLoginAccount=loginClient.getALlLoginAccount(user);
+//        redisTemplate.opsForValue().set(user.getLoginacct(),);
+        for (User userList : listUserLoginAccount) {
+            redisTemplate.opsForValue().set(userList.getLoginacct(),"1",1,TimeUnit.MINUTES);
+        }
+        return "1";
+    }
+    @ResponseBody
+    @RequestMapping("haveLoginAccount")
+    public String haveLoginAccount(User user) {
+        String theLoginAccount=redisTemplate.opsForValue().get(user.getLoginacct());
+        /*if start*/
+        if (theLoginAccount!=null) {
+            return "1";
+        }else{
+            return "2";
+        }
+        /*if end*/
     }
 
 }

@@ -1,15 +1,13 @@
 package com.jk.controller;
 
-import com.jk.bean.QueryParam;
-import com.jk.bean.Result;
 import com.jk.bean.Shoping;
 import com.jk.bean.User;
 import com.jk.client.LoginClient;
 import com.jk.service.ShoppingCarService;
 import com.jk.utils.Constant;
-import org.apache.ibatis.annotations.Results;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Controller
 @RequestMapping("login")
@@ -30,6 +27,9 @@ public class LoginController {
 
     @Resource
     LoginClient loginClient;
+
+    @Resource
+    private JavaMailSenderImpl mailSender;
 
     @Resource
     private RedisTemplate<String, Shoping> redisTemplate;
@@ -45,6 +45,9 @@ public class LoginController {
         if (userFromDB==null) {
             return "2";
         }
+        if(userFromDB.getStatus()==2){
+            return "12";
+        }
             session.setAttribute("userf",userFromDB);
 
         String mycookie=request.getHeader("cookie");
@@ -58,7 +61,6 @@ public class LoginController {
         if (!str.equals("")) {
             List<Shoping> list = redisTemplate.opsForList().range(str, 0, -1);
             for (Shoping shoping : list) {
-
                 shoping.setYh_id(userFromDB.getId());
                 shoppingCarService.addShopping(shoping);
             }
@@ -125,7 +127,43 @@ public class LoginController {
             session.removeAttribute("userf");
             return "1";
         }
+    @ResponseBody
+    @RequestMapping("registerUser")
+    public String registerUser(User user) {
+        loginClient.registerUser(user);
+        String mail="";
+        mail+=user.getUsername();
+        mail+="-";
+        mail+=user.getEmail();
+        return mail;
+    }
 
+    @ResponseBody
+    @RequestMapping("userLoginAccount")
+    public String userLoginAccount(User user) {
+        Integer userCount=loginClient.queryLoginAccount(user);
+        if (userCount>0) {
+            return "loginUser";
+        }else{
+            return "1";
+        }
+    }
+    /**
+     * 发送邮箱
+     */
+    @RequestMapping("sendEmail")
+    public String sendEmail(String username,String email){
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        // 设置收件人，寄件人
+        simpleMailMessage.setTo(new String[]{email});
+        simpleMailMessage.setFrom("xzh120101@163.com");
+        simpleMailMessage.setSubject("注册信息");
+        simpleMailMessage.setText("恭喜"+username+"注册成功！！！");
+        // 发送邮件
+        mailSender.send(simpleMailMessage);
+        System.out.println("邮件已发送");
+        return "";
+    }
 
 }
 
