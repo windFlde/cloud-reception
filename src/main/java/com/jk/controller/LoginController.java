@@ -127,16 +127,7 @@ public class LoginController {
             session.removeAttribute("userf");
             return "1";
         }
-    @ResponseBody
-    @RequestMapping("registerUser")
-    public String registerUser(User user) {
-        loginClient.registerUser(user);
-        String mail="";
-        mail+=user.getUsername();
-        mail+="-";
-        mail+=user.getEmail();
-        return mail;
-    }
+
 
     @ResponseBody
     @RequestMapping("userLoginAccount")
