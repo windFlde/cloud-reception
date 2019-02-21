@@ -17,9 +17,6 @@ public class GoodController {
     @Autowired
     private GoodService goodService;
 
-
-
-
     @ResponseBody
     @RequestMapping("getGoodName")
     public List<MallSku> getGoodName(Integer id){
@@ -123,6 +120,5 @@ public class GoodController {
 
         return goodService.countGood(yh_id);
     }
-
 
 }
