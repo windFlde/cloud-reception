@@ -286,7 +286,28 @@ function removeUser() {
 }
 
     function toLogin() {
-        window.location.href="/login/toLoginHtml";
+        var htmlUrl=document.documentURI
+            /*ajax   start*/
+                    $.ajax({
+                       url:"/phoneLogin/toBackHtml",
+                       type:"POST",
+                       data:{requestUrl:htmlUrl},
+                       beforeSend:function(){
+                              ii = layer.msg('加载中', {
+                              icon: 16
+                              ,shade: 0.01
+                              });
+                        },
+                       success:function(a){
+                           window.location.href="/login/toLoginHtml";
+                       },
+                       error:function(){
+                          layer.msg("ajax失败");
+                       },complete:function(){
+                             layer.close(ii);
+                        }
+                   });
+                 /*ajax   end*/
     }
 </script>
 <body>

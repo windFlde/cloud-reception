@@ -129,4 +129,11 @@ public class PhoneLoginController {
         /*if end*/
     }
 
+    @ResponseBody
+    @RequestMapping("toBackHtml")
+    public String toBackHtml(QueryParam queryParam,HttpSession session) {
+        session.setAttribute("reUrl",queryParam);
+        return "";
+    }
+
 }
