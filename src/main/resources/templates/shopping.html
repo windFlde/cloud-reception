@@ -130,11 +130,11 @@
     //------------------------------------------------------删除开始
     function deleteItemById(id,name){
 
-        $.messager.confirm('删除提示框','您确认想要删除'+name+'这件商品吗？',function(r){
-            if (r){    //点击确认
+   /*     $.messager.confirm('删除提示框','您确认想要删除'+name+'这件商品吗？',function(r){
+            if (r){    //点击确认*/
                 deleteItem(id);
-            }
-        });
+   /*         }
+        });*/
     }
     //批删,单删
     function deleteItem(ids){
