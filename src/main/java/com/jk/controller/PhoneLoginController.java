@@ -47,7 +47,7 @@ public class PhoneLoginController {
                 HashMap<String, Object> params = new HashMap<>();
                 params.put("key", "cc404476e2df5661752256e53d2743c1");
                 params.put("mobile", queryParam.getPhone_no());
-                params.put("tpl_id", "124821");
+                params.put("tpl_id", "124829");
                 params.put("tpl_value", "%23code%23%3D" + r);
 
                 String result = HttpClient.sendGet("http://v.juhe.cn/sms/send", params);
@@ -104,6 +104,17 @@ public class PhoneLoginController {
             redisTemplate.opsForValue().set(userList.getLoginacct(),"1",1,TimeUnit.MINUTES);
         }
         return "1";
+    }
+    @ResponseBody
+    @RequestMapping("registerUser")
+    public String registerUser(User user) {
+        loginClient.registerUser(user);
+        redisTemplate.opsForValue().set(user.getLoginacct(),"1",1,TimeUnit.MINUTES);
+        String mail="";
+        mail+=user.getUsername();
+        mail+="-";
+        mail+=user.getEmail();
+        return mail;
     }
     @ResponseBody
     @RequestMapping("haveLoginAccount")

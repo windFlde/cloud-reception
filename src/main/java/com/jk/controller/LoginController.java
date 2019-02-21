@@ -127,16 +127,7 @@ public class LoginController {
             session.removeAttribute("userf");
             return "1";
         }
-    @ResponseBody
-    @RequestMapping("registerUser")
-    public String registerUser(User user) {
-        loginClient.registerUser(user);
-        String mail="";
-        mail+=user.getUsername();
-        mail+="-";
-        mail+=user.getEmail();
-        return mail;
-    }
+
 
     @ResponseBody
     @RequestMapping("userLoginAccount")
@@ -151,6 +142,7 @@ public class LoginController {
     /**
      * 发送邮箱
      */
+    @ResponseBody
     @RequestMapping("sendEmail")
     public String sendEmail(String username,String email){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();

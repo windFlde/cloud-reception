@@ -186,6 +186,37 @@
 	function toLogin() {
 		window.location.href="/login/toLoginHtml";
 	}
+
+	function  search() {
+
+		var name = $(".lf").val();
+		$.ajax({
+			url: "/search/getSku",
+			data:{name:name},
+			success: function (result) {
+				var cont = "";
+				console.log(result);
+				$.each(result,function (index,obj) {
+					cont +="<a target='_blank' href='/toView?viewName=shopBuy&skuid="+obj.id+"&shid="+obj.shp_id+"'>";
+					cont +="<div  class='list' >";
+					cont +="<div class='img'><img src='"+obj.sh_tp+"' width='200' height='200' alt=''></div>";
+					cont +="<div class='price'>¥"+obj.jg+"</div>";
+					var str = obj.shp_sx.split(",")
+					cont +="<div class='title'>"+obj.shp_mch+"</div>";
+					cont +="<div class='title'>"+str[0]+"...</div>";
+					cont +="<div class='title'>"+obj.kcdz+"</div>";
+					cont +="</div>"
+					cont +="</a>"
+				})
+				$(".Sbox").html(cont);
+
+
+			},
+			error: function () {
+				alert("ajax访问失败了,查看控制台");
+			}
+		});
+	}
 </script>
 </head>
 <head th:replace="miniCar :: head">
@@ -210,8 +241,8 @@
 		<div class="logo"><img src="/img/323a50ca6adbc492.gif" width="150" height="120"></div>
 		<div class="search_on">
 			<div class="se">
-				<input type="text" name="search" class="lf">
-				<input type="submit" class="clik" value="搜索">
+				<input type="text" name="name" class="lf">
+				<input type="submit" class="clik" value="搜索" onclick="search()">
 			</div>
 			<div class="se">
 				<a href="">取暖神奇</a>
