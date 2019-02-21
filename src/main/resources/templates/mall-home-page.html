@@ -125,7 +125,7 @@
                 type:"POST",
                 success:function(pageUtil){
                     $.each(pageUtil,function(index,obj){
-                        content += "<li class='linb'><a href='javascript:getDataTwo("+obj.id+")'><font size='2'>"+obj.flmch1+"</font></a>";
+                        content += "<li class='linb'><a href='javascript:getDataTwo("+obj.id+")'><font size='3'>"+obj.flmch1+"</font></a>";
                         content += "<div id='tw_"+obj.id+"' class='two_nav' style='background-color: #0f0f0f;width:180px;height:66px;'></div></li>";      //创建每一个的子二级分类的“容器”
                         getDataTwo(obj.id);
                     });
@@ -236,7 +236,7 @@
         <div class="navs">
             <div class="left_nav">
                 全部商品分类
-                <div class="nav_mini">
+                <div class="nav_mini" style="height: 300px">
                     <ul>
                     </ul>
                 </div>

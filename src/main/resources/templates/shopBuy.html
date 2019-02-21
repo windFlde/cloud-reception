@@ -418,44 +418,73 @@ function removeUser() {
         </div>
     </div>
 </div>
-<div class="Dbox1">
-    <div class="boxbottom">
-        <div class="top">
-            <span>商品详情</span>
-            <span>评价</span>
-        </div>
-        <div class="btm">
-            <form id="form">
-                <div class="panel panel-default">
-                    <div class="panel-footer" id="panel1"></div>
-                    <table class="table" style="width:350px">
-                        <tr>
-                            <td>好评等级:</td>
-                            <td><input name="hpjb" class="form-control error" onblur="alertItem(this.value)"
-                                       style="width:180px" type="text" placeholder="请写出你的评级（1~10）"></td>
-                        </tr>
-                        <tr>
-                            <td>评论内容:</td>
-                            <td><textarea id="plnr" name="plnr" class="form-control" style="width:200px;"
-                                          placeholder="在这里写下你的评论"></textarea></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" align="center"><input type="button" class="btn btn-default"
-                                                                  onclick="submitData()" value="提交"></td>
-                        </tr>
-                    </table>
+    <div style="width: 1000px;margin-left: 200px">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="dropdown">
+                <a href="#" id="myTabDrop1" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    Java
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+                    <li><a href="#jmeter" tabindex="-1" data-toggle="tab">First</a></li>
+                    <li><a href="#ejb" tabindex="-1" data-toggle="tab">Team</a></li>
+                </ul>
+            </li>
+            <li class="active">
+                <a href="#home" data-toggle="tab">
+                    评论<font color="red">(999+)</font>
+                </a>
+            </li>
+            <li><a href="#ios" data-toggle="tab">1807B</a></li>
+
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade" id="home">
+                <p>
+                <div class="btm">
+                    <form id="form">
+                        <div class="panel panel-default">
+                            <div class="panel-footer" id="panel1"></div>
+                            <table class="table" style="width:350px">
+                                <tr>
+                                    <td>好评等级:</td>
+                                    <td><input name="hpjb" class="form-control error" onblur="alertItem(this.value)"
+                                               style="width:180px" type="text" placeholder="请写出你的评级（1~10）"></td>
+                                </tr>
+                                <tr>
+                                    <td>评论内容:</td>
+                                    <td><textarea id="plnr" name="plnr" class="form-control" style="width:200px;"
+                                                  placeholder="在这里写下你的评论"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="center"><input type="button" class="btn btn-default"
+                                                                          onclick="submitData()" value="提交"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <input type="hidden" name="yh_id" th:value="${session.userf?.id}">
+                        <input id="shpmingzi" type="hidden" name="shp_mch">
+                        <input id="skuId" type="hidden" name="sku_id" th:value="${param?.skuid}">
+                    </form>
                 </div>
-                <input type="hidden" name="yh_id" th:value="${session.userf?.id}">
-                <input id="shpmingzi" type="hidden" name="shp_mch">
-                <input id="skuId" type="hidden" name="sku_id" th:value="${param?.skuid}">
-            </form>
+                </p>
+            </div>
+            <div class="tab-pane fade" id="ios">
+                <p>First Team</p>
+            </div>
+            <div class="tab-pane fade" id="jmeter">
+                <p><font color="yellow">First Team</font></p>
+            </div>
+            <div class="tab-pane fade" id="ejb">
+                <p><font color="blue">First Team</font></p>
+            </div>
         </div>
     </div>
-</div>
-<div class="footer">
-    <div class="top"></div>
-    <div class="bottom"><img src="/images/foot.jpg" alt=""></div>
-</div>
+    <div class="footer">
+        <div class="top"></div>
+        <div class="bottom"><img src="/images/foot.jpg" alt=""></div>
+    </div>
 </div>
 </body>
 </html>
