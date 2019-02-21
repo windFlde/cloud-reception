@@ -106,6 +106,17 @@ public class PhoneLoginController {
         return "1";
     }
     @ResponseBody
+    @RequestMapping("registerUser")
+    public String registerUser(User user) {
+        loginClient.registerUser(user);
+        redisTemplate.opsForValue().set(user.getLoginacct(),"1",1,TimeUnit.MINUTES);
+        String mail="";
+        mail+=user.getUsername();
+        mail+="-";
+        mail+=user.getEmail();
+        return mail;
+    }
+    @ResponseBody
     @RequestMapping("haveLoginAccount")
     public String haveLoginAccount(User user) {
         String theLoginAccount=redisTemplate.opsForValue().get(user.getLoginacct());
@@ -116,6 +127,13 @@ public class PhoneLoginController {
             return "2";
         }
         /*if end*/
+    }
+
+    @ResponseBody
+    @RequestMapping("toBackHtml")
+    public String toBackHtml(QueryParam queryParam,HttpSession session) {
+        session.setAttribute("reUrl",queryParam);
+        return "";
     }
 
 }

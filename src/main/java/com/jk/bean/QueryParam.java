@@ -9,5 +9,8 @@ public class QueryParam {
 
     String verify_code;// 用户输入的验证码
 
+    String requestUrl; //前台传过来的url
+
+
 
 }
