@@ -8,9 +8,6 @@
 	<link rel="shortcut icon" type="image/icon" href="/images/jd.ico">
 	<link rel="stylesheet" type="text/css" href="/css/login.css">
 	<script src="/js/layer/layer.js"></script>
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/js/bootstrap-3.3.7-dist/css/bootstrap.css">
-	<script src="/js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
 	<script type="text/javascript">
 	$(function(){
 		loadClass1();
@@ -18,34 +15,7 @@
 		loadPP();
 		loadShx();
 		loadGood();
-		getUserName();
 	})
-	/* 表头 你好登录样式======================================>  start*/
-	function getUserName() {
-		var hiddenName = $("#hiddenName").val();
-		console.log("作用域中的名字=======" + hiddenName);
-		if (hiddenName != "" & hiddenName != null) {
-			/*start*/
-			var hiddenName = $("#hiddenName").val();
-			if (hiddenName != null & hiddenName!="") {
-				console.log(hiddenName);
-				console.log("用户名为"+hiddenName);
-				$("#username1").html("你好  ,<font color='red'>" + hiddenName+"</font>");
-			}
-			/*end*/
-		} else {
-			if (document.cookie != "" & document.cookie != null) {
-				var cookie=document.cookie;
-				console.log("-=====>"+cookie)
-				var sp=cookie.split("=");
-				var userName=sp[2];
-				$("#hidden1").val(userName);
-			}
-			$("#username1").html("你好,  <font color='red'> " + userName + " </font>   ,请登录");
-		}
-	}
-	/* 表头 你好登录 ======================================>   end*/
-
 
 	function loadGood() {
 
@@ -259,7 +229,6 @@
 			<a href="">用户注册</a>
 			<a href="">供应商登录</a>
 			<a href="">供应商注册</a>
-			<span id="username1"></span>
 		</div>
 	</div>
 
