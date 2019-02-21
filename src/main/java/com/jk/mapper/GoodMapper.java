@@ -2,6 +2,8 @@ package com.jk.mapper;
 
 
 import com.jk.bean.*;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -28,4 +30,15 @@ public interface GoodMapper {
     List<Shoping> queryGood(Integer yh_id);
 
     Integer countGood(Integer yh_id);
+
+    List <Shoping> getgouwu(Integer yhid);
+
+    List<Shoping> jieSuanCheckPrice(@Param("ids") String ids);
+
+    @Update("update t_mall_shoppingcar m set  m.tjshl = m.tjshl+1 , m.hj = m.hj+#{price} where m.id = #{id} ")
+    void updateSl(@Param("id") Integer id,@Param("price") Double price);
+
+
+    @Update("update t_mall_shoppingcar m set  m.tjshl = m.tjshl-1 , m.hj = m.hj-#{price}  where m.id = #{id}")
+    void updateSl1(@Param("id") Integer id,@Param("price") Double price);
 }

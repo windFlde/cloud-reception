@@ -63,6 +63,28 @@ WHERE
 AND ms.sku_id = sk.id
     </select>
 
+<!--     List <Shoping> getgouwu(Integer yhid);-->
+    <select id="getgouwu" resultType="Shoping">
+SELECT
+	ms.Id,
+	ms.tjshl,
+	sk.sku_mch mch,
+	sk.jg jg,
+	ms.chjshj sj,
+	mp.shp_tp shptp
+FROM
+	t_mall_shoppingcar ms,
+	t_mall_product mp,
+	t_mall_sku sk
+WHERE
+	ms.shp_id = mp.id
+AND ms.sku_id = sk.id
+
+        <if test="yhid!=null">
+            and  ms.yh_id = #{yhid}
+        </if>
+    </select>
+
  <!--   void deleteItem(String ids);-->
     <delete id="deleteItem">
     delete from t_mall_shoppingcar where id in (${_parameter})
@@ -100,6 +122,29 @@ AND ms.sku_id = sk.id
         ms.sku_id = sk.id
         and
         ms.yh_id = #{yh_id}
+    </select>
+
+   <!-- Double jieSuanCheckPrice(@Param("ids") String ids);-->
+    <select id="jieSuanCheckPrice" resultType="Shoping">
+
+             SELECT
+                    ms.Id,
+                    ms.tjshl,
+                    sk.sku_mch mch,
+                    sk.jg jg,
+                    ms.chjshj,
+                    ms.shfxz
+            FROM
+                t_mall_shoppingcar ms,
+                t_mall_product mp,
+                t_mall_sku sk
+            WHERE
+                ms.shp_id = mp.id
+            AND ms.sku_id = sk.id
+            AND ms.shfxz &gt; 0
+            and
+            ms.Id in (${ids})
+
     </select>
 
 </mapper>
