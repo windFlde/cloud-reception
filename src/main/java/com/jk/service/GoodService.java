@@ -30,4 +30,9 @@ public interface GoodService {
 
     Integer countGood(Integer yh_id);
 
+    List <Shoping> getgouwu(Shoping shopping);
+
+    List<Shoping> jieSuanCheckPrice(String ids);
+
+    void updateSl(Integer state, Integer id, Double price);
 }

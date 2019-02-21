@@ -76,4 +76,25 @@ public class GoodServiceImpl implements GoodService {
         return goodMapper.countGood(yh_id);
     }
 
+    @Override
+    public List <Shoping> getgouwu(Shoping shopping) {
+        List <Shoping> li=goodMapper.getgouwu(shopping);
+        return li;
+    }
+
+    @Override
+    public  List<Shoping>  jieSuanCheckPrice(String ids) {
+        List<Shoping>  price = goodMapper.jieSuanCheckPrice(ids);
+        return price;
+    }
+
+    @Override
+    public void updateSl(Integer state, Integer id, Double price) {
+        if(state==1){
+            goodMapper.updateSl(id, price);
+        }else if (state==2){
+            goodMapper.updateSl1(id,price);
+        }
+    }
+
 }

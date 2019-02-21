@@ -1,5 +1,6 @@
 package com.jk.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jk.bean.Shoping;
 import com.jk.bean.User;
 import com.jk.client.LoginClient;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 @Controller
@@ -75,16 +77,26 @@ public class LoginController {
         //判断有没有记住密码
         if (user.getRemempwd()!=null) {
 
-//            String jsonString = JSONObject.toJSONString(user);
-//            String encode = URLEncoder.encode(jsonString, "utf-8");
-//            Cookie pwd = new Cookie("pwd",encode);
-//            response.addCookie(pwd);
-            Cookie cookie=new Cookie(Constant.remPwd,user.getLoginacct()+Constant.splitChar+user.getUserpswd());
-            //设置cookie的时间
-            cookie.setMaxAge(410381);
-            cookie.setPath("/");
-            //发送到浏览器上
-            response.addCookie(cookie);
+            String jsonString = JSONObject.toJSONString(user);
+            String encode = URLEncoder.encode(jsonString, "utf-8");
+            Cookie pwd = new Cookie("pwd",encode);
+            pwd.setMaxAge(410381);
+            pwd.setPath("/");
+            response.addCookie(pwd);
+
+            /*将用户的用户名称存放到cookie中 start*/
+            Cookie userName=new Cookie(Constant.userName,userFromDB.getUsername());
+            userName.setMaxAge(410381);
+            userName.setPath("/");
+            response.addCookie(userName);
+            /*将用户的用户名称存放到cookie中 end*/
+
+//            Cookie cookie=new Cookie(Constant.remPwd,user.getLoginacct()+Constant.splitChar+user.getUserpswd());
+//            //设置cookie的时间
+//            cookie.setMaxAge(410381);
+//            cookie.setPath("/");
+//            //发送到浏览器上
+//            response.addCookie(cookie);
         }else{
             Cookie cc=new Cookie(Constant.remPwd,"");
             cc.setMaxAge(0);

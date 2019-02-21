@@ -7,10 +7,10 @@
     <link rel="shortcut icon" type="image/icon" href="/images/jd.ico">
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <script src="/js/layer/layer.js"></script>
-    <link rel="stylesheet" href="/css/body.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/js/bootstrap-3.3.7-dist/css/bootstrap.css">
     <script src="/js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <script src="/js/bootstrap-bootbox/bootbox.js"></script>
 </head>
 <script type="text/javascript">
 
@@ -41,7 +41,6 @@
                    });
                  /*ajax   end*/
     }
-
     function cookieHui() {
         if(document.cookie!=null & document.cookie!=""){
             //decodeURIComponent  解码
@@ -49,18 +48,28 @@
             console.log("-=====>"+cookie)
             var sp=cookie.split("=");
             var sp1=sp[1];
-            var sp2=sp1.split("xjw1807b");
-            $("#name1").val(sp2[0]);
-            $("#password1").val(sp2[1]);
-            if ($("#password1").val(sp2[1]) != null) {
-                $("#checkbox1").attr("checked",true);
-            }
-        }else{
+            var sp2=sp1.split(";");
+            var sp3=sp2[0];
+            var x=decodeURIComponent(sp3);
+            var b=JSON.parse(x);
+            var loginaccount=b.loginacct;
+            var userpswd=b.userpswd;
+            var remempwd=b.remempwd;
+            $("#name1").val(loginaccount);
+            $("#password1").val(userpswd);
+            /*if start*/
+                if(remempwd==1){
+                    $("#checkbox1").attr("checked",true);
+                }
+            /*if end*/
+            }else{
             return ;
         }
+
     }
 
     function to_submit() {
+        var reUrl=$("#reUrl").val();
 		$.ajax({
 				url:"/login/toLoginByNameAndPassword",
 				type:"POST",
@@ -72,14 +81,44 @@
                     });
                 },
 				success:function(a){
-                    if (a == 1) {
-                         layer.msg("成功");
-                         window.location.href="/toView?viewName=mall-home-page";
-                    } else if(a==2){
-                        layer.msg("登录失败,账号密码错误");
-                    }else if(a==12){
-                        layer.msg("您的账号已经在黑名单中");
+                    if (reUrl != "" && reUrl != null) {
+                    /* 确认框start */
+                    bootbox.confirm({
+                        size: "small",
+                        message: "您好,是否接着刚才的操作?",
+                        callback: function(result){
+                            console.log(result);
+                            if(result){
+                                window.location.href = reUrl;
+                            }else{
+                                /*if start*/
+                                if (a == 1) {
+                                    layer.msg("成功");
+                                    window.location.href="/toView?viewName=mall-home-page";
+                                } else if(a==2){
+                                    layer.msg("登录失败,账号密码错误");
+                                }else if(a==12){
+                                    layer.msg("您的账号已经在黑名单中");
+                                }
+                                /*if end*/
+                            }
+                        }
+                    })
+                    /* 确认框end */
+                    }else{
+                        /*if start*/
+                        if (a == 1) {
+                            layer.msg("成功");
+                            window.location.href="/toView?viewName=mall-home-page";
+                        } else if(a==2){
+                            layer.msg("登录失败,账号密码错误");
+                        }else if(a==12){
+                            layer.msg("您的账号已经在黑名单中");
+                        }
+                        /*if end*/
                     }
+
+
 				},
 				error:function(){
 					layer.msg("ajax失败");
@@ -104,6 +143,7 @@
             },
             success:function(result){
                 if(result.code==1){ //验证码发送成功  开始倒计时
+                    layer.msg('验证码发送成功', {time:2500, icon:1});
                     $("#sendCode").prop("disabled",true)
                     temp = setInterval("changeBtnText()",1000);
                 }else if(result.code==2){
@@ -143,7 +183,6 @@
             }
         }else if(phone.length==11){
             timeDown();
-            layer.msg('验证码发送成功', {time:2500, icon:1});
         }
     }
     function checkCode(){
@@ -199,9 +238,13 @@
                 });
             },
             success:function(a){
+                var today=new Date();
+                var year=today.getFullYear();
+                var month=today.getMonth();
+                var day=today.getDate();
                 qingchu();
                 $('#myModal').modal('hide')
-                layer.msg('注册成功', {time: 3000, icon:6});
+                layer.msg('注册成功,  '+"您的注册时间为<font color='red'>"+year+"年"+month+"月"+day+"日</font>", {time: 3000, icon:6});
                 sendMail(a);
                 console.log(a);
             },
@@ -299,6 +342,7 @@
     }
 </script>
 <body>
+<input type="hidden" id="reUrl" th:value="${session.reUrl?.requestUrl}">
 <!--模态框start-->
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

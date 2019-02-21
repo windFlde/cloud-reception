@@ -33,4 +33,6 @@ public class Constant {
 
     public static final String splitChar="xjw1807b";
 
+    public static final String userName="user_name";
+
 }
