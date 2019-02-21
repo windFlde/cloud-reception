@@ -144,7 +144,7 @@
             type:"POST",
             data:{ids:ids},
             success:function(result){
-                window.location.reload(true);
+                initDategrid()
             },
             error:function(){
                 alert("ajax访问失败了,查看控制台");
@@ -224,7 +224,7 @@
                     type:"POST",
                     data:{state:state,id:id,price:price},
                     success:function(result){
-                        window.location.reload(true);
+                        initDategrid()
                     },
                     error:function(){
                         layer.msg("购物车中没有商品")
@@ -246,7 +246,7 @@
                     type:"POST",
                     data:{state:state,id:id,price:price},
                     success:function(result){
-                        window.location.reload(true);
+                        initDategrid()
                     },
                     error:function(){
                         layer.msg("购物车中没有商品")
@@ -365,15 +365,15 @@
 
         </tbody>
         <tfoot>
-        <tr>
+        <!--<tr>
             <td colspan="6">购物金额总计<strong>￥ <span id="total">0</span></strong></td>
-        </tr>
+        </tr>-->
         </tfoot>
     </table>
     <!--  </table>-->
 </div>
 <div class="Cprice">
-    <div class="price">总价：<span id="sss"></span></div>
+    <div class="price">总价：￥ <span id="total">0</span></div>
     <div class="jiesuan">结算</div>
 </div>
 <div class="footer">
