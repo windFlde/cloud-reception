@@ -133,22 +133,51 @@
 		cont += "<div class='filter_div' id='pid2'><a href='javascript:void(0)' onclick=showClass1()>"+name+"</a></div>"
 		$("#class").append(cont)
 		$("#pp").hide();
+
+		if(name!=null | name!='') {
+			$(".Sbox").html("");
+			$.ajax({
+				url: "/search/getSku",
+				data: {name: name},
+				success: function (result) {
+					var cont = "";
+					console.log(result);
+					$.each(result, function (index, obj) {
+						cont += "<a target='_blank' href='/toView?viewName=shopBuy&skuid=" + obj.id + "&shid=" + obj.shp_id + "'>";
+						cont += "<div  class='list' >";
+						cont += "<div class='img'><img src='" + obj.sh_tp + "' width='200' height='200' alt=''></div>";
+						cont += "<div class='price'>¥" + obj.jg + "</div>";
+						var str = obj.shp_sx.split(",")
+						cont += "<div class='title'>" + obj.shp_mch + "</div>";
+						cont += "<div class='title'>" + str[0] + "...</div>";
+						cont += "<div class='title'>" + obj.kcdz + "</div>";
+						cont += "</div>"
+						cont += "</a>"
+					})
+					$(".Sbox").html(cont);
+				}
+
+			})
+		}
 	}
 	function showClass1() {
 		$("#pid1").remove();
 		$("#pid2").remove();
 		$("#pp").show();
+		loadGood();
 	}
 	function showClass2(id) {
 		$("#sx"+id+"").remove();
 		$("#sxz"+id+"").remove();
 		$("#"+id+"").show();
+		loadGood();
 	}
 	function addClass2(id,name){
 		cont = "<span class='gt' id='sx"+id+"'>&gt</span>"
 		cont += "<div class='filter_div' id='sxz"+id+"'><a href='javascript:void(0)' onclick=showClass2("+id+")>"+name+"</a></div>"
 		$("#class").append(cont)
 		$("#"+id+"").hide();
+
 	}
 
 
