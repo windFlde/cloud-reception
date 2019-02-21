@@ -5,9 +5,6 @@
 	<title>检索</title>
 	<link rel="stylesheet" type="text/css" href="css/css.css">
 	<script src="/js/jquery-2.1.1.min.js"></script>
-	<link rel="shortcut icon" type="image/icon" href="/images/jd.ico">
-	<link rel="stylesheet" type="text/css" href="/css/login.css">
-	<script src="/js/layer/layer.js"></script>
 	<script type="text/javascript">
 	$(function(){
 		loadClass1();
@@ -16,6 +13,8 @@
 		loadShx();
 		loadGood();
 	})
+
+
 
 	function loadGood() {
 
@@ -185,32 +184,38 @@
 	}
 
 	function toLogin() {
-		var htmlUrl=document.documentURI
-		/*ajax   start*/
-		$.ajax({
-			url:"/phoneLogin/toBackHtml",
-			type:"POST",
-			data:{requestUrl:htmlUrl},
-			beforeSend:function(){
-				ii = layer.msg('加载中', {
-					icon: 16
-					,shade: 0.01
-				});
-			},
-			success:function(a){
-				window.location.href="/login/toLoginHtml";
-			},
-			error:function(){
-				layer.msg("ajax失败");
-			},complete:function(){
-				layer.close(ii);
-			}
-		});
-		/*ajax   end*/
+		window.location.href="/login/toLoginHtml";
 	}
 
-	function toMainPage() {
-		window.location.href="/toView?viewName=mall-home-page";
+	function  search() {
+
+		var name = $(".lf").val();
+		$.ajax({
+			url: "/search/getSku",
+			data:{name:name},
+			success: function (result) {
+				var cont = "";
+				console.log(result);
+				$.each(result,function (index,obj) {
+					cont +="<a target='_blank' href='/toView?viewName=shopBuy&skuid="+obj.id+"&shid="+obj.shp_id+"'>";
+					cont +="<div  class='list' >";
+					cont +="<div class='img'><img src='"+obj.sh_tp+"' width='200' height='200' alt=''></div>";
+					cont +="<div class='price'>¥"+obj.jg+"</div>";
+					var str = obj.shp_sx.split(",")
+					cont +="<div class='title'>"+obj.shp_mch+"</div>";
+					cont +="<div class='title'>"+str[0]+"...</div>";
+					cont +="<div class='title'>"+obj.kcdz+"</div>";
+					cont +="</div>"
+					cont +="</a>"
+				})
+				$(".Sbox").html(cont);
+
+
+			},
+			error: function () {
+				alert("ajax访问失败了,查看控制台");
+			}
+		});
 	}
 </script>
 </head>
@@ -218,14 +223,10 @@
 
 </head>
 <body>
-<input id="hiddenName" type="hidden" th:value="${session.userf?.username}">
-<input id="hiddenName1" type="hidden" th:value="${session.userf?.id}">
-<input id="hidden1" type="hidden">
 	<div class="top">
 		<div class="top_text">
 			<a href='javascript:void(0)' onclick=removeUser()>注销</a>
 			<a href='javascript:void(0)' onclick=toLogin()>用户登录</a>
-			<a href='javascript:void(0)' onclick="toMainPage()">首页面</a>
 			<a href="">用户注册</a>
 			<a href="">供应商登录</a>
 			<a href="">供应商注册</a>
@@ -237,11 +238,11 @@
 	</div>
 	</div>
 	<div class="search">
-		<div class="logo"><a href='https://www.jd.com/' target="_blank"><img src="http://img20.360buyimg.com/da/jfs/t1/23377/26/6007/190377/5c46b6dcE6a2e665e/323a50ca6adbc492.gif?t=1548243688388" width="150" height="120" alt=""></a></div>
+		<div class="logo"><img src="/img/323a50ca6adbc492.gif" width="150" height="120"></div>
 		<div class="search_on">
 			<div class="se">
-				<input type="text" name="search" class="lf">
-				<input type="submit" class="clik" value="搜索">
+				<input type="text" name="name" class="lf">
+				<input type="submit" class="clik" value="搜索" onclick="search()">
 			</div>
 			<div class="se">
 				<a href="">取暖神奇</a>
