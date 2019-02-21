@@ -3,12 +3,10 @@ package com.jk.controller;
 import com.jk.bean.*;
 import com.jk.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -71,11 +69,40 @@ public class GoodController {
     @ResponseBody
     @RequestMapping("getgoulist")
     public SendPage getBooks(ReceivePage receivePage, HttpSession session,Integer yhid){
-
         SendPage list = goodService.getgoulist(receivePage);
+        return list;
+    }
+    @ResponseBody
+    @RequestMapping("getgouwu")
+    public List <Shoping> getgouwu( HttpSession session,Integer yhid){
+        List <Shoping> list=goodService.getgouwu(yhid);
 
         return list;
     }
+    //统计选中的价格
+    @ResponseBody
+    @RequestMapping("jieSuanCheckPrice")
+    public Double jieSuanCheckPrice(String ids){
+        double price = 0.0;
+        List<Shoping>  sc = goodService.jieSuanCheckPrice(ids);
+        for (Shoping sp: sc) {
+            price += sp.getTjshl()*sp.getJg();
+        }
+
+        return price;
+    }
+    //修改价格
+    @ResponseBody
+    @RequestMapping("updateSl")
+    public  String updateSl(Integer state,Integer id, Double price){
+
+        goodService.updateSl(state,id,price);
+        return "1";
+    }
+
+
+
+
     //删除
     @ResponseBody
     @RequestMapping("deleteItem")
