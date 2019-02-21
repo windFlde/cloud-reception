@@ -77,8 +77,8 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
-    public List <Shoping> getgouwu(Integer yhid) {
-        List <Shoping> li=goodMapper.getgouwu(yhid);
+    public List <Shoping> getgouwu(Shoping shopping) {
+        List <Shoping> li=goodMapper.getgouwu(shopping);
         return li;
     }
 

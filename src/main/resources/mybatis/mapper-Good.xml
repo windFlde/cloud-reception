@@ -80,8 +80,8 @@ WHERE
 	ms.shp_id = mp.id
 AND ms.sku_id = sk.id
 
-        <if test="yhid!=null">
-            and  ms.yh_id = #{yhid}
+        <if test="yh_id!=null">
+            and  ms.yh_id = #{yh_id}
         </if>
     </select>
 

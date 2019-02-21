@@ -74,8 +74,8 @@ public class GoodController {
     }
     @ResponseBody
     @RequestMapping("getgouwu")
-    public List <Shoping> getgouwu( HttpSession session,Integer yhid){
-        List <Shoping> list=goodService.getgouwu(yhid);
+    public List <Shoping> getgouwu( HttpSession session,Shoping shopping){
+        List <Shoping> list=goodService.getgouwu(shopping);
 
         return list;
     }

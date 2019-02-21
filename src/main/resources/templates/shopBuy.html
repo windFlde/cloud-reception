@@ -309,6 +309,9 @@ function removeUser() {
                    });
                  /*ajax   end*/
     }
+    function toMainPage() {
+        window.location.href="/toView?viewName=mall-home-page";
+    }
 </script>
 <body>
 <input type="hidden" id="kucun1" value="">
@@ -320,11 +323,12 @@ function removeUser() {
     <div class="top_text">
         <a href='javascript:void(0)' onclick=removeUser()>注销</a>
         <a href='javascript:void(0)' onclick=toLogin()>用户登录</a>
+        <a href='javascript:void(0)' onclick="toMainPage()">首页面</a>
         <a href="">用户注册</a>
         <a href="">供应商登录</a>
         <a href="">供应商注册</a>
         <input id="hidden1" type="hidden">
-        <div id="username1"></div>
+        <span id="username1"></span>
     </div>
 </div>
 <!--<div class="top_img">-->

@@ -31,7 +31,7 @@ public interface GoodMapper {
 
     Integer countGood(Integer yh_id);
 
-    List <Shoping> getgouwu(Integer yhid);
+    List <Shoping> getgouwu(Shoping shopping);
 
     List<Shoping> jieSuanCheckPrice(@Param("ids") String ids);
 
