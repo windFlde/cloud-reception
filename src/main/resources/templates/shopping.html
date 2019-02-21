@@ -29,21 +29,18 @@
             if (hiddenName != null & hiddenName!="") {
                 console.log(hiddenName);
                 console.log("用户名为"+hiddenName);
-                $("#username1").html("你好  ,"+hiddenName);
+                $("#username1").html("你好  ,<font color='red'>" + hiddenName+"</font>");
             }
             /*end*/
         } else {
-            var cookieVal = "";
             if (document.cookie != "" & document.cookie != null) {
-                var cookie=document.cookie
-                var s=cookie.split("=")
-                var sp=s[1]
-                var sp1=sp.split("xjw1807b");
-                var sp2=sp1[0]
-                cookieVal = sp2
-                $("#hidden1").val(cookieVal);
+                var cookie=document.cookie;
+                console.log("-=====>"+cookie)
+                var sp=cookie.split("=");
+                var userName=sp[2];
+                $("#hidden1").val(userName);
             }
-            $("#username1").html("你好,   " + cookieVal + " ,请登录");
+            $("#username1").html("你好,  <font color='red'> " + userName + " </font>   ,请登录");
         }
     }
     /* 表头 你好登录 ======================================>   end*/
@@ -202,7 +199,7 @@
 </script>
 <body style="zoom: 1;">
 <input type="hidden" id="skuid1" th:value="${param?.skuid}">
-<input id="hiddenName" type="hidden" th:value="${session.userf?.loginacct}">
+<input id="hiddenName" type="hidden" th:value="${session.userf?.username}">
 <input id="hiddenName1" type="hidden" th:value="${session.userf?.id}">
 <input id="hidden1" type="hidden">
 <div class="top">

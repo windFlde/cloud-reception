@@ -34,21 +34,18 @@
             if (hiddenName != null & hiddenName != "") {
                 console.log(hiddenName);
                 console.log("用户名为" + hiddenName);
-                $("#username1").html("你好  ," + hiddenName);
+                $("#username1").html("你好  ,<font color='red'>" + hiddenName+"</font>");
             }
             /*end*/
         } else {
-            var cookieVal = "";
             if (document.cookie != "" & document.cookie != null) {
-                var cookie = document.cookie
-                var s = cookie.split("=")
-                var sp = s[1]
-                var sp1 = sp.split("xjw1807b");
-                var sp2 = sp1[0]
-                cookieVal = sp2
-                $("#hidden1").val(cookieVal);
+                var cookie=document.cookie;
+                console.log("-=====>"+cookie)
+                var sp=cookie.split("=");
+                var userName=sp[2];
+                $("#hidden1").val(userName);
             }
-            $("#username1").html("你好,   " + cookieVal + "    ,请登录");
+            $("#username1").html("你好,  <font color='red'> " + userName + " </font>   ,请登录");
         }
     }
 
@@ -117,7 +114,7 @@
         var skuid=$("#skuid1").val();
         var shpid = $("#shp_id").val();
         var number=$("#kucun1").val();
-        if(tjshl<=number){
+        if(tjshl<number){
             /*if start*/
             if(hiddenName==""  &&  hiddenName1==""){
                 /*ajax   start*/
@@ -171,7 +168,7 @@
                 /*ajax end*/
             }
             /*if end*/
-        }else {
+        }else if(tjshl>number){
             layer.msg("购买数量大于库存数量");
             return ;
         }
@@ -296,7 +293,7 @@ function removeUser() {
 <input type="hidden" id="kucun1" value="">
 <input type="hidden" id="skuid1" th:value="${param?.skuid}">
 <input type="hidden" id="shp_id" th:value="${param?.shid}">
-<input id="hiddenName" type="hidden" th:value="${session.userf?.loginacct}">
+<input id="hiddenName" type="hidden" th:value="${session.userf?.username}">
 <input id="hiddenName1" type="hidden" th:value="${session.userf?.id}">
 <div class="top">
     <div class="top_text">
@@ -336,7 +333,7 @@ function removeUser() {
     <div class="nav">
         <div class="navs">
           <div class="left_nav">
-              <div class="logo"><img src="http://img20.360buyimg.com/da/jfs/t1/23377/26/6007/190377/5c46b6dcE6a2e665e/323a50ca6adbc492.gif?t=1548243688388" width="150" height="120" alt=""></div>
+              <div class="logo"><a href='https://www.jd.com/' target="_blank"><img src="http://img20.360buyimg.com/da/jfs/t1/23377/26/6007/190377/5c46b6dcE6a2e665e/323a50ca6adbc492.gif?t=1548243688388" width="150" height="120" alt=""></a></div>
             </div>
             <ul>
                 <li id="asd"></li>
