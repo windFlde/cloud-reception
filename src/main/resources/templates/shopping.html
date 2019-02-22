@@ -38,11 +38,13 @@
             if (document.cookie != "" & document.cookie != null) {
                 var cookie=document.cookie;
                 console.log("-=====>"+cookie)
-                var sp=cookie.split("=");
-                var userName=sp[2];
-                $("#hidden1").val(userName);
+                var coo=cookie.split(";");
+                var name=coo[1];
+                var userName=name.split("=");
+                var userNames=userName[1];
+                $("#hidden1").val(userNames);
             }
-            $("#username1").html("你好,  <font color='red'> " + userName + " </font>   ,请登录");
+            $("#username1").html("你好,  <font color='red'> " + userNames + " </font>   ,请登录");
         }
     }
     /* 表头 你好登录 ======================================>   end*/
