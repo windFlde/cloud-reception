@@ -41,11 +41,17 @@
             if (document.cookie != "" & document.cookie != null) {
                 var cookie=document.cookie;
                 console.log("-=====>"+cookie)
-                var sp=cookie.split("=");
-                var userName=sp[2];
-                $("#hidden1").val(userName);
+                var coo=cookie.split(";");
+                var name=coo[1];
+                var userName=name.split("=");
+                var userNames=userName[1];
+                $("#hidden1").val(userNames);
+                if(userNames.length>10){
+                    userNames="";
+                }
             }
-            $("#username1").html("你好,  <font color='red'> " + userName + " </font>   ,请登录");
+            $("#username1").html("你好,  <font color='red'> " + userNames + " </font>   ,请登录");
+
         }
     }
 
@@ -358,7 +364,7 @@ function removeUser() {
     <div class="nav">
         <div class="navs">
           <div class="left_nav">
-              <div class="logo"><a href='https://www.jd.com/' target="_blank"><img src="http://img20.360buyimg.com/da/jfs/t1/23377/26/6007/190377/5c46b6dcE6a2e665e/323a50ca6adbc492.gif?t=1548243688388" width="150" height="120" alt=""></a></div>
+              <div class="logo"><a href='http://localhost:4001/toView?viewName=mall-home-page' target="_blank"><img src="http://img20.360buyimg.com/da/jfs/t1/23377/26/6007/190377/5c46b6dcE6a2e665e/323a50ca6adbc492.gif?t=1548243688388" width="150" height="120" alt=""></a></div>
             </div>
             <ul>
                 <li id="asd"></li>
@@ -412,6 +418,7 @@ function removeUser() {
                     </div>
                 </div>
             </div>
+
             <div class="clear" style="margin-top:20px;">
                 <input type="button" class="btn btn-default" id="addShop" onclick="addShopping()" value="加入购物车">
             </div>
@@ -422,16 +429,14 @@ function removeUser() {
         <ul id="myTab" class="nav nav-tabs">
             <li class="dropdown">
                 <a href="#" id="myTabDrop1" class="dropdown-toggle"
-                   data-toggle="dropdown">
-                    Java
-                    <b class="caret"></b>
+                   data-toggle="dropdown">更多<b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
-                    <li><a href="#jmeter" tabindex="-1" data-toggle="tab">First</a></li>
+                    <li class="active" ><a href="#jmeter" tabindex="-1" data-toggle="tab">售后服务</a></li>
                     <li><a href="#ejb" tabindex="-1" data-toggle="tab">Team</a></li>
                 </ul>
             </li>
-            <li class="active">
+            <li>
                 <a href="#home" data-toggle="tab">
                     评论<font color="red">(999+)</font>
                 </a>
@@ -471,16 +476,73 @@ function removeUser() {
                 </p>
             </div>
             <div class="tab-pane fade" id="ios">
-                <p>First Team</p>
+                <div class="p-parameter">
+                    <div style="text-align: center;"><a href="https://mall.jd.com/index-1000007482.html" target="_blank"><img alt="" class="" src="//img30.360buyimg.com/jgsq-productsoa/jfs/t1/9984/24/14849/129221/5c6a9a4eEe1ff188b/9b682535876b1b01.gif"></a><br></div>
+                    <table style="margin-left: 125px" id="__01" width="750" height="599" border="0" cellpadding="0" cellspacing="0" align="center"><tbody><tr><td><a><img alt="" width="750" height="599" border="0" usemap="#Map0114" class="" src="https://img14.360buyimg.com/cms/jfs/t1/18811/9/4824/279457/5c3707b0E54a3ad96/9143480bc1f8f1b3.jpg"></a></td></tr></tbody></table>
+                    <div style="text-align: center;"><a href="https://mall.jd.com/index-1000007482.html" target="_blank"><img alt="" class="" src="//img30.360buyimg.com/sku/jfs/t24412/267/2598777979/400229/366310e/5b88f6b6N2d48b53a.jpg"></a><br></div>
+                    <div style="text-align: center;"><img alt="" class="" src="//img30.360buyimg.com/jgsq-productsoa/jfs/t15049/327/2397698342/391992/2a6a87e9/5a9e4b62Nd792f511.jpg"></div>
+                </div>
             </div>
-            <div class="tab-pane fade" id="jmeter">
-                <p><font color="yellow">First Team</font></p>
-            </div>
-            <div class="tab-pane fade" id="ejb">
-                <p><font color="blue">First Team</font></p>
+            <div class="tab-pane fade in active" id="jmeter">
+                <p>
+                    <div class="item-detail item-detail-copyright">
+                        <div class="serve-agree-bd">
+                            <dl>
+                                <dt>
+                                    <i class="goods"></i>
+                                    <strong><font color="red"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>   厂家服务</font></strong>
+                                </dt>
+                                <dd>
+                                    本产品全国联保，享受三包服务，质保期为：两年有限质保<br>
+                                </dd>
+
+                                <dt>
+                                    <i class="goods"></i>
+                                    <strong><font color="red"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>   京东承诺</font></strong>
+                                </dt>
+                                <dd>
+                                    京东平台卖家销售并发货的商品，由平台卖家提供发票和相应的售后服务。请您放心购买！<br>
+                                    注：因厂家会在没有任何提前通知的情况下更改产品包装、产地或者一些附件，本司不能确保客户收到的货物与商城图片、产地、附件说明完全一致。只能确保为原厂正货！并且保证与当时市场上同样主流新品一致。若本商城没有及时更新，请大家谅解！
+                                </dd>
+                                <dt>
+                                    <i class="goods"></i><strong><font color="red"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>   正品行货</font></strong>
+                                </dt>
+                                <dd>京东商城向您保证所售商品均为正品行货，京东自营商品开具机打发票或电子发票。</dd>
+                                <dt><i class="unprofor"></i><strong><font color="red"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>   全国联保</font></strong></dt>
+                                <dd>
+                                    凭质保证书及京东商城发票，可享受全国联保服务（奢侈品、钟表除外；奢侈品、钟表由京东联系保修，享受法定三包售后服务），与您亲临商场选购的商品享受相同的质量保证。京东商城还为您提供具有竞争力的商品价格和<a href="//help.jd.com/help/question-892.html" target="_blank">运费政策</a>，请您放心购买！
+                                    <br><br>注：因厂家会在没有任何提前通知的情况下更改产品包装、产地或者一些附件，本司不能确保客户收到的货物与商城图片、产地、附件说明完全一致。只能确保为原厂正货！并且保证与当时市场上同样主流新品一致。若本商城没有及时更新，请大家谅解！
+                                </dd>
+                                <dt><i class="no-worries"></i><strong><font color="red"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>   无忧退货</font></strong></dt>
+                                <dd class="no-worries-text">
+                                    客户购买京东自营商品7日内（含7日，自客户收到商品之日起计算），在保证商品完好的前提下，可无理由退货。（部分商品除外，详情请见各商品细则）
+                                </dd>
+                            </dl>
+                        </div>
+                        <div id="state">
+                            <strong><font color="red">权利声明：</font></strong><br>京东上的所有商品信息、客户评价、商品咨询、网友讨论等内容，是京东重要的经营资源，未经许可，禁止非法转载使用。
+                <p><b><font color="red">注：</font></b>本站商品信息均来自于合作方，其真实性、准确性和合法性由信息拥有者（合作方）负责。本站不提供任何保证，并不承担任何法律责任。</p>
+                <br>
+                <strong><font color="red">价格说明：</font></strong><br>
+                <p><b>京东价：</b>京东价为商品的销售价，是您最终决定是否购买商品的依据。</p>
+                <p><b>划线价：</b>商品展示的划横线价格为参考价，并非原价，该价格可能是品牌专柜标价、商品吊牌价或由品牌供应商提供的正品零售价（如厂商指导价、建议零售价等）或该商品在京东平台上曾经展示过的销售价；由于地区、时间的差异性和市场行情波动，品牌专柜标价、商品吊牌价等可能会与您购物时展示的不一致，该价格仅供您参考。</p>
+                <p><b>折扣：</b>如无特殊说明，折扣指销售商在原价、或划线价（如品牌专柜标价、商品吊牌价、厂商指导价、厂商建议零售价）等某一价格基础上计算出的优惠比例或优惠金额；如有疑问，您可在购买前联系销售商进行咨询。</p>
+                <p><b>异常问题：</b>商品促销信息以商品详情页“促销”栏中的信息为准；商品的具体售价以订单结算页价格为准；如您发现活动商品售价或促销信息有异常，建议购买前先联系销售商咨询。</p>
+
+                <br>
+                <strong><font color="red">能效标识说明：</font></strong><br>
+                <p>根据国家相关能效标识法规和标准的要求，京东自营在售商品的能效标识图样，将会逐步替换为新版能源效率标识贴；受能效标识标准变化影响，部分产品的新版和旧版能效标识，在能效等级、测试值等方面会有差异，但产品实际性能完全一样，并不影响购买和使用，加贴新版或旧版能效标识的商品会随机发放，请您放心购买；如有疑问，请在购买前通过咚咚或来电咨询。</p>
             </div>
         </div>
+        </p>
     </div>
+    <div class="tab-pane fade" id="ejb">
+        <p><font color="blue">
+            First Team
+        </font></p>
+    </div>
+</div>
+</div>
     <div class="footer">
         <div class="top"></div>
         <div class="bottom"><img src="/images/foot.jpg" alt=""></div>

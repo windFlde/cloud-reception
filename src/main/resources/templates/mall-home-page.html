@@ -71,11 +71,17 @@
                 if (document.cookie != "" & document.cookie != null) {
                     var cookie=document.cookie;
                     console.log("-=====>"+cookie)
-                    var sp=cookie.split("=");
-                    var userName=sp[2];
-                    $("#hidden1").val(userName);
+                    var coo=cookie.split(";");
+                    var name=coo[1];
+                    var userName=name.split("=");
+                    var userNames=userName[1];
+                    $("#hidden1").val(userNames);
+                    if(userNames.length>10){
+                        userNames="";
+                    }
                 }
-                $("#username1").html("你好,  <font color='red'> " + userName + " </font>    ,请登录");
+                $("#username1").html("你好,  <font color='red'> " + userNames + " </font>   ,请登录");
+
             }
         }
         ///分界线
@@ -216,7 +222,7 @@
     <img src="http://m.360buyimg.com/babel/jfs/t1/27825/39/6000/28861/5c45676bEaaecfc4b/58a017e7412beb55.png" alt="">
 </div>
 <div class="search">
-    <div class="logo"><a href='https://www.jd.com/' target="_blank"><img src="http://img20.360buyimg.com/da/jfs/t1/23377/26/6007/190377/5c46b6dcE6a2e665e/323a50ca6adbc492.gif?t=1548243688388" width="150" height="120" alt=""></a></div>
+    <div class="logo"><a href='http://localhost:4001/toView?viewName=mall-home-page' target="_blank"><img src="http://img20.360buyimg.com/da/jfs/t1/23377/26/6007/190377/5c46b6dcE6a2e665e/323a50ca6adbc492.gif?t=1548243688388" width="150" height="120" alt=""></a></div>
     <div class="search_on">
         <div class="se">
             <input type="text" name="search" class="lf">
@@ -275,6 +281,10 @@
     <script src="/jiaoben/engine1/wowslider.js"></script>
     <script src="/jiaoben/engine1/script.js"></script>
 </div>
+<div style="margin-left: 200px">
+    <img src="/images/foot.jpg" height="393" width="1210"/>
+</div>
+
 
 </body>
 </html>
