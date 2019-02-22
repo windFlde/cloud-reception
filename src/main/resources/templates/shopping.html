@@ -15,6 +15,8 @@
 
 </head>
 <script type="text/javascript" th:inline="none">
+
+    var jg = "";
     $(function () {
         getUserName();
         initDategrid(); //初始化数据表格控件
@@ -59,8 +61,8 @@
         if(hiddenName==""  &&  hiddenName1==""){
             /*展示  session中   没有值   start*/
             $.ajax({
-         /*      url:"/js/getgouwu",*/
-                url:'/shopping/getShopingTemp',
+                      url:"/js/getgouwu",
+          /*      url:'/shopping/getShopingTemp',*/
                 type:"POST",
                 success:function(result){
                     console.log(">>>>>>>>>>>>>>>>>111111111111111");
@@ -121,8 +123,30 @@
     //-------------------------------------------------------查询结束
 
     //------------------------查询
-    function initMyTable(){
+    function tozhifu(){
 
+        if (jg != "") {
+            var arr = document.getElementsByName("checkAll");
+
+            var ids = "";
+
+            var count = 0;
+
+            for (var i = 0; i <arr.length ; i++) {
+
+                if(arr[i].checked){
+                    ids += ","+arr[i].value;
+
+                }
+
+            }
+            var idin=ids.substring(1);
+            deleteItem(idin);
+            location.href = "/zhifu/zhifu?jg=" + jg;
+
+        } else {
+            layer.msg("您还没有选择要购买的东西")
+        }
 
 
 
@@ -132,11 +156,11 @@
     //------------------------------------------------------删除开始
     function deleteItemById(id,name){
 
-   /*     $.messager.confirm('删除提示框','您确认想要删除'+name+'这件商品吗？',function(r){
-            if (r){    //点击确认*/
-                deleteItem(id);
-   /*         }
-        });*/
+        /*     $.messager.confirm('删除提示框','您确认想要删除'+name+'这件商品吗？',function(r){
+                 if (r){    //点击确认*/
+        deleteItem(id);
+        /*         }
+             });*/
     }
     //批删,单删
     function deleteItem(ids){
@@ -198,7 +222,7 @@
                 type:"POST",
                 data:{ids:ids.substring(1)},
                 success:function(price){
-
+                    jg=price;
                     $("#total").html(price);
                 },
                 error:function(){
@@ -215,6 +239,7 @@
     }
     //---------------------------------------------------计算总价结束
     //修改数量
+
     function updateSl(state,id,tjshl,price){
 
         if(state==2){
@@ -256,7 +281,7 @@
                 })
             }else {
 
-               layer.msg("最多购买十个");
+                layer.msg("最多购买十个");
 
             }
 
@@ -367,16 +392,14 @@
 
         </tbody>
         <tfoot>
-        <!--<tr>
-            <td colspan="6">购物金额总计<strong>￥ <span id="total">0</span></strong></td>
-        </tr>-->
+
         </tfoot>
     </table>
     <!--  </table>-->
 </div>
 <div class="Cprice">
     <div class="price">总价：￥ <span id="total">0</span></div>
-    <div class="jiesuan">结算</div>
+    <div class="jiesuan" onclick="tozhifu()">结算</div>
 </div>
 <div class="footer">
     <div class="top"></div>
