@@ -340,8 +340,12 @@
                  /*ajax   end*/
 
     }
+    function keyLogin(){
+        if (event.keyCode==13)  //回车键的键值为13
+            to_submit();//调用登录按钮的登录事件
+    }
 </script>
-<body>
+<body onkeypress="keyLogin()">
 <input type="hidden" id="reUrl" th:value="${session.reUrl?.requestUrl}">
 <!--模态框start-->
 <!-- 模态框（Modal） -->
@@ -415,7 +419,8 @@
 
         </div>
     </div>
-    <div style="margin-left: 50px;margin-top: 50px;"><img src="/images/20190107164001.jpg" height="300px" width="300px"/></div>
+    <div style="margin-left: 50px;margin-top: 50px;">
+        <img src="/images/20190107164001.jpg" height="300px" width="300px"/></div>
     <!--login start-->
     <div class="login" style="margin-top: -300px;margin-left: 100px;">
         <!--ul start-->
@@ -453,13 +458,13 @@
 							账号
 						</button>
 					</span>
-                        <input type="text" id="name1" name="loginacct"  class="form-control">
+                        <input type="text" id="name1"  name="loginacct"  class="form-control">
                     </div>
                     <div class="blank_01"></div>
                     <div class="blank_01"></div>
                     <div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="button">
+						<button class="btn btn-default" type="button" >
 							密码
 						</button>
 					</span>
