@@ -76,8 +76,12 @@
                     var userName=name.split("=");
                     var userNames=userName[1];
                     $("#hidden1").val(userNames);
+                    if(userNames.length>10){
+                        userNames="";
+                    }
                 }
                 $("#username1").html("你好,  <font color='red'> " + userNames + " </font>   ,请登录");
+
             }
         }
         ///分界线

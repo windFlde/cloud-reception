@@ -45,8 +45,12 @@
                 var userName=name.split("=");
                 var userNames=userName[1];
                 $("#hidden1").val(userNames);
+                if(userNames.length>10){
+                    userNames="";
+                }
             }
             $("#username1").html("你好,  <font color='red'> " + userNames + " </font>   ,请登录");
+
         }
     }
     /* 表头 你好登录 ======================================>   end*/
@@ -61,8 +65,7 @@
         if(hiddenName==""  &&  hiddenName1==""){
             /*展示  session中   没有值   start*/
             $.ajax({
-                      url:"/js/getgouwu",
-          /*      url:'/shopping/getShopingTemp',*/
+           url:'/shopping/getShopingTemp',
                 type:"POST",
                 success:function(result){
                     console.log(">>>>>>>>>>>>>>>>>111111111111111");

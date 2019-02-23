@@ -45,9 +45,9 @@ public class PhoneLoginController {
                         TimeUnit.MINUTES);
                 System.out.println("验证码为=======================>" + r);
                 HashMap<String, Object> params = new HashMap<>();
-                params.put("key", "cc404476e2df5661752256e53d2743c1");
+                params.put("key", "cc404476e2df5661752256e53d2743c2");
                 params.put("mobile", queryParam.getPhone_no());
-                params.put("tpl_id", "124829");
+                params.put("tpl_id", "124828");
                 params.put("tpl_value", "%23code%23%3D" + r);
 
                 String result = HttpClient.sendGet("http://v.juhe.cn/sms/send", params);
